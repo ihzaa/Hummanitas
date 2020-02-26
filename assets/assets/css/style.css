@@ -1,0 +1,219 @@
+/*================================================================================
+	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+	Version: 2.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+
+/* hide post */
+
+.post .card{
+    display: none;
+}
+
+/* hidemember */
+
+.member .card{
+    display: none;
+}
+
+/* hideCommunity */
+.community .card{
+    display: none;
+}
+
+/* hide memberManage */
+.memberManage .card{
+    display: none;
+}
+
+.memberManage .card button{
+	margin-left: 85px;
+}
+
+
+/* Gallery album */
+
+.gallery-album{
+	padding:30px;
+}
+
+.gallery-album li{
+	/* display: none; */
+	display: inline-block;
+	height: 198px;
+	width: 170px;
+	border: 1px solid #e2e2e2;
+	border-radius: 10px;
+	margin: 8px 8px;
+	overflow: hidden;
+}
+
+.gallery-album li a{
+	display: inline-block;
+    overflow: hidden;
+	height: 145px;
+	width: 170px;
+}
+.gallery-album li:hover a img{
+	transform: scale(1.15);
+}
+
+.caption {
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.caption > a {
+	/* line-height: 15px; */
+	margin-left: 10px;
+    display: inline-block;
+    overflow: hidden;
+	width: 100%;
+	margin-bottom: -135px;
+}
+
+.caption > a:hover {
+    color: #088dcd;
+}
+
+.caption > p {
+    line-height: px;
+    display: inline-block;
+	width: 100%;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+.gallery-album > li a img {
+	height: 145px;
+	widows: 170px;
+}
+
+/* end */
+
+
+/* Gallery  photo*/
+.gallery-photo{
+	margin: 10px 30px;
+}
+
+.gallery-photo a{
+	display: none;
+}
+.gallery-photo img{
+	width: 180px;
+	height: 130px;
+	padding: 5px;
+	transition: 1s;
+}
+
+.gallery-photo img:hover{
+	transform: scale(0.9);
+}
+  /* end Gallery */
+
+
+/* upload photo */
+
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+/* newpost */
+
+.new-postbox {
+    display: inline-block;
+    width: 100%;
+}
+
+.new-postbox > figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: top;
+    width: 10.4%;
+}
+
+.newpst-input {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top;
+	width: 85.5%;
+	
+}
+
+.newpst-input > form {
+    display: inline-block;
+    width: 100%;
+}
+.newpst-input textarea {
+    float: left;
+    width: 100%;
+}
+.attachments {
+	margin-top: 50px;
+    display: block;
+    padding: 10px;
+    text-align: right;
+    background: #fff;
+}
+
+.attachments > ul {
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.attachments li {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+
+textarea {
+    border: 1px solid #eeeeee;
+    border-radius: 6px 6px 0 0;
+    padding: 10px;
+    width: 100%;
+}
+
+form button {
+    border: medium none;
+    color: rgb(0, 0, 0);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 20px;
+    border-radius: 4px;
+}
+
+.attachments .fileContainer [type="file"] {
+	cursor: pointer;
+    right: 122px;
+    top: 105px;
+	width: 20px;
+	opacity: 0;
+	position: absolute;
+	display: block;
+	overflow: hidden;
+}
