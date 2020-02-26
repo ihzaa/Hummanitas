@@ -512,14 +512,8 @@
                                 <div class="active-chat d-none">
                                     <div class="chat_navbar">
                                         <header class="chat_header d-flex justify-content-between align-items-center p-1">
-                                            <div class="vs-con-items d-flex align-items-center">
+                                            <div class="vs-con-items d-flex align-items-center" id="header">
                                                 <div class="sidebar-toggle d-block d-lg-none mr-1"><i class="feather icon-menu font-large-1"></i></div>
-                                                <div class="avatar user-profile-toggle m-0 m-0 mr-1">
-                                                    <img src="C:\xampp\htdocs\template2/app-assets/images/portrait/small/avatar-s-1.jpg" alt="" height="40" width="40" />
-                                                </div>
-                                                <div class="avatar user-profile-toggle m-0 m-0 mr-1">
-                                                    <img src="C:\xampp\htdocs\template2/app-assets/images/portrait/small/avatar-s-7.jpg" alt="" height="40" width="40" />
-                                                </div>
                                             </div>
                                         </header>
                                     </div>
@@ -541,7 +535,7 @@
                             </section>
                             <!-- User Chat profile right area -->
                             <div class="user-profile-sidebar">
-                                <header class="user-profile-header">
+                                <!-- <header class="user-profile-header">
                                     <span class="close-icon">
                                         <i class="feather icon-x"></i>
                                     </span>
@@ -555,26 +549,7 @@
                                 <div class="user-profile-sidebar-area p-2">
                                     <h6>About</h6>
                                     <p>Deskripsi dari komunitas ini adalah ......</p>
-                                </div>
-                            </div>
-
-
-                            <div class="user-profile-sidebar">
-                                <header class="user-profile-header">
-                                    <span class="close-icon">
-                                        <i class="feather icon-x"></i>
-                                    </span>
-                                    <div class="header-profile-sidebar">
-                                        <div class="avatar">
-                                            <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="user_avatar" height="70" width="70">
-                                        </div>
-                                        <h4 class="chat-user-name">Komunitas Bola Basket</h4>
-                                    </div>
-                                </header>
-                                <div class="user-profile-sidebar-area p-2">
-                                    <h6>About</h6>
-                                    <p>Deskripsi dari komunitas ini adalah ......</p>
-                                </div>
+                                </div> -->
                             </div>
                             <!--/ User Chat profile right area -->
 
@@ -811,16 +786,30 @@
                             },
                             success: function(data) {
                                 $(".chats").html(data);
-                                // $(".user-chats").scrollTop($(".user-chats > .chats").height());
                                 $(".user-chats").animate({
                                     scrollTop: $(".user-chats > .chats")[0].scrollHeight
                                 }, 100);
                             }
-
                         });
-
                     });
 
+                    $("#collab-list li").click(function() {
+                        var id = $('#collab-list').find('li.active').data('id');
+                        setInterval(function() {
+                            get_chat_message();
+                        }, 2500);
+
+                        $.ajax({
+                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getMember') ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                $("#header").html(data);
+                            }
+                        });
+                    });
 
                     function get_chat_message() {
 
@@ -833,16 +822,34 @@
                             },
                             success: function(data) {
                                 $(".chats").html(data);
-                                //tes
-                                // $(".user-chats").scrollTop($(".user-chats > .chats").height());
                             }
 
                         });
                     }
 
-                    setInterval(function() {
-                        get_chat_message();
-                    }, 2500);
+
+                });
+            </script>
+            <!-- detail member -->
+            <script>
+                $(document).ready(function() {
+                    $(".chat-application .user-profile-toggle").on('click', function() {
+                        // var id = $(this).closest('div.user-profile-toggle').attr('id');
+                        alert('id');
+                        // $.ajax({
+                        //     url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getMemberDetail') ?>",
+                        //     method: "POST",
+                        //     data: {
+                        //         id: id
+                        //     },
+                        //     success: function(data) {
+
+                        //         // console.log('sukses');
+                        //         // $(".user-profile-sidebar").html(data);
+                        //         // $(".user-profile-sidebar").toggle();
+                        //     }
+                        // });
+                    });
                 });
             </script>
             <!-- menyimpan chat baru ke database -->
