@@ -833,6 +833,7 @@
                             },
                             success: function(data) {
                                 $(".chats").html(data);
+                                //tes
                                 // $(".user-chats").scrollTop($(".user-chats > .chats").height());
                             }
 
