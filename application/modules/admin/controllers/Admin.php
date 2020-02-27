@@ -6,7 +6,7 @@ class Admin extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		if($this->session->userdata('role_id') != 1){
+		if ($this->session->userdata('role_id') != 1) {
 			redirect('auth');
 		}
 		$this->load->model('M_admin');
@@ -68,9 +68,16 @@ class Admin extends MY_Controller
 
 	function ubah_password()
 	{
-		$id = $this->input->post('id');
+		$usr = $this->session->userdata('username');
 		$pass_old = $this->input->post('pass_lama');
 		$pass = $this->input->post('pass1');
-		$this->M_admin->ubah_pass($id, $pass_old, $pass);
+		if ($this->M_admin->ubah_pass($usr, $pass_old, $pass) == 1) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+			<p class="mb-0"> Success change password</p></div>');
+			return redirect($_SERVER['HTTP_REFERER']);
+		}
+		$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+		<p class="mb-0"> Sorry! Your old password is wrong !!!</p></div>');
+		return redirect($_SERVER['HTTP_REFERER']);
 	}
 }
