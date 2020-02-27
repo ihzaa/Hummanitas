@@ -94,7 +94,7 @@
                                                             <li class="d-inline-block mr-2">
                                                                 <fieldset>
                                                                     <div class="vs-radio-con">
-                                                                        <input type="radio" name="vueradio" value="Male">
+                                                                        <input type="radio" name="vueradio" value="Male" checked>
                                                                         <span class="vs-radio">
                                                                             <span class="vs-radio--border"></span>
                                                                             <span class="vs-radio--circle"></span>
