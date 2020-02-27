@@ -57,4 +57,10 @@ class M_ajax extends CI_Model
 
         return $member->result();
     }
+
+    function delPhoto($id)
+    {
+        $this->db->where('IMAGE_ID', $id);
+        $this->db->delete('images');
+    }
 }

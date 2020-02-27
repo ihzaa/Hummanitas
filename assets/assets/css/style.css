@@ -105,8 +105,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	margin: 10px 30px;
 }
 
-.gallery-photo .image a{
+.gallery-photo a{
 	display: none;
+}
+.gallery-photo .btn{
+    display: none;
 }
 .gallery-photo img{
 	width: 180px;

@@ -430,11 +430,16 @@
                                             // echo $community['COM_ID'];
                                             foreach ($image as $image) { ?>
                                                 <!-- <div class="image"> -->
-                                                <a style="margin:10px 10px" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
 
-                                                <button class="btn" type="submit" name="del" style="background-color:transparent; padding:0 0; border:none;margin-left:-40px;top:-45px;"><i class="feather icon-x"></i></button>
+                                                <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
 
+                                                    <a style="margin:10px 10px" id="<?= 'image_' . $image->IMAGE_ID ?>" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
+                                                    <button class="btn" id="del" value="<?= $image->IMAGE_ID ?>" name="del" style="background-color:transparent; padding:0 0; border:none;margin-left:-40px;top:-45px;"><i class="feather icon-x"></i></button>
+
+                                                <?php } else { ?>
+                                                    <a style="margin:0px" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
                                             <?php
+                                                }
                                             }
                                         } else { ?>
                                             <div class="col-12">
@@ -532,6 +537,9 @@
 
     <script src="<?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script>
     <script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
+
+    <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
     <!-- END: Page JS-->
 
 
@@ -645,6 +653,52 @@
 
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#del").click(function() {
+                var id = $('#del').val();
+                Swal.fire({
+                    title: 'You want to delete the selected photo?',
+                    text: '',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('ajax/deletePhoto') ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                                $('#image_' + id).fadeOut(300, function() {
+                                    $(this).remove();
+                                });
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when deleting the photo',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+            });
+        });
+    </script>
 </body>
 <!-- END: Body-->
 

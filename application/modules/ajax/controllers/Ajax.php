@@ -214,4 +214,11 @@ class Ajax extends MY_Controller
 
         echo $output;
     }
+
+    function deletePhoto()
+    {
+        $id = $this->input->post('id');
+
+        $this->m_ajax->delPhoto($id);
+    }
 }
