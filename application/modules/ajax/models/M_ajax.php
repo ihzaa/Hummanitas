@@ -43,4 +43,18 @@ class M_ajax extends CI_Model
 
         return $message->result();
     }
+
+    function get_collab_member($id)
+    {
+        $member = $this->db->query('SELECT c.COLMEM_ID, k.COM_ID, k.COM_NAME, k.COM_IMAGE FROM collab_member c JOIN community k on c.COM_ID = k.COM_ID WHERE c.COLLAB_ID = ' . $id . ' AND c.COLMEM_STATUS = 1');
+
+        return $member->result();
+    }
+
+    function get_member_detail($id)
+    {
+        $member = $this->db->query('SELECT k.COM_ID, k.COM_NAME, k.COM_IMAGE, k.COM_DESC FROM collab_member c JOIN community k on c.COM_ID = k.COM_ID WHERE k.COM_ID = ' . $id);
+
+        return $member->result();
+    }
 }

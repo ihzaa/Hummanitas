@@ -116,3 +116,5 @@ $route['ajax'] = 'ajax/index';
 $route['ajax/(:num)/listCom'] = 'ajax/listCom';
 $route['ajax/(:num)/chat'] = 'ajax/chat';
 $route['ajax/(:num)/getChat'] = 'ajax/get_collab_chat';
+$route['ajax/(:num)/getMember'] = 'ajax/get_collab_member';
+$route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';

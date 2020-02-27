@@ -130,7 +130,7 @@ class Ajax extends MY_Controller
             if ($message->USER_ID == $user_id) {
                 $output .=  '<div class="chat">
                 <div class="chat-avatar">
-                    <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
+                    <a class="avatar m-0" data-toggle="tooltip" data-placement="right" title="" data-original-title="">
                         <img src="' . base_url('assets/img/user/') . $message->USER_IMAGE . '" alt="avatar" height="40" width="40" />
                     </a>
                 </div>
@@ -148,7 +148,7 @@ class Ajax extends MY_Controller
             } else {
                 $output .=  '<div class="chat chat-left">
                 <div class="chat-avatar">
-                    <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
+                    <a class="avatar m-0" data-toggle="tooltip" href="' . base_url('user/user_profile_guest/') . $message->USER_ID . '" data-placement="left" title="" data-original-title="">
                         <img src="' . base_url('assets/img/user/') . $message->USER_IMAGE . '" alt="avatar" height="40" width="40" />
                     </a>
                 </div>
@@ -156,7 +156,7 @@ class Ajax extends MY_Controller
 
                     <div class="chat-content">
 
-                        <a href="">
+                        <a href="' . base_url('user/user_profile_guest/') . $message->USER_ID . '">
                             <strong>
                                 <p style="display:inline-block; font-size:17px">' . $message->USERNAME . '</p>
                             </strong>
@@ -172,6 +172,45 @@ class Ajax extends MY_Controller
             </div>';
             }
         }
+        echo $output;
+    }
+
+    function get_collab_member()
+    {
+        $id = $this->input->post('id');
+        $member = $this->m_ajax->get_collab_member($id);
+        $output = '';
+
+        foreach ($member as $member) {
+            $output .= '<div class="avatar user-profile-toggle m-0 m-0 mr-1" title data-original-title="komunitas" id="' . $member->COM_ID . '">
+            <img src="' . base_url('assets/img/community/profile/') . $member->COM_IMAGE . '" alt="" height="40" width="40" />
+        </div>';
+        }
+
+        echo $output;
+    }
+
+    function get_member_detail()
+    {
+        $id = $this->input->post('id');
+        $member = $this->m_ajax->get_member_detail($id);
+        $output = '';
+
+        $output .= '<header class="user-profile-header">
+        <span class="close-icon">
+            <i class="feather icon-x"></i>
+        </span>
+        <div class="header-profile-sidebar">
+            <div class="avatar">
+                <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="user_avatar" height="70" width="70">
+            </div>
+            <h4 class="chat-user-name">Komunitas Bola Basket</h4>
+        </div>
+    </header>
+    <div class="user-profile-sidebar-area p-2">
+        <h6>About</h6>
+        <p>Deskripsi dari komunitas ini adalah ......</p>
+    </div>';
 
         echo $output;
     }
