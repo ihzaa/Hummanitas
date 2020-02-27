@@ -12,7 +12,9 @@ class User extends MY_Controller
 
 		$this->load->model('m_user');
 		$this->load->library('form_validation');
-
+		if ($this->session->userdata('role_id') != 2) {
+			redirect('auth');
+		}
 		is_logged_in();
 	}
 
