@@ -6,9 +6,9 @@ class Admin extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		// if($this->session->userdata('ROLE_ID') != 1){
-		// 	redirect('auth');
-		// }
+		if($this->session->userdata('role_id') != 1){
+			redirect('auth');
+		}
 		$this->load->model('M_admin');
 
 		is_logged_in();
