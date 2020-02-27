@@ -429,8 +429,11 @@
                                             // echo $name;
                                             // echo $community['COM_ID'];
                                             foreach ($image as $image) { ?>
+                                                <!-- <div class="image"> -->
+                                                <a style="margin:10px 10px" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
 
-                                                <a href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
+                                                <button class="btn" type="submit" name="del" style="background-color:transparent; padding:0 0; border:none;margin-left:-40px;top:-45px;"><i class="feather icon-x"></i></button>
+
                                             <?php
                                             }
                                         } else { ?>
@@ -460,14 +463,15 @@
                                     <div class="card-content">
                                         <div class="list-group analytics-list">
                                             <?php if (count($event) > 0) {
-                                                $id = $event['EVENT_ID'];
+
                                                 // echo $name;
                                                 // echo $community['COM_ID'];
-                                                foreach ($event as $event) { ?>
+                                                foreach ($event as $event) {
+                                                    $id = $event->EVENT_ID; ?>
                                                     <div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
                                                         <div class="float-left">
-                                                            <p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event['EVENT_TITLE'] ?></p>
-                                                            <small><?= $event['START_DATE'] ?></small>
+                                                            <p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event->EVENT_TITLE ?></p>
+                                                            <small><?= $event->START_DATE ?></small>
 
                                                         </div>
                                                     </div>

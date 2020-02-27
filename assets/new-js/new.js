@@ -56,12 +56,12 @@ $('#memberManage').on('click', function () {
 
 
 // Load gallery
-$('.gallery-photo > a').slice(0, 9).show();
+$('.gallery-photo .image > a').slice(0, 9).show();
 
 $('#morePhoto').on('click', function () {
-    $('.gallery-photo > a:hidden').slice(0, 6).fadeIn();
+    $('.gallery-photo .image > a:hidden').slice(0, 6).fadeIn();
 
-    if ($('.gallery-photo > a:hidden').length === 0) {
+    if ($('.gallery-photo .image > a:hidden').length === 0) {
         $('#morePhoto').fadeOut();
     }
 });
