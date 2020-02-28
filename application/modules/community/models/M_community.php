@@ -109,12 +109,11 @@ class M_community extends CI_Model
 
     function upcomingEvent($id)
     {
-        // $id = $this->uri->segment(2);
-        $this->db->order_by('START_DATE');
-        $query = $this->db->get_where('event', array('COM_ID' => $id))->result();
-        // var_dump($query);
-        // die;
-        return $query;
+        $this->load->helper('date');
+
+        $query = $this->db->query('SELECT EVENT_ID,EVENT_TITLE,START_DATE FROM event WHERE date(START_DATE) >= date(NOW()) AND COM_ID =' . $id . ' ORDER BY START_DATE ASC LIMIT 7');
+
+        return $query->result();
     }
 
 

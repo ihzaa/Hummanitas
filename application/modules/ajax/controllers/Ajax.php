@@ -221,4 +221,21 @@ class Ajax extends MY_Controller
 
         $this->m_ajax->delPhoto($id);
     }
+
+    function deleteGallery()
+    {
+        $id = $this->input->post('id');
+
+        $this->m_ajax->delGallery($id);
+    }
+
+    function leaveCommunity()
+    {
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+
+        $com_id = $this->input->post('id');
+
+        $this->m_ajax->leaveCommunity($user_id, $com_id);
+    }
 }

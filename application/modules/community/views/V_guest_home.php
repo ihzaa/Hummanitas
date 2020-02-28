@@ -46,224 +46,8 @@
 
 <body class="horizontal-layout horizontal-menu 2-columns  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="2-columns">
 
-    <!-- BEGIN: Header-->
-    <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-fixed navbar-shadow navbar-brand-center">
-        <div class="navbar-header d-xl-block d-none">
-            <ul class="nav navbar-nav flex-row">
-                <li class="nav-item"><a class="navbar-brand" href="<?php echo base_url('user/user_community') ?>">
-                        <div class="brand-logo">
-                            <img style="height: 35px;width: 35px;" src="<?= base_url('assets/'); ?>app-assets/images/logo/logoWeb.png">
-                        </div>
-                    </a></li>
-            </ul>
-        </div>
-        <div class="navbar-wrapper">
-            <div class="navbar-container content">
-                <div class="navbar-collapse" id="navbar-mobile">
-                    <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
-                        </ul>
-                        <ul class="nav navbar-nav bookmark-icons">
-                            <?php
-                            $id = $user['USER_ID'];
-                            $cek = $this->db->select('USER_ID')->from('community_member')->where('USER_ID', $id)->get();
-
-                            if ($cek->num_rows() > 0) {; ?>
-                                <li style="margin-left: 30px;" class="nav-item d-none d-lg-block"><a class="nav-link" href="<?php echo base_url('user') ?>" data-toggle="" data-placement="top" title="">
-                                        <h4 class="feather icon-home"> Home</h4>
-                                    </a></li>
-                            <?php
-                            } else { ?>
-                                <li style="margin-left: 30px;" class="nav-item d-none d-lg-block"><a class="nav-link" href="javascript:void(0)" data-toggle="" data-placement="top" title="">
-                                        <h4 class="feather icon-home" style="color:#DEDEDE"> Home</h4>
-                                    </a></li>
-
-                            <?php
-                            }; ?>
-
-                            <li style="margin-left: 50px;" class="nav-item d-none d-lg-block"><a class="nav-link" href="<?php echo base_url('user/user_community') ?>" data-toggle="" data-placement="top" title="">
-                                    <h4 class="feather icon-globe"> Community</h4>
-                                </a></li>
-
-                        </ul>
-
-                    </div>
-                    <ul class="nav navbar-nav float-right">
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-                        <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
-                            <div class="search-input">
-                                <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
-                                <input class="input" type="text" placeholder="Explore Comunita..." tabindex="-1" data-search="template-list">
-                                <div class="search-input-close"><i class="feather icon-x"></i></div>
-                                <ul class="search-list search-list-main">
-
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span></a>
-                            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                                <li class="dropdown-menu-header">
-                                    <div class="dropdown-header m-0 p-2">
-                                        <h3 class="white">5 New</h3><span class="notification-title">App
-                                            Notifications</span>
-                                    </div>
-                                </li>
-                                <li class="scrollable-container media-list"><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="primary media-heading">You have new order!</h6><small class="notification-text"> Are your going to meet me
-                                                    tonight?</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">9 hours
-                                                    ago</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-download-cloud font-medium-5 success"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="success media-heading red darken-1">99% Server load</h6>
-                                                <small class="notification-text">You got new order of goods.</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">5 hour
-                                                    ago</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-alert-triangle font-medium-5 danger"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="danger media-heading yellow darken-3">Warning notifixation
-                                                </h6><small class="notification-text">Server have 99% CPU usage.</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-check-circle font-medium-5 info"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="info media-heading">Complete the task</h6><small class="notification-text">Cake sesame snaps cupcake</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last
-                                                    week</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-file font-medium-5 warning"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="warning media-heading">Generate monthly report</h6><small class="notification-text">Chocolate cake oat cake tiramisu
-                                                    marzipan</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last
-                                                    month</time></small>
-                                        </div>
-                                    </a></li>
-                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"><?= $user['USERNAME']; ?></span></div><span><img class="round" src="<?= base_url('assets/img/user/') . $user['USER_IMAGE']; ?>" alt="avatar" height="40" width="40" style="margin-right: 20px"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?php echo base_url('user/user_profile') ?>">
-                                    <i class="feather icon-user"></i> View Profile</a>
-                                <a class="dropdown-item" href="<?php echo base_url('user/user_setting') ?>">
-                                    <i class="feather icon-settings"></i> User Setting</a>
-                                <div class="dropdown-divider">
-                                </div>
-                                <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>"><i class="feather icon-power"></i>
-                                    Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <ul class="main-search-list-defaultlist d-none">
-        <li class="d-flex align-items-center"><a class="pb-25" href="#">
-                <h6 class="text-primary mb-0">Files</h6>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="app-assets/images/icons/xls.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Two new item submitted</p><small class="text-muted">Marketing
-                            Manager</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;17kb</small>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="app-assets/images/icons/jpg.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd
-                            Developer</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;11kb</small>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="app-assets/images/icons/pdf.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital
-                            Marketing Manager</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;150kb</small>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="app-assets/images/icons/doc.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Anna_Strong</p><small class="text-muted">Web Designer</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;256kb</small>
-            </a></li>
-        <li class="d-flex align-items-center"><a class="pb-25" href="#">
-                <h6 class="text-primary mb-0">Members</h6>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
-                    </div>
-                </div>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd
-                            Developer</small>
-                    </div>
-                </div>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-14.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing
-                            Manager</small>
-                    </div>
-                </div>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web Designer</small>
-                    </div>
-                </div>
-            </a></li>
-    </ul>
-    <ul class="main-search-list-defaultlist-other-list d-none">
-        <li class="auto-suggestion d-flex align-items-center justify-content-between cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-                <div class="d-flex justify-content-start"><span class="mr-75 feather icon-alert-circle"></span><span>No
-                        results found.</span></div>
-            </a></li>
-    </ul>
-    <!-- END: Header-->
-
+    <!-- template navbar -->
+    <?php $this->load->view('user/v_template_navbar') ?>
 
     <!-- BEGIN: Main Menu-->
     <div class="horizontal-menu-wrapper">
@@ -630,8 +414,40 @@
 
                                         ?>
 
-                                        <a href="list-member.html" class="btn btn-primary w-100 mt-1"><i class="feather icon-plus mr-25"></i>Load More</a>
+                                        <a href="<?= base_url('community/' . $community['COM_ID'] . '/guest/member') ?>" class="btn btn-primary w-100 mt-1"><i class="feather icon-plus mr-25"></i>Load More</a>
 
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Photos</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <?php if (count($image) > 0) {
+                                                // $id = $image['IMAGE_ID'];
+                                                // echo $name;
+                                                // echo $community['COM_ID'];
+                                                foreach ($image as $image) { ?>
+                                                    <div class="col-md-4 col-6 user-latest-img">
+                                                        <a href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $image->GALLERY_NAME . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $image->GALLERY_NAME . '/') . $image->IMAGE ?>" class="img-fluid mb-1 rounded-sm" alt="avtar img holder"></a>
+                                                    </div>
+                                                <?php
+                                                }
+                                            } else { ?>
+                                                <div class="col-12">
+                                                    <div style="height: 200px; ">
+                                                        <h4 align="center" style="margin: 100px 0px">No photo available</h4>
+                                                    </div>
+                                                </div>
+                                            <?php }; ?>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <a type="button" href="<?= base_url('community/' . $community['COM_ID'] . '/guest/gallery'); ?>" class="btn btn-primary block-element mb-1">+ View More</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -686,88 +502,6 @@
 
 
 
-
-
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Report Community</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <ul class="list-unstyled mb-0">
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="Pornography">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                            </span>
-                                        </span>
-                                        <span class="">Pornography</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="Deception">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                            </span>
-                                        </span>
-                                        <span class="">Deception</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="Racism">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                            </span>
-                                        </span>
-                                        <span class="">Racism</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="Inactive">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                            </span>
-                                        </span>
-                                        <span class="">Inactive</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <textarea rows="4" id="textarea" placeholder="Or describe the problem here" style="width: 475px; height:100px ; margin-left: 16px; padding: 10px;" required="required"></textarea>
-                    <label class="control-label" for="textarea"></label><i class="mtrl-select"></i>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Report</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
     <div class="modal fade" id="myModal2" role="dialog">
         <div class="modal-dialog" style="width: 30%">
 
@@ -795,6 +529,11 @@
             </div>
         </div>
     </div>
+
+    <!-- footer user -->
+    <?php $this->load->view('user/v_template_footer') ?>
+    <!-- footer community -->
+    <?php $this->load->view('v_template_footer') ?>
 </body>
 <!-- END: Body-->
 

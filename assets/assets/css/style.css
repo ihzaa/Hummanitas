@@ -47,7 +47,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .gallery-album li{
 	/* display: none; */
 	display: inline-block;
-	height: 198px;
+	height: 188px;
 	width: 170px;
 	border: 1px solid #e2e2e2;
 	border-radius: 10px;
@@ -61,14 +61,28 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	height: 145px;
 	width: 170px;
 }
+
+.gallery-album li .delGallery{
+	display: none;
+}
 .gallery-album li:hover a img{
 	transform: scale(1.15);
+}
+.gallery-album li:hover .delGallery{
+	display: inline-block;
+}
+.gallery-album li:hover .caption{
+	list-style: outside none none;
+    margin-bottom: 0;
+    padding-left: 0;
+    margin-top: -41px;
 }
 
 .caption {
     list-style: outside none none;
     margin-bottom: 0;
     padding-left: 0;
+    margin-top: -7px;
 }
 
 .caption > a {

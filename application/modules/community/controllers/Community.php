@@ -99,6 +99,7 @@ class Community extends MY_Controller
         $com_id = $this->uri->segment('2');
         $data['community'] = $this->m_community->get_com_detail($com_id);
         $data['user'] = $this->m_user->getUser();
+        $data['image'] = $this->m_community->get_com_image($com_id);
         $data['member'] = $this->m_community->memberList($com_id);
 
         $this->load->view('v_list_member', $data);
@@ -149,6 +150,7 @@ class Community extends MY_Controller
 
     function Report()
     {
+        $this->form_validation->set_rules('report', 'report', 'required');
         $com_id = $this->uri->segment('2');
         $data['user'] = $this->m_user->getUser();
         $user_id = $data['user']['USER_ID'];
@@ -166,6 +168,12 @@ class Community extends MY_Controller
 
 
         $this->m_community->report($a, $com_id, $user_id);
+
+        $this->load->library('user_agent');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        <p class="mb-0"> Success reporting community.</p></div>');
+
+        redirect($this->agent->referrer());
     }
 
     function viewMember()
@@ -174,12 +182,23 @@ class Community extends MY_Controller
         $id = $data['user']['USER_ID'];
         $user_id = $this->input->post('view');
 
-        // $q = $this->m_user->cekMember($user_id, $com_id);
+        if ($id == $user_id) {
+            redirect('user/user_profile');
+        } else {
+            redirect('user/user_profile_guest/' . $user_id);
+        }
+    }
+
+    function userProfile()
+    {
+        $data['user'] = $this->m_user->getUser();
+        $id = $data['user']['USER_ID'];
+        $user_id = $this->uri->segment(2);
 
         if ($id == $user_id) {
             redirect('user/user_profile');
         } else {
-            redirect('user/user_profile_guest/' . $com_id);
+            redirect('user/user_profile_guest/' . $user_id);
         }
     }
 
@@ -595,6 +614,7 @@ class Community extends MY_Controller
         $data['community'] = $this->m_community->get_com_detail($id);
         $data['user'] = $this->m_user->getUser();
         $data['member'] = $this->m_community->get_com_member($id);
+        $data['image'] = $this->m_community->get_com_image($id);
 
         $user_id = $data['user']['USER_ID'];
 
@@ -603,6 +623,32 @@ class Community extends MY_Controller
 
                 if ($this->m_community->cekPrivate($id) != NULL) {
                     $this->load->view('v_guest_home', $data);
+                } else {
+                    redirect('community/' . $id . '/privateGuest');
+                }
+            } else {
+                redirect('community/' . $id);
+            }
+        } else {
+            redirect('community/authorized');
+        }
+    }
+
+    function guestMember()
+    {
+        $id = $this->uri->segment('2');
+        $data['community'] = $this->m_community->get_com_detail($id);
+        $data['user'] = $this->m_user->getUser();
+        $data['member'] = $this->m_community->memberList($id);
+        $data['image'] = $this->m_community->get_com_image($id);
+
+        $user_id = $data['user']['USER_ID'];
+
+        if ($this->m_community->getCom($id)) {
+            if ($this->m_community->cekUser($user_id, $id) == NULL) {
+
+                if ($this->m_community->cekPrivate($id) != NULL) {
+                    $this->load->view('v_guest_member', $data);
                 } else {
                     redirect('community/' . $id . '/privateGuest');
                 }
