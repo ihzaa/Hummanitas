@@ -120,3 +120,6 @@ $route['ajax/(:num)/leaveCommunity'] = 'ajax/leaveCommunity';
 $route['ajax/(:num)/getChat'] = 'ajax/get_collab_chat';
 $route['ajax/(:num)/getMember'] = 'ajax/get_collab_member';
 $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
+
+//mounthly cash community
+$route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
