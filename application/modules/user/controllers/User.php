@@ -11,6 +11,7 @@ class User extends MY_Controller
 		parent::__construct();
 
 		$this->load->model('m_user');
+		$this->load->model('community/m_community_ku');
 		$this->load->library('form_validation');
 		if ($this->session->userdata('role_id') != 2) {
 			redirect('auth');
@@ -21,14 +22,10 @@ class User extends MY_Controller
 	//to call home user
 	function index()
 	{
-
-		// if ($this->session->userdata('role_id') == 2) {
 		$data['user'] = $this->m_user->getUser();
 		$data['user_com'] = $this->m_user->get_user_com($data['user']['USER_ID']);
+		$data['postingan'] = $this->m_community_ku->get_postingan_per_com_di_home($this->session->userdata('id'));
 		$this->load->view('v_user_home', $data);
-		// } else {
-		// 	echo 'dilarang';
-		// }
 	}
 
 	function user_setting()
