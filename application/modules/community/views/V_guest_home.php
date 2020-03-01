@@ -211,7 +211,7 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-start align-items-center mb-1">
                                                 <div class="avatar mr-1">
-                                                    <img src=app-assets/images/profile/user-uploads/user-01.jpg" alt="avtar img holder" height="45" width="45">
+                                                    <img src="app-assets/images/profile/user-uploads/user-01.jpg" alt="avtar img holder" height="45" width="45">
                                                 </div>
                                                 <div class="user-page-info">
                                                     <h6 class="mb-0">Leeanna Alvord</h6>
@@ -543,7 +543,7 @@
     $(document).ready(function() {
         $("#join-form").submit(function(e) {
             e.preventDefault();
-            var code = $("#code").val();;
+            var code = $("#sw").val();;
             // var decs = $("#js_personal_desc").val();
             if (code != '') {
                 $.ajax({

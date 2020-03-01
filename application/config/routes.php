@@ -123,3 +123,6 @@ $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
 
 //mounthly cash community
 $route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
+
+//post
+$route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
