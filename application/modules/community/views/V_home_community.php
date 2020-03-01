@@ -696,14 +696,15 @@
                                     <div class="card-content">
                                         <div class="list-group analytics-list">
                                             <?php if (count($event) > 0) {
-                                                $id = $event['EVENT_ID'];
+
                                                 // echo $name;
                                                 // echo $community['COM_ID'];
-                                                foreach ($event as $event) { ?>
+                                                foreach ($event as $event) {
+                                                    $id = $event->EVENT_ID; ?>
                                                     <div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
                                                         <div class="float-left">
-                                                            <p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event['EVENT_TITLE'] ?></p>
-                                                            <small><?= $event['START_DATE'] ?></small>
+                                                            <p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event->EVENT_TITLE ?></p>
+                                                            <small><?= $event->START_DATE ?></small>
 
                                                         </div>
                                                     </div>
