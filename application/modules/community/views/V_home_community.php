@@ -423,7 +423,8 @@
 					contentType: false,
 					type: 'POST',
 					success: function(data) {
-						$('#kotak-postingan').prepend(data);
+						// $('#kotak-postingan').prepend(data);
+						$(data).prependTo('#kotak-postingan').slideDown('slow');
 						reset_input();
 					},
 					error: function(data) {
