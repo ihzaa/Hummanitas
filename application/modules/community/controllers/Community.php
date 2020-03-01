@@ -616,6 +616,7 @@ class Community extends MY_Controller
 		$data['user'] = $this->m_user->getUser();
 		$data['member'] = $this->m_community->get_com_member($id);
 		$data['image'] = $this->m_community->get_com_image($id);
+		$data['postingan'] = $this->m_community_ku->get_postingan_per_com($id);
 
 		$user_id = $data['user']['USER_ID'];
 

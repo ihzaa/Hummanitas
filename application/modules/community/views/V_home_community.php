@@ -206,7 +206,6 @@
 								</div>
 								<div class="post" id="kotak-postingan">
 									<?php
-
 									if ($postingan != NULL) {
 										foreach ($postingan as $p) {
 											if ($p->POST_IMAGE) {
