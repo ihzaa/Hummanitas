@@ -208,7 +208,8 @@
 									<?php
 
 									foreach ($postingan as $p) {
-										echo '<div class="card">
+										if ($p->POST_IMAGE) {
+											echo '<div class="card">
 										<div class="card-body">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="avatar mr-1">
@@ -236,6 +237,35 @@
 											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
 										</div>
 									</div>';
+										} else {
+											echo '<div class="card">
+										<div class="card-body">
+											<div class="d-flex justify-content-start align-items-center mb-1">
+												<div class="avatar mr-1">
+													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
+												</div>
+												<div class="user-page-info">
+													<p class="mb-0"><a href="" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a></p>
+													<span class="font-small-2">' . $p->UP_DATE . '</span>
+												</div>
+											</div>
+											<p>' . $p->POST_CONTENT . '</p>
+											<div class="d-flex justify-content-start align-items-center mb-1">
+												<div class="d-flex align-items-center">
+													<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
+													<span>0</span>
+													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
+													<span>0</span>
+												</div>
+											</div>
+											<fieldset class="form-label-group mb-50">
+												<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+												<label for="label-textarea">Add Comment</label>
+											</fieldset>
+											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+										</div>
+									</div>';
+										}
 									}
 
 									?>

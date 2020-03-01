@@ -41,18 +41,40 @@ class CommunityController_ku extends MY_Controller
 		if (!is_dir('assets/img/post/' . $id_member)) {
 			mkdir('assets/img/post/' . $id_member, 0777, TRUE);
 		}
-
+		$user = $this->m_community_ku->getUserData($this->session->userdata('id'));
 		if (!$this->upload->do_upload('gambar')) {
-			$error = array('error' => $this->upload->display_errors());
-			var_dump($error);
-			die;
+			$this->m_community_ku->storePostToDB($id_com, $id_member, $isi, NULL);
+			$output = '<div class="card" style="display : block;">
+			<div class="card-body">
+				<div class="d-flex justify-content-start align-items-center mb-1">
+					<div class="avatar mr-1">
+						<img src="' . base_url('assets/img/user/') . $user->USER_IMAGE  . '" alt="avtar img holder" height="45" width="45">
+					</div>
+					<div class="user-page-info">
+						<p class="mb-0"><a href="" style="color: black;"><strong>' . $user->NAME . '</strong></a></p>
+						<span class="font-small-2">' . date("Y-m-d H:i:s", time()) . '</span>
+					</div>
+				</div>
+				<p>' . $isi . '</p>
+				<div class="d-flex justify-content-start align-items-center mb-1">
+					<div class="d-flex align-items-center">
+						<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
+						<span>0</span>
+						<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
+						<span>0</span>
+					</div>
+				</div>
+				<fieldset class="form-label-group mb-50">
+					<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+					<label for="label-textarea">Add Comment</label>
+				</fieldset>
+				<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+			</div>
+		</div>';
+			echo $output;
 		} else {
 			$this->m_community_ku->storePostToDB($id_com, $id_member, $isi, $lengkap);
-		}
-
-		$user = $this->m_community_ku->getUserData($this->session->userdata('id'));
-
-		$output = '<div class="card" style="display : block;">
+			$output = '<div class="card" style="display : block;">
 		<div class="card-body">
 			<div class="d-flex justify-content-start align-items-center mb-1">
 				<div class="avatar mr-1">
@@ -80,6 +102,7 @@ class CommunityController_ku extends MY_Controller
 			<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
 		</div>
 	</div>';
-		echo $output;
+			echo $output;
+		}
 	}
 }
