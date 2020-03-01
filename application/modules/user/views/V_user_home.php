@@ -177,7 +177,7 @@
 													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
 													</div>
 													<div class="user-page-info">
-													<p class="mb-0"><a href="" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a>
+													<p class="mb-0"><a href="'.base_url('user/user_profile_guest/'.$this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID).'" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a>
 													posted to
 													<a href="' . base_url('community/' . $p->COM_ID) . '"><strong>' . $this->db->query('SELECT `COM_NAME` FROM `community` WHERE `COM_ID` = "' . $p->COM_ID . '"')->result()[0]->COM_NAME . '</strong></a>
 													</p>
@@ -209,7 +209,7 @@
 													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
 													</div>
 													<div class="user-page-info">
-													<p class="mb-0"><a href="" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a>
+													<p class="mb-0"><a href="'.base_url('user/user_profile_guest/'.$this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID).'" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a>
 													posted to
 													<a href="' . base_url('community/' . $p->COM_ID) . '"><strong>' . $this->db->query('SELECT `COM_NAME` FROM `community` WHERE `COM_ID` = "' . $p->COM_ID . '"')->result()[0]->COM_NAME . '</strong></a>
 													</p>
