@@ -46,8 +46,14 @@ class M_admin extends CI_Model
 		$this->db->delete('user');
 	}
 
-	public function ubah_pass($id,$pass_old,$pass){
-		$this->db->where('USER_ID',$id);
-		$this->db->update('PASSWORD',$pass);
+	public function ubah_pass($usr, $pass_old, $pass)
+	{
+		$user = $this->db->query('SELECT * FROM `user` WHERE `USERNAME` = "' . $usr . '"')->result();
+
+		if (password_verify($pass_old, $user[0]->PASSWORD)) {
+			$this->db->query('UPDATE `user` SET `PASSWORD` = "' . password_hash($pass, true) . '" WHERE `user`.`USERNAME` = "' . $usr . '";');
+			return 1;
+		}
+		return 0;
 	}
 }

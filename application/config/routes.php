@@ -62,6 +62,7 @@ $route['community/(:num)/report'] = 'community/report';
 $route['community/(:num)/setting'] = 'community/setting_community';
 $route['community/(:num)/setting_community1'] = 'community/setting_community1';
 $route['community/(:num)/member'] = 'community/listMember';
+$route['community/(:num)/viewMember'] = 'community/userProfile';
 
 $route['community/(:num)/get_user_detail'] = 'community/get_user_detail';
 $route['community/(:num)/memberManagement/invite'] = 'community/invite';
@@ -115,6 +116,13 @@ $route['community/(:num)/guest/gallery/(:num)'] = 'community/guestPhoto';
 $route['ajax'] = 'ajax/index';
 $route['ajax/(:num)/listCom'] = 'ajax/listCom';
 $route['ajax/(:num)/chat'] = 'ajax/chat';
+$route['ajax/(:num)/leaveCommunity'] = 'ajax/leaveCommunity';
 $route['ajax/(:num)/getChat'] = 'ajax/get_collab_chat';
 $route['ajax/(:num)/getMember'] = 'ajax/get_collab_member';
 $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
+
+//mounthly cash community
+$route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
+
+//post
+$route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';

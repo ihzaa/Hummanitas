@@ -57,4 +57,28 @@ class M_ajax extends CI_Model
 
         return $member->result();
     }
+
+    function delPhoto($id)
+    {
+        $this->db->where('IMAGE_ID', $id);
+        $this->db->delete('images');
+    }
+
+    function delGallery($id)
+    {
+        $this->db->where('GALLERY_ID', $id);
+        $this->db->delete('gallery');
+    }
+
+    function leaveCommunity($user_id, $com_id)
+    {
+        $this->db->where('USER_ID', $user_id);
+        $this->db->where('COM_ID', $com_id);
+        $this->db->delete('community_member');
+    }
+
+    function get_last_chat($id)
+    {
+        return $this->db->query('SELECT COLLAB_ID,TIME FROM chat WHERE COLLAB_ID = ' . $id . ' ORDER BY TIME DESC LIMIT 1')->row_array();
+    }
 }

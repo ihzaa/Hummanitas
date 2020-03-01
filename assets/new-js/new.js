@@ -57,9 +57,11 @@ $('#memberManage').on('click', function () {
 
 // Load gallery
 $('.gallery-photo > a').slice(0, 9).show();
+$('.gallery-photo .btn').slice(0, 9).fadeIn();
 
 $('#morePhoto').on('click', function () {
     $('.gallery-photo > a:hidden').slice(0, 6).fadeIn();
+    $('.gallery-photo .btn:hidden').slice(0, 6).fadeIn();
 
     if ($('.gallery-photo > a:hidden').length === 0) {
         $('#morePhoto').fadeOut();

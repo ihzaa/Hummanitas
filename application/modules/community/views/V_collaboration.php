@@ -44,291 +44,10 @@
 
 <body class="horizontal-layout horizontal-menu content-left-sidebar chat-application navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="content-left-sidebar">
 
-    <!-- BEGIN: Header-->
-    <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-fixed navbar-shadow navbar-brand-center">
-        <div class="navbar-header d-xl-block d-none">
-            <ul class="nav navbar-nav flex-row">
-                <li class="nav-item"><a class="navbar-brand" href="<?php echo base_url('user/user_community') ?>">
-                        <div class="brand-logo">
-                            <img style="height: 35px;width: 35px;" src="<?= base_url('assets/'); ?>app-assets/images/logo/logoWeb.png">
-                        </div>
-                    </a></li>
-            </ul>
-        </div>
-        <div class="navbar-wrapper">
-            <div class="navbar-container content">
-                <div class="navbar-collapse" id="navbar-mobile">
-                    <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
-                        </ul>
-                        <ul class="nav navbar-nav bookmark-icons">
-                            <?php
-                            $id = $user['USER_ID'];
-                            $cek = $this->db->select('USER_ID')->from('community_member')->where('USER_ID', $id)->get();
-
-                            if ($cek->num_rows() > 0) {; ?>
-                                <li style="margin-left: 30px;" class="nav-item d-none d-lg-block"><a class="nav-link" href="<?php echo base_url('user') ?>" data-toggle="" data-placement="top" title="">
-                                        <h4 class="feather icon-home"> Home</h4>
-                                    </a></li>
-                            <?php
-                            } else { ?>
-                                <li style="margin-left: 30px;" class="nav-item d-none d-lg-block"><a class="nav-link" href="javascript:void(0)" data-toggle="" data-placement="top" title="">
-                                        <h4 class="feather icon-home" style="color:#DEDEDE"> Home</h4>
-                                    </a></li>
-
-                            <?php
-                            }; ?>
-
-                            <li style="margin-left: 50px;" class="nav-item d-none d-lg-block"><a class="nav-link" href="<?php echo base_url('user/user_community') ?>" data-toggle="" data-placement="top" title="">
-                                    <h4 class="feather icon-globe"> Community</h4>
-                                </a></li>
-
-                        </ul>
-
-                    </div>
-                    <ul class="nav navbar-nav float-right">
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-                        <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
-                            <div class="search-input">
-                                <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
-                                <input class="input" name="keyword" id="keyword" type="text" placeholder="Explore hummanitas..." tabindex="-1">
-                                <div class="search-input-close"><i class="feather icon-x"></i></div>
-                                <ul class="search-list search-list-main" id="result">
-                                    <div class="list-group analytics-list">
-
-                                    </div>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span></a>
-                            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                                <li class="dropdown-menu-header">
-                                    <div class="dropdown-header m-0 p-2">
-                                        <h3 class="white">5 New</h3><span class="notification-title">App
-                                            Notifications</span>
-                                    </div>
-                                </li>
-                                <li class="scrollable-container media-list"><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="primary media-heading">You have new order!</h6><small class="notification-text"> Are your going to meet me
-                                                    tonight?</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">9 hours
-                                                    ago</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-download-cloud font-medium-5 success"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="success media-heading red darken-1">99% Server load</h6>
-                                                <small class="notification-text">You got new order of goods.</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">5 hour
-                                                    ago</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-alert-triangle font-medium-5 danger"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="danger media-heading yellow darken-3">Warning notifixation
-                                                </h6><small class="notification-text">Server have 99% CPU usage.</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-check-circle font-medium-5 info"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="info media-heading">Complete the task</h6><small class="notification-text">Cake sesame snaps cupcake</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last
-                                                    week</time></small>
-                                        </div>
-                                    </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                        <div class="media d-flex align-items-start">
-                                            <div class="media-left"><i class="feather icon-file font-medium-5 warning"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="warning media-heading">Generate monthly report</h6><small class="notification-text">Chocolate cake oat cake tiramisu
-                                                    marzipan</small>
-                                            </div><small>
-                                                <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last
-                                                    month</time></small>
-                                        </div>
-                                    </a></li>
-                                <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">Read all notifications</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"><?= $user['USERNAME']; ?></span></div><span><img class="round" src="<?= base_url('assets/img/user/') . $user['USER_IMAGE']; ?>" alt="avatar" height="40" width="40" style="margin-right: 20px"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?php echo base_url('user/user_profile') ?>">
-                                    <i class="feather icon-user"></i> View Profile</a>
-                                <a class="dropdown-item" href="<?php echo base_url('user/user_setting') ?>">
-                                    <i class="feather icon-settings"></i> User Setting</a>
-                                <div class="dropdown-divider">
-                                </div>
-                                <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>"><i class="feather icon-power"></i>
-                                    Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <ul class="main-search-list-defaultlist d-none">
-        <li class="d-flex align-items-center"><a class="pb-25" href="#">
-                <h6 class="text-primary mb-0">Files</h6>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/icons/xls.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Two new item submitted</p><small class="text-muted">Marketing
-                            Manager</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;17kb</small>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/icons/jpg.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd
-                            Developer</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;11kb</small>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/icons/pdf.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital
-                            Marketing Manager</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;150kb</small>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100" href="#">
-                <div class="d-flex">
-                    <div class="mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/icons/doc.png" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Anna_Strong</p><small class="text-muted">Web Designer</small>
-                    </div>
-                </div><small class="search-data-size mr-50 text-muted">&apos;256kb</small>
-            </a></li>
-        <li class="d-flex align-items-center"><a class="pb-25" href="#">
-                <h6 class="text-primary mb-0">Members</h6>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/portrait/small/avatar-s-8.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
-                    </div>
-                </div>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/portrait/small/avatar-s-1.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd
-                            Developer</small>
-                    </div>
-                </div>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/portrait/small/avatar-s-14.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing
-                            Manager</small>
-                    </div>
-                </div>
-            </a></li>
-        <li class="auto-suggestion d-flex align-items-center cursor-pointer"><a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
-                <div class="d-flex align-items-center">
-                    <div class="avatar mr-50"><img src="<?= base_url('assets/'); ?>app-assets/images/portrait/small/avatar-s-6.jpg" alt="png" height="32"></div>
-                    <div class="search-data">
-                        <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web Designer</small>
-                    </div>
-                </div>
-            </a></li>
-    </ul>
-    <ul class="main-search-list-defaultlist-other-list d-none">
-        <li class="auto-suggestion d-flex align-items-center justify-content-between cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-                <div class="d-flex justify-content-start"><span class="mr-75 feather icon-alert-circle"></span><span>No
-                        results found.</span></div>
-            </a></li>
-    </ul>
-    <!-- END: Header-->
-
-
-    <!-- BEGIN: Main Menu-->
-    <div class="horizontal-menu-wrapper">
-        <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-without-dd-arrow navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper">
-            <div class="navbar-header">
-                <ul class="nav navbar-nav flex-row">
-                    <li class="nav-item mr-auto"><a class="navbar-brand" href="home-user.html">
-                            <div class="brand-logo"></div>
-                            <h2 class="brand-text mb-0">Hummanitas</h2>
-                        </a></li>
-                    <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
-                </ul>
-            </div>
-            <!-- Horizontal menu content-->
-            <div class="navbar-container main-menu-content" data-menu="menu-container">
-                <!-- include ../../../includes/mixins-->
-                <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li><a style="margin-left: 100px;color:black" href="<?= base_url('community/') . $community['COM_ID']; ?>"><i class="feather icon-home"></i><span data-i18n="Dashboard">Home</span></a>
-                    </li>
-                    <li><a style="margin-left: 20px; color:black" href="<?= base_url('community/' . $community['COM_ID'] . '/event'); ?>"><i class="feather icon-calendar"></i><span data-i18n="Dashboard">Events</span></a>
-                    </li>
-                    <li><a style="margin-left: 20px; color:black" href="<?= base_url('community/' . $community['COM_ID'] . '/collaboration'); ?>"><i class="feather icon-briefcase"></i><span data-i18n="Dashboard">Collaborations</span></a>
-                    </li>
-                    <li class="dropdown nav-item" data-menu="dropdown"><a style="margin-left: 20px" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-dollar-sign"></i><span data-i18n="Apps">Finance</span></a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown" data-i18n="Ecommerce"><i class="feather icon-credit-card"></i>Incomes</a>
-                                <ul class="dropdown-menu">
-                                    <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/finance/income/1'); ?>" data-toggle="dropdown" data-i18n="Shop"><i class="feather icon-circle"></i>Monthly Cash</a>
-                                    </li>
-                                    <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/finance/income/2'); ?>" data-toggle="dropdown" data-i18n="Details"><i class="feather icon-circle"></i>Event Cash</a>
-                                    </li>
-                                    <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/finance/income/3'); ?>" data-toggle="dropdown" data-i18n="Wish List"><i class="feather icon-circle"></i>Total Income</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/finance/outcome'); ?>" data-toggle="dropdown" data-i18n="Email"><i class="feather icon-shopping-cart"></i>Outcomes</a>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/finance/total'); ?>" data-toggle="dropdown" data-i18n="Email"><i class="feather icon-shopping-bag"></i>Profit/Loss</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a style="margin-left: 20px; color:black" href="<?= base_url('community/' . $community['COM_ID'] . '/gallery'); ?>"><i class="feather icon-image"></i><span data-i18n="Dashboard">Gallery</span></a>
-                    </li>
-                    <li><a style="margin-left: 20px; color:black" href="<?= base_url('community/' . $community['COM_ID'] . '/member'); ?>"><i class="feather icon-users"></i><span data-i18n="Dashboard">Member
-                                List</span></a>
-                    </li>
-                    <li class="dropdown nav-item" data-menu="dropdown"><a style="margin-left: 20px" class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-more-horizontal"></i><span data-i18n="Others">Others</span></a>
-                        <ul class="dropdown-menu">
-                            <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/memberManagement'); ?>" data-toggle="dropdown" data-i18n="Documentation"><i class="feather icon-user-check"></i>Member Management</a>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>" data-toggle="dropdown" data-i18n="Documentation"><i class="feather icon-settings"></i>Setting Community</a>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item" href="home-user.html" data-toggle="dropdown" data-i18n="Raise Support"><i class="feather icon-log-out "></i>Leave Community</a>
-                            </li>
-                            <li data-menu=""><a class="dropdown-item" data-target="#myModal" data-toggle="modal" data-i18n="Raise Support"><i class="feather icon-alert-circle"></i>Report</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-            </div>
-
-        </div>
-    </div>
-    <!-- END: Main Menu-->
+    <!-- template navbar -->
+    <?php $this->load->view('user/v_template_navbar') ?>
+    <!-- template menu -->
+    <?php $this->load->view('v_template_menu') ?>
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -458,14 +177,13 @@
                                 <ul class="chat-users-list-wrapper media-list" id="collab-list">
                                     <?php if (count($collab) > 0) {
 
-                                        // echo $name;
-                                        // echo $community['COM_ID'];
                                         foreach ($collab as $collab) {
                                             $id = $collab->COLLAB_ID;
+
                                     ?>
 
                                             <li data-id="<?= $id ?>">
-                                                <div class="pr-1">
+                                                <div class=" pr-1">
                                                     <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="<?= base_url('assets/img/community/collab/' . $collab->COLLAB_THUMBNAIL);  ?>" height="42" width="42" alt="Generic placeholder image">
                                                         <i></i>
                                                     </span>
@@ -476,9 +194,10 @@
                                                         <h5 class="font-weight-bold mb-0"><?= $collab->COLLAB_NAME ?></h5>
                                                         <p class="truncate"><?= count($this->db->get_where('collab_member', ['COLLAB_ID' => $id])->result()); ?> Community follow</p>
                                                     </div>
-                                                    <div class="contact-meta">
-                                                        <span class="float-right mb-25">4:14 PM</span>
-                                                        <span class="badge badge-primary badge-pill float-right">3</span>
+
+                                                    <div class="contact-meta" id="<?= 'contact_' . $id ?>">
+                                                        <!-- <span class="float-right mb-25" id="time"><?= date("F j \&\\n\b\s\p\; g:i a", strtotime($last_chat)) ?></span> -->
+                                                        <!-- <span class="badge badge-primary badge-pill float-right">3</span> -->
                                                     </div>
                                                 </div>
                                             </li>
@@ -563,14 +282,6 @@
         <div class="sidenav-overlay"></div>
         <div class="drag-target"></div>
 
-        <!-- BEGIN: Footer-->
-        <footer class="footer footer-static footer-light navbar-shadow">
-            <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="http://www.hummasoft.com/" target="_blank">Hummasoft</a>All rights Reserved</span>
-                <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
-            </p>
-        </footer>
-        <!-- END: Footer-->
-
 
         <!-- BEGIN: Vendor JS-->
         <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/vendors.min.js"></script>
@@ -592,86 +303,10 @@
         <!-- END: Page JS-->
 
 
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Report Community</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                    </div>
-                    <div class="modal-body">
-                        <div class="card-body">
-                            <ul class="list-unstyled mb-0">
-                                <li class="d-inline-block mr-2">
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="Pornography">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">Pornography</span>
-                                        </div>
-                                    </fieldset>
-                                </li>
-                                <li class="d-inline-block mr-2">
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="Deception">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">Deception</span>
-                                        </div>
-                                    </fieldset>
-                                </li>
-                                <li class="d-inline-block mr-2">
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="Racism">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">Racism</span>
-                                        </div>
-                                    </fieldset>
-                                </li>
-                                <li class="d-inline-block mr-2">
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="Inactive">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">Inactive</span>
-                                        </div>
-                                    </fieldset>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="4" id="textarea" placeholder="Or describe the problem here" style="width: 475px; height:100px ; margin-left: 16px; padding: 10px;" required="required"></textarea>
-                        <label class="control-label" for="textarea"></label><i class="mtrl-select"></i>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Report</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <!-- footer user -->
+        <?php $this->load->view('user/v_template_footer') ?>
+        <!-- footer community -->
+        <?php $this->load->view('v_template_footer') ?>
 
         <!-- Modal -->
         <div class="modal fade" id="createCollab" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -731,26 +366,6 @@
             <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/forms/select/select2.full.min.js"></script>
             <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/forms/select/form-select2.js"></script>
 
-            <!-- searching -->
-            <script>
-                $(document).ready(function() {
-                    $('#keyword').keyup(function() {
-                        var search = $('#keyword').val();
-                        if (search != '') {
-                            $.ajax({
-                                url: "<?= base_url('ajax') ?>",
-                                method: "POST",
-                                data: {
-                                    search: search
-                                },
-                                success: function(data) {
-                                    $('#result').html(data);
-                                }
-                            });
-                        }
-                    });
-                });
-            </script>
             <!-- menampilkan list komunitas di modal select -->
             <script>
                 $(document).ready(function() {
@@ -830,28 +445,7 @@
 
                 });
             </script>
-            <!-- detail member -->
-            <script>
-                $(document).ready(function() {
-                    $(".chat-application .user-profile-toggle").on('click', function() {
-                        // var id = $(this).closest('div.user-profile-toggle').attr('id');
-                        alert('id');
-                        // $.ajax({
-                        //     url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getMemberDetail') ?>",
-                        //     method: "POST",
-                        //     data: {
-                        //         id: id
-                        //     },
-                        //     success: function(data) {
 
-                        //         // console.log('sukses');
-                        //         // $(".user-profile-sidebar").html(data);
-                        //         // $(".user-profile-sidebar").toggle();
-                        //     }
-                        // });
-                    });
-                });
-            </script>
             <!-- menyimpan chat baru ke database -->
             <script>
                 $(document).ready(function() {
@@ -884,7 +478,48 @@
 
                 });
             </script>
+            <!-- ambil last chat -->
+
 </body>
 <!-- END: Body-->
 
+
 </html>
+
+<script>
+    $(window).on('load', function() {
+        var idArray = [];
+        var li = document.getElementById('collab-list').getElementsByTagName("li");
+
+        for (i = 0; i < li.length; i++) {
+
+            idArray.push($(li)[i].getAttribute('data-id'));
+
+        }
+        var id = idArray.join(',');
+
+        $.ajax({
+            url: "<?= base_url('ajax/get_last_chat') ?>",
+            method: "POST",
+            dataType: "json",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var html = '';
+                var i;
+                for (i in data) {
+                    var date = new Date(data[i].TIME)
+                    alert(date);
+                    alert(data[i].COLLAB_ID)
+                    // html += '<span class="float-right mb-25">' < ?=. date("F j g:i a", strtotime(?> + data[i].TIME + < ?=)) . ?>'</span>';
+                    // $('#contact_' + data[i].COLLAB_ID).html(html);
+                    i++;
+                }
+
+            }
+        });
+
+
+    });
+</script>

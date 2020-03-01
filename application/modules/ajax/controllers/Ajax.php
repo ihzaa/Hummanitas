@@ -138,7 +138,7 @@ class Ajax extends MY_Controller
                     <div class="chat-content">
                         <strong>
                             <p style="display:inline-block; font-size:17px">Me</p>
-                            <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("h:ia", strtotime($message->TIME)) . '</p>
+                            <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("F j, Y \&\\n\b\s\p\; g:i a", strtotime($message->TIME)) . '</p>
                         </strong>
                         <hr style="margin-top:-2px;">
                         <p>' . $message->MESSAGE . '</p>
@@ -162,7 +162,7 @@ class Ajax extends MY_Controller
                             </strong>
                         </a>
                         <strong>
-                        <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("h:ia", strtotime($message->TIME)) . '</p>
+                        <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("F j, Y \&\\n\b\s\p\; g:i a", strtotime($message->TIME)) . '</p>
                         </strong>
                         <hr style="margin-top:-2px;">
                         <p>' . $message->MESSAGE . '</p>
@@ -183,7 +183,7 @@ class Ajax extends MY_Controller
 
         foreach ($member as $member) {
             $output .= '<div class="avatar user-profile-toggle m-0 m-0 mr-1" title data-original-title="komunitas" id="' . $member->COM_ID . '">
-            <img src="' . base_url('assets/img/community/profile/') . $member->COM_IMAGE . '" alt="" height="40" width="40" />
+            <img src="' . base_url('assets/img/community/profile/') . $member->COM_IMAGE . '" alt="" height="40" width="40" title="' . $member->COM_NAME . '" data-toggle="tooltip" data-original-title="' . $member->COM_NAME . '"/>
         </div>';
         }
 
@@ -213,5 +213,55 @@ class Ajax extends MY_Controller
     </div>';
 
         echo $output;
+    }
+
+    function deletePhoto()
+    {
+        $id = $this->input->post('id');
+
+        $this->m_ajax->delPhoto($id);
+    }
+
+    function deleteGallery()
+    {
+        $id = $this->input->post('id');
+
+        $this->m_ajax->delGallery($id);
+    }
+
+    function leaveCommunity()
+    {
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+
+        $com_id = $this->input->post('id');
+
+        $this->m_ajax->leaveCommunity($user_id, $com_id);
+    }
+
+    function get_last_chat()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        $id = $this->input->post('id');
+
+        $idArray = [];
+        $last_chat = [];
+
+        $idArray = explode(',', $id);
+        $i = 0;
+        foreach ($idArray as $id) {
+
+            $last_chat[$i] = $this->m_ajax->get_last_chat($id);;
+            $i++;
+        }
+
+        $output = '';
+
+        echo json_encode($last_chat);
+
+        // if ($last_chat['TIME'] < date("F j g:i a"))
+        //     $output .= '<span class="float-right mb-25" id="time">' . date("F j g:i a", strtotime($last_chat['TIME'])) . '</span>';
+
     }
 }
