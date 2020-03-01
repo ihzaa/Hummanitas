@@ -177,14 +177,13 @@
                                 <ul class="chat-users-list-wrapper media-list" id="collab-list">
                                     <?php if (count($collab) > 0) {
 
-                                        // echo $name;
-                                        // echo $community['COM_ID'];
                                         foreach ($collab as $collab) {
                                             $id = $collab->COLLAB_ID;
+
                                     ?>
 
                                             <li data-id="<?= $id ?>">
-                                                <div class="pr-1">
+                                                <div class=" pr-1">
                                                     <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="<?= base_url('assets/img/community/collab/' . $collab->COLLAB_THUMBNAIL);  ?>" height="42" width="42" alt="Generic placeholder image">
                                                         <i></i>
                                                     </span>
@@ -195,9 +194,10 @@
                                                         <h5 class="font-weight-bold mb-0"><?= $collab->COLLAB_NAME ?></h5>
                                                         <p class="truncate"><?= count($this->db->get_where('collab_member', ['COLLAB_ID' => $id])->result()); ?> Community follow</p>
                                                     </div>
-                                                    <div class="contact-meta">
-                                                        <span class="float-right mb-25">4:14 PM</span>
-                                                        <span class="badge badge-primary badge-pill float-right">3</span>
+
+                                                    <div class="contact-meta" id="<?= 'contact_' . $id ?>">
+                                                        <!-- <span class="float-right mb-25" id="time"><?= date("F j \&\\n\b\s\p\; g:i a", strtotime($last_chat)) ?></span> -->
+                                                        <!-- <span class="badge badge-primary badge-pill float-right">3</span> -->
                                                     </div>
                                                 </div>
                                             </li>
@@ -366,26 +366,6 @@
             <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/forms/select/select2.full.min.js"></script>
             <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/forms/select/form-select2.js"></script>
 
-            <!-- searching -->
-            <script>
-                $(document).ready(function() {
-                    $('#keyword').keyup(function() {
-                        var search = $('#keyword').val();
-                        if (search != '') {
-                            $.ajax({
-                                url: "<?= base_url('ajax') ?>",
-                                method: "POST",
-                                data: {
-                                    search: search
-                                },
-                                success: function(data) {
-                                    $('#result').html(data);
-                                }
-                            });
-                        }
-                    });
-                });
-            </script>
             <!-- menampilkan list komunitas di modal select -->
             <script>
                 $(document).ready(function() {
@@ -498,7 +478,48 @@
 
                 });
             </script>
+            <!-- ambil last chat -->
+
 </body>
 <!-- END: Body-->
 
+
 </html>
+
+<script>
+    $(window).on('load', function() {
+        var idArray = [];
+        var li = document.getElementById('collab-list').getElementsByTagName("li");
+
+        for (i = 0; i < li.length; i++) {
+
+            idArray.push($(li)[i].getAttribute('data-id'));
+
+        }
+        var id = idArray.join(',');
+
+        $.ajax({
+            url: "<?= base_url('ajax/get_last_chat') ?>",
+            method: "POST",
+            dataType: "json",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                var html = '';
+                var i;
+                for (i in data) {
+                    var date = new Date(data[i].TIME)
+                    alert(date);
+                    alert(data[i].COLLAB_ID)
+                    // html += '<span class="float-right mb-25">' < ?=. date("F j g:i a", strtotime(?> + data[i].TIME + < ?=)) . ?>'</span>';
+                    // $('#contact_' + data[i].COLLAB_ID).html(html);
+                    i++;
+                }
+
+            }
+        });
+
+
+    });
+</script>

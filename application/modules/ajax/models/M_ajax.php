@@ -76,4 +76,9 @@ class M_ajax extends CI_Model
         $this->db->where('COM_ID', $com_id);
         $this->db->delete('community_member');
     }
+
+    function get_last_chat($id)
+    {
+        return $this->db->query('SELECT COLLAB_ID,TIME FROM chat WHERE COLLAB_ID = ' . $id . ' ORDER BY TIME DESC LIMIT 1')->row_array();
+    }
 }

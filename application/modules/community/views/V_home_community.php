@@ -416,7 +416,6 @@
                                         <div>
                                             <p class="mb-75"><strong>Upcoming Events</strong></p>
                                         </div>
-                                        <p>Sat, 16, Feb</p>
                                     </div>
                                     <div class="card-content">
                                         <div class="list-group analytics-list">
