@@ -217,6 +217,14 @@ class M_community extends CI_Model
             );
             $this->db->insert('collab_member', $data);
         }
+
+        return $collab_id;
+    }
+
+    function get_collab_detail($collab_id)
+    {
+        $query = $this->db->get_where('collaboration', array("COLLAB_ID" => $collab_id))->row_array();
+        return $query;
     }
 
     function get_com_collab($id)
@@ -299,6 +307,13 @@ class M_community extends CI_Model
 
         );
         $this->db->insert('event', $data);
+
+        return $this->db->insert_id();
+    }
+
+    function insertNotif($com_id, $icon, $subject, $text, $link)
+    {
+        $this->db->query('INSERT INTO notification (`COM_ID`, `RECIPIENT_ID`, `NOTIF_ICON`, `NOTIF_SUBJECT`,`NOTIF_TEXT`,`NOTIF_LINK`) SELECT ' . $com_id . ', `MEMBER_ID`,"' . $icon . '", "' . $subject . '","' . $text . '","' . $link . '" FROM `community_member` WHERE `COM_ID` = ' . $com_id . ' AND MEMBER_STATUS = 1');
     }
 
     function edit_image_com($upload_image, $data)

@@ -192,7 +192,7 @@
                                                 <div class="user-chat-info">
                                                     <div class="contact-info">
                                                         <h5 class="font-weight-bold mb-0"><?= $collab->COLLAB_NAME ?></h5>
-                                                        <p class="truncate"><?= count($this->db->get_where('collab_member', ['COLLAB_ID' => $id])->result()); ?> Community follow</p>
+                                                        <p class="truncate"><?= count($this->db->get_where('collab_member', ['COLLAB_ID' => $id, 'COLMEM_STATUS' => 1])->result()); ?> Community follow</p>
                                                     </div>
 
                                                     <div class="contact-meta" id="<?= 'contact_' . $id ?>">

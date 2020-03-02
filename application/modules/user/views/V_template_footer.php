@@ -6,7 +6,7 @@
 </footer>
 <!-- END: Footer-->
 
-<!-- jquery searching -->
+<!-- searching -->
 <script>
     $(document).ready(function() {
         $('#keyword').keyup(function() {
@@ -27,4 +27,4 @@
     });
 </script>
 
-<!-- jquery leave community -->
+<!-- notification -->
