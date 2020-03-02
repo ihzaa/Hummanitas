@@ -87,10 +87,16 @@ class Ajax extends MY_Controller
         $data['user'] = $this->m_user->getUser();
         $user_id = $data['user']['USER_ID'];
 
-        $id = $this->input->post('id');
-        $message = $this->input->post('message');
 
-        $chat_id = $this->m_ajax->insertMessage($id, $user_id, $message);
+        $message = $this->input->post('message');
+        $id = $this->input->post('id');
+        $collabMemberId = $this->m_ajax->collabMemberId($id);
+
+
+        foreach ($collabMemberId as $memberId) {
+            $com_id = $memberId->COM_ID;
+            $chat_id = $this->m_ajax->insertMessage($id, $user_id, $message, $com_id);
+        }
         $your_new_chat = $this->m_ajax->get_your_new_chat($chat_id);
         $output = '';
 
@@ -123,7 +129,8 @@ class Ajax extends MY_Controller
         $user_id = $data['user']['USER_ID'];
 
         $id = $this->input->post('id');
-        $message = $this->m_ajax->get_collab_chat($id);
+        $this->m_ajax->update_unseen_message($id, $user_id);
+        $message = $this->m_ajax->get_collab_chat($id, $user_id);
         $output = '';
 
         foreach ($message as $message) {
@@ -244,6 +251,8 @@ class Ajax extends MY_Controller
         date_default_timezone_set('Asia/Jakarta');
 
         $id = $this->input->post('id');
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
 
         $idArray = [];
         $last_chat = [];
@@ -251,17 +260,19 @@ class Ajax extends MY_Controller
         $idArray = explode(',', $id);
         $i = 0;
         foreach ($idArray as $id) {
-
-            $last_chat[$i] = $this->m_ajax->get_last_chat($id);;
+            $chatNotif[$i] = $this->m_ajax->get_last_chat($id, $user_id);
             $i++;
         }
 
-        $output = '';
+        echo json_encode($chatNotif);
+    }
 
-        echo json_encode($last_chat);
+    function update_unseen_message()
+    {
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+        $id = $this->input->post('id');
 
-        // if ($last_chat['TIME'] < date("F j g:i a"))
-        //     $output .= '<span class="float-right mb-25" id="time">' . date("F j g:i a", strtotime($last_chat['TIME'])) . '</span>';
-
+        $this->m_ajax->update_unseen_message($id, $user_id);
     }
 }

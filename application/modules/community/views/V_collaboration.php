@@ -196,7 +196,6 @@
                                                     </div>
 
                                                     <div class="contact-meta" id="<?= 'contact_' . $id ?>">
-                                                        <!-- <span class="float-right mb-25" id="time"><?= date("F j \&\\n\b\s\p\; g:i a", strtotime($last_chat)) ?></span> -->
                                                         <!-- <span class="badge badge-primary badge-pill float-right">3</span> -->
                                                     </div>
                                                 </div>
@@ -252,25 +251,6 @@
                                     </div>
                                 </div>
                             </section>
-                            <!-- User Chat profile right area -->
-                            <div class="user-profile-sidebar">
-                                <!-- <header class="user-profile-header">
-                                    <span class="close-icon">
-                                        <i class="feather icon-x"></i>
-                                    </span>
-                                    <div class="header-profile-sidebar">
-                                        <div class="avatar">
-                                            <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="user_avatar" height="70" width="70">
-                                        </div>
-                                        <h4 class="chat-user-name">Komunitas Pecinta Kucing</h4>
-                                    </div>
-                                </header>
-                                <div class="user-profile-sidebar-area p-2">
-                                    <h6>About</h6>
-                                    <p>Deskripsi dari komunitas ini adalah ......</p>
-                                </div> -->
-                            </div>
-                            <!--/ User Chat profile right area -->
 
                         </div>
                     </div>
@@ -323,7 +303,7 @@
                         <div class="col-12">
                             <p>Choose Collaboration Thumbnail</p>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image" required data-validation-required-message="This name field is required">
+                                <input type="file" class="custom-file-input" id="image" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg" required data-validation-required-message="This name field is required">
                                 <label class="custom-file-label" for="image">Choose file</label>
 
                             </div>
@@ -412,7 +392,7 @@
                         var id = $('#collab-list').find('li.active').data('id');
                         setInterval(function() {
                             get_chat_message();
-                        }, 2500);
+                        }, 1000);
 
                         $.ajax({
                             url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getMember') ?>",
@@ -478,48 +458,133 @@
 
                 });
             </script>
-            <!-- ambil last chat -->
+
+            <!-- ambil waktu last chat -->
+            <script>
+                $(window).on('load', function() {
+                    var idArray = [];
+                    var li = document.getElementById('collab-list').getElementsByTagName("li");
+
+                    setInterval(function() {
+                        refresh();
+                    }, 1000);
+
+                    for (i = 0; i < li.length; i++) {
+
+                        idArray.push($(li)[i].getAttribute('data-id'));
+
+                    }
+                    var id = idArray.join(',');
+
+                    var todayFormat = function(date) {
+                        return ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2);
+                    }
+
+                    var pastFormat = function(date) {
+                        return date.getDate() + "/" + (date.getMonth() + 1);
+                    }
+                    $.ajax({
+                        url: "<?= base_url('ajax/get_last_chat') ?>",
+                        method: "POST",
+                        dataType: "json",
+                        data: {
+                            id: id
+                        },
+                        success: function(data) {
+                            var obj = data;
+                            var html = '';
+                            for (var i = 0; i < obj.length; i++) {
+                                if (obj[i] != null) {
+                                    var date = new Date(obj[i].TIME)
+                                    var current = new Date();
+
+                                    if (pastFormat(date) == pastFormat(current)) {
+                                        html += '<span class="float-right mb-25">' + todayFormat(date) + '</span>';
+                                        $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                    } else {
+                                        html += '<span class="float-right mb-25">' + pastFormat(date) + '</span>';
+                                        $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                    }
+                                    html = '';
+
+                                    if (obj[i].COUNT > 0) {
+                                        html += '<span class="badge badge-primary badge-pill float-right">' + obj[i].COUNT + '</span>';
+                                        $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                    }
+                                    html = '';
+                                }
+                            }
+                        }
+                    });
+
+                    function refresh() {
+                        var idArray = [];
+                        var li = document.getElementById('collab-list').getElementsByTagName("li");
+
+                        for (i = 0; i < li.length; i++) {
+
+                            idArray.push($(li)[i].getAttribute('data-id'));
+
+                        }
+                        var id = idArray.join(',');
+
+                        var todayFormat = function(date) {
+                            return ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2);
+                        }
+
+                        var pastFormat = function(date) {
+                            return date.getDate() + "/" + (date.getMonth() + 1);
+                        }
+                        $.ajax({
+                            url: "<?= base_url('ajax/get_last_chat') ?>",
+                            method: "POST",
+                            dataType: "json",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                var obj = data;
+                                var html = '';
+                                for (var i = 0; i < obj.length; i++) {
+                                    if (obj[i] != null) {
+                                        var date = new Date(obj[i].TIME)
+                                        var current = new Date();
+
+                                        if (obj[i].COUNT > 0) {
+                                            if (pastFormat(date) == pastFormat(current)) {
+                                                html += '<span class="float-right mb-25">' + todayFormat(date) + '</span><br><span class="badge badge-primary badge-pill float-right">' + obj[i].COUNT + '</span>';
+                                                $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                            } else {
+                                                html += '<span class="float-right mb-25">' + pastFormat(date) + '</span><br><span class="badge badge-primary badge-pill float-right">' + obj[i].COUNT + '</span>';
+                                                $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                            }
+                                            html = '';
+                                        } else {
+                                            if (pastFormat(date) == pastFormat(current)) {
+                                                html += '<span class="float-right mb-25">' + todayFormat(date) + '</span>';
+                                                $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                            } else {
+                                                html += '<span class="float-right mb-25">' + pastFormat(date) + '</span>';
+                                                $('#contact_' + obj[i].COLLAB_ID).html(html);
+                                            }
+                                            html = '';
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    if ($('#collab-list').find('li').hasClass('active')) {
+                        var id = $('#collab-list').find('li.active').data('id');
+
+                        alert(id);
+                    }
+                });
+            </script>
 
 </body>
 <!-- END: Body-->
 
 
 </html>
-
-<script>
-    $(window).on('load', function() {
-        var idArray = [];
-        var li = document.getElementById('collab-list').getElementsByTagName("li");
-
-        for (i = 0; i < li.length; i++) {
-
-            idArray.push($(li)[i].getAttribute('data-id'));
-
-        }
-        var id = idArray.join(',');
-
-        $.ajax({
-            url: "<?= base_url('ajax/get_last_chat') ?>",
-            method: "POST",
-            dataType: "json",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                var html = '';
-                var i;
-                for (i in data) {
-                    var date = new Date(data[i].TIME)
-                    alert(date);
-                    alert(data[i].COLLAB_ID)
-                    // html += '<span class="float-right mb-25">' < ?=. date("F j g:i a", strtotime(?> + data[i].TIME + < ?=)) . ?>'</span>';
-                    // $('#contact_' + data[i].COLLAB_ID).html(html);
-                    i++;
-                }
-
-            }
-        });
-
-
-    });
-</script>
