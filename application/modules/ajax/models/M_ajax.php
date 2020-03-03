@@ -142,4 +142,21 @@ class M_ajax extends CI_Model
     {
         $this->db->query('UPDATE chat c JOIN community_member m on c.RECIPIENT_ID = m.MEMBER_ID SET c.READ_STATUS = 1 WHERE c.READ_STATUS = 0 AND c.COLLAB_ID = ' . $id . ' AND m.USER_ID = ' . $user_id);
     }
+
+    function update_unseen_notif($user_id)
+    {
+        $this->db->query('UPDATE notification n JOIN community_member m on n.RECIPIENT_ID = m.MEMBER_ID SET n.NOTIF_STATUS = 1 WHERE n.NOTIF_STATUS = 0 AND m.USER_ID = ' . $user_id);
+    }
+
+    function get_notification($user_id)
+    {
+        $query = $this->db->query('SELECT * FROM notification n JOIN community_member m on n.RECIPIENT_ID = m.MEMBER_ID WHERE m.USER_ID = ' . $user_id . ' ORDER BY TIME DESC');
+        return $query->result();
+    }
+
+    function get_unseen_notification($user_id)
+    {
+        $query = $this->db->query('SELECT * FROM notification n JOIN community_member m on n.RECIPIENT_ID = m.MEMBER_ID WHERE m.USER_ID = ' . $user_id . ' AND NOTIF_STATUS = 0');
+        return $query->result();
+    }
 }

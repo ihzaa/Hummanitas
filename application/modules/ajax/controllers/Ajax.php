@@ -275,4 +275,56 @@ class Ajax extends MY_Controller
 
         $this->m_ajax->update_unseen_message($id, $user_id);
     }
+
+    function notification()
+    {
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+
+        if ($_POST["view"] != '') {
+            $this->m_ajax->update_unseen_notif($user_id);
+        }
+
+        $notif = $this->m_ajax->get_notification($user_id);
+        $output = '';
+        if (count($notif) > 0) {
+            foreach ($notif as $row) {
+
+                $current_date = date('d/m/Y');
+
+                if ($date = date('d/m/Y', strtotime($row->TIME)) == $current_date) {
+                    $date = 'Today at ' . date('h:i a', strtotime($row->TIME));
+                } else if ($date = date('d/m/Y', strtotime($row->TIME)) == date('d/m/Y', strtotime('-1 day', strtotime($current_date)))) {
+                    $date = 'Yesterday at ' . date('h:i a', strtotime($row->TIME));
+                } else {
+                    if (date('Y', strtotime($row->TIME)) == date('Y')) {
+                        $date = date('d F', strtotime($row->TIME));
+                    } else {
+                        $date = date('d F Y', strtotime($row->TIME));
+                    }
+                }
+
+                $output .= '<a class="d-flex justify-content-between" href="' . base_url("$row->NOTIF_LINK") . '">
+                <div class="media d-flex align-items-start">
+                    <div class="media-left"><i class="feather icon-' . $row->NOTIF_ICON . ' font-medium-5 primary"></i></div>
+                    <div class="media-body">
+                        <h6 class="primary media-heading">' . $row->NOTIF_SUBJECT . '</h6>
+                        <small class="notification-text">' . $row->NOTIF_TEXT . '</small>
+                    </div><small>
+                        <time class="media-meta" datetime="' . $row->TIME . '">' . $date . '</time></small>
+                </div>
+            </a>';
+            }
+        } else {
+            $output .= '<li><a href="javascript:void(0)" class="text-bold text-italic">No Notification Found</a></li>';
+        }
+
+        $unseen_notif = $this->m_ajax->get_unseen_notification($user_id);
+        $count = count($unseen_notif);
+        $data = array(
+            'notification' => $output,
+            'unseen_notification'  => $count
+        );
+        echo json_encode($data);
+    }
 }
