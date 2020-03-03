@@ -114,7 +114,7 @@
                                                                 <div class="col-sm-3">
                                                                     <div class="custom-file">
 
-                                                                        <input type="file" class="custom-file-input" id="image" name="image">
+                                                                        <input type="file" class="custom-file-input" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="image" name="image">
                                                                         <label class="custom-file-label" for="image">Choose file</label>
                                                                     </div>
                                                                 </div>

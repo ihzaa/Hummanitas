@@ -121,8 +121,14 @@ $route['ajax/(:num)/getChat'] = 'ajax/get_collab_chat';
 $route['ajax/(:num)/getMember'] = 'ajax/get_collab_member';
 $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
 
-//mounthly cash community
 $route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
 
 //post
 $route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
+
+//finance
+$route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
+$route['community/(:num)/finance/income/2'] = 'community/communitynew/event_income';
+$route['community/(:num)/finance/income/2/addEvent'] = 'community/communitynew/add_event';
+$route['community/(:num)/finance/income/2/addTransaction'] = 'community/communitynew/addEventTransaction';
+$route['community/(:num)/finance/income/3'] = 'community/communitynew/event_income';
