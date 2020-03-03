@@ -126,3 +126,5 @@ $route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/
 
 //post
 $route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
+$route['community/posting/like'] = 'community/communitycontroller_ku/like';
+$route['community/posting/dislike'] = 'community/communitycontroller_ku/dislike';

@@ -118,4 +118,20 @@ class CommunityController_ku extends MY_Controller
 			echo $output;
 		}
 	}
+
+	function like()
+	{
+		$id_post = $this->input->post('id');
+		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
+
+		$this->m_community_ku->like($id_post, $id_mem);
+	}
+
+	function dislike()
+	{
+		$id_post = $this->input->post('id');
+		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
+
+		$this->m_community_ku->dislike($id_post, $id_mem);
+	}
 }

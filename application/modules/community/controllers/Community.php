@@ -27,6 +27,8 @@ class Community extends MY_Controller
 		$data['image'] = $this->m_community->get_com_image($id);
 		$data['user'] = $this->m_user->getUser();
 		$data['postingan'] = $this->m_community_ku->get_postingan_per_com($id);
+		$data['jml_like'] = $this->m_community_ku->hitung_like($data['postingan']);
+		$data['is_like'] = $this->m_community_ku->isLike($data['postingan']);
 
 		$user_id = $data['user']['USER_ID'];
 
@@ -671,6 +673,7 @@ class Community extends MY_Controller
 		$data['member'] = $this->m_community->get_com_member($id);
 		$data['image'] = $this->m_community->get_com_image($id);
 		$data['postingan'] = $this->m_community_ku->get_postingan_per_com($id);
+		$data['jml_like'] = $this->m_community_ku->hitung_like($data['postingan']);
 
 		$user_id = $data['user']['USER_ID'];
 
