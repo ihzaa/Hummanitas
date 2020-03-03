@@ -13,4 +13,3 @@ class User_ku extends MY_Controller
 		$this->load->view('v_user_home', $data);
 	}
 }
-s

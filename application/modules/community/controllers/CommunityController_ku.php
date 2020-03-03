@@ -29,6 +29,19 @@ class CommunityController_ku extends MY_Controller
 		$id_member = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 		$isi = $this->input->post('isi');
 
+		$user = $this->m_user->getUser();
+		$username = $user['USERNAME'];
+		$community = $this->m_community->get_com_detail($id_com);
+		$com_name = $community['COM_NAME'];
+
+		$icon = 'edit';
+		$subject = 'New Post has been created';
+		$text = $com_name . ' has new post from ' . $username;
+		$link = 'community/' . $id_com;
+
+		//insert table notification
+		$this->m_community->insertNotif($id_com, $icon, $subject, $text, $link);
+
 		$config['upload_path']          = 'assets/img/post/' . $id_member;
 		$config['allowed_types']        = 'gif|jpg|png';
 		$new_name = time() . '-' . $id_com . '-' . $id_member . '-' . $_FILES['gambar']['name'];

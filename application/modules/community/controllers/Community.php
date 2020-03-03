@@ -75,7 +75,20 @@ class Community extends MY_Controller
 		$upload_image = $_FILES['image']['name'];
 
 
-		$this->m_community->createEvent($upload_image, $member_id, $id);
+		$event_id = $this->m_community->createEvent($upload_image, $member_id, $id);
+
+		$event = $this->m_community->get_com_event_detail($id, $event_id);
+		$event_name = $event['EVENT_TITLE'];
+		$community = $this->m_community->get_com_detail($id);
+		$com_name = $community['COM_NAME'];
+
+		$icon = 'calendar';
+		$subject = 'New Event has been created';
+		$text = $event_name . ' has been created by ' . $com_name;
+		$link = 'community/' . $id . '/event/' . $event_id;
+
+		//insert table notification
+		$this->m_community->insertNotif($id, $icon, $subject, $text, $link);
 		redirect('community/' . $id . '/event');
 	}
 
@@ -351,8 +364,19 @@ class Community extends MY_Controller
 
 		$gallery_id = $this->m_community->createAlbum($name);
 
-		// var_dump($name);
-		// die;
+		$album = $this->m_community->getGallery($gallery_id);
+		$album_name = $album['GALLERY_NAME'];
+		$community = $this->m_community->get_com_detail($id);
+		$com_name = $community['COM_NAME'];
+
+		$icon = 'image';
+		$subject = 'New Album has been created';
+		$text = $album_name . ' has been created by ' . $com_name;
+		$link = 'community/' . $id . '/gallery/' . $gallery_id;
+
+		//insert table notification
+		$this->m_community->insertNotif($id, $icon, $subject, $text, $link);
+
 		$this->uploadImage($name, $gallery_id);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
@@ -575,8 +599,20 @@ class Community extends MY_Controller
 
 			$upload_image = $_FILES['image']['name'];
 
-			$this->m_community->createCollab($upload_image, $id);
+			$collab_id = $this->m_community->createCollab($upload_image, $id);
 
+			$collab = $this->m_community->get_collab_detail($collab_id);
+			$collab_name = $collab['COLLAB_NAME'];
+			$community = $this->m_community->get_com_detail($id);
+			$com_name = $community['COM_NAME'];
+
+			$icon = 'message-circle';
+			$subject = 'New Collaboration has been created';
+			$text = $collab_name . ' has been created by ' . $com_name;
+			$link = 'community/' . $id . '/collaboration';
+
+			//insert table notification
+			$this->m_community->insertNotif($id, $icon, $subject, $text, $link);
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 		   <p class="mb-0">Success creating new collaboration!</p></div>');
@@ -587,12 +623,30 @@ class Community extends MY_Controller
 	function acceptCollab()
 	{
 		$com_id = $this->uri->segment('2');
+
+		var_dump($com_id);
 		$id = $this->input->post('accept');
 
+
+
 		$this->m_community->acceptCollab($id);
+
+		$collab = $this->m_community->get_collab_detail($id);
+		$collab_name = $collab['COLLAB_NAME'];
+		$community = $this->m_community->get_com_detail($com_id);
+		$com_name = $community['COM_NAME'];
+
+		$icon = 'message-circle';
+		$subject = 'New Collaboration has been followed';
+		$text = $com_name . ' has joined ' . $collab_name;
+		$link = 'community/' . $com_id . '/collaboration';
+
+		//insert table notification
+		$this->m_community->insertNotif($com_id, $icon, $subject, $text, $link);
+
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             <p align="center" class="mb-0">Success accepting collaboration!</p></div>');
-		redirect('community/' . $com_id . '/collaboraton');
+		redirect('community/' . $com_id . '/collaboration');
 	}
 
 	function rejectCollab()

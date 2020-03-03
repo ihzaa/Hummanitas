@@ -6,7 +6,7 @@
 </footer>
 <!-- END: Footer-->
 
-<!-- jquery searching -->
+<!-- searching -->
 <script>
     $(document).ready(function() {
         $('#keyword').keyup(function() {
@@ -26,5 +26,41 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        // updating the view with notifications using ajax
+        function load_unseen_notification(view = '') {
+            $.ajax({
+                url: "<?= base_url("ajax/notification") ?>",
+                method: "POST",
+                data: {
+                    view: view
+                },
+                dataType: "json",
+                success: function(data) {
+                    html = '';
+                    $('.list-notification').html(data.notification);
+                    if (data.unseen_notification > 0) {
+                        $('.count').html(data.unseen_notification);
+                        html += '<h3 class="white">' + data.unseen_notification + ' New</h3><span class = "notification-title" > Notifications </span>';
+                        $('.white').html(html);
+                    } else {
+                        html += '<h3 class="white">0 New</h3><span class = "notification-title" > Notifications </span>';
+                        $('.white').html(html);
+                    }
+                }
+            });
+        }
+        load_unseen_notification();
+        // load new notifications
+        $('.dropdown-notification').on('click', function() {
+            $('.count').html('');
+            load_unseen_notification('yes');
+        });
 
-<!-- jquery leave community -->
+        setInterval(function() {
+            load_unseen_notification();;
+        }, 5000);
+    });
+</script>
+<!-- notification -->
