@@ -623,12 +623,30 @@ class Community extends MY_Controller
 	function acceptCollab()
 	{
 		$com_id = $this->uri->segment('2');
+
+		var_dump($com_id);
 		$id = $this->input->post('accept');
 
+
+
 		$this->m_community->acceptCollab($id);
+
+		$collab = $this->m_community->get_collab_detail($id);
+		$collab_name = $collab['COLLAB_NAME'];
+		$community = $this->m_community->get_com_detail($com_id);
+		$com_name = $community['COM_NAME'];
+
+		$icon = 'message-circle';
+		$subject = 'New Collaboration has been followed';
+		$text = $com_name . ' has joined ' . $collab_name;
+		$link = 'community/' . $com_id . '/collaboration';
+
+		//insert table notification
+		$this->m_community->insertNotif($com_id, $icon, $subject, $text, $link);
+
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             <p align="center" class="mb-0">Success accepting collaboration!</p></div>');
-		redirect('community/' . $com_id . '/collaboraton');
+		redirect('community/' . $com_id . '/collaboration');
 	}
 
 	function rejectCollab()
