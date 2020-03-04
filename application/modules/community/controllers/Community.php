@@ -241,61 +241,6 @@ class Community extends MY_Controller
 		}
 	}
 
-	// public function uploadImage($name, $gallery_id)
-	// {
-	//     $id = $this->uri->segment('2');
-
-
-
-	// $path = 'assets/img/community/gallery/' . $id . '/' . $name;
-	// $this->load->library('upload');
-	// $image = array();
-
-
-	// $ImageCount = count($_FILES['image_name']['name']);
-
-	// for ($i = 0; $i < $ImageCount; $i++) {
-	//     $_FILES['file']['name']       = $_FILES['image_name']['name'][$i];
-	//     $_FILES['file']['type']       = $_FILES['image_name']['type'][$i];
-	//     $_FILES['file']['tmp_name']   = $_FILES['image_name']['tmp_name'][$i];
-	//     $_FILES['file']['error']      = $_FILES['image_name']['error'][$i];
-	//     $_FILES['file']['size']       = $_FILES['image_name']['size'][$i];
-
-	//     // File upload configuration
-
-	//     $uploadPath = $path;
-	//     $config['upload_path'] = $uploadPath;
-	//     $config['allowed_types'] = 'jpg|jpeg|png|gif';
-	//     $config['max_size']      = 0;
-	//     $config['max_height']    = 0;
-	//     $config['max_width']     = 0;
-	//     // Load and initialize upload library
-	//     if (!is_dir('assets/img/community/gallery' . $id)) {
-	//         mkdir("assets/img/community/gallery/" . $id, 0700);
-	//     }
-	//     if (!is_dir('assets/img/community/gallery' . $id . '/' . $name)) {
-	//         mkdir("assets/img/community/gallery/" . $id . '/' . $name, 0700);
-	//     }
-	//     $this->load->library('upload', $config);
-	//     $this->upload->initialize($config);
-
-	//     // Upload file to server
-	//     if ($this->upload->do_upload('file')) {
-	//         // Uploaded file data
-	//         $imageData = $this->upload->data();
-	//         $uploadImgData[$i]['COM_ID'] = $id;
-	//         $uploadImgData[$i]['GALLERY_ID'] = $gallery_id;
-	//         $uploadImgData[$i]['IMAGE'] = $imageData['file_name'];
-	//     }
-	// }
-	// // var_dump($uploadImgData);
-	// // die;
-	// if (!empty($uploadImgData)) {
-	//     // Insert files data into the database
-	//     $this->m_community->multiple_images($uploadImgData);
-	// }
-	// }
-
 	public function uploadImage($name, $gallery_id)
 	{
 		$id = $this->uri->segment('2');

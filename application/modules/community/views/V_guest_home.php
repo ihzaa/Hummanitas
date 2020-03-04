@@ -390,7 +390,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
-				Sorry, you can not like the post because you are not member of this community.
+					Sorry, you can not like the post because you are not member of this community.
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-warning waves-effect waves-light" data-dismiss="modal">Close</button>
@@ -412,7 +412,7 @@
 	$(document).ready(function() {
 		$("#join-form").submit(function(e) {
 			e.preventDefault();
-			var code = $("#sw").val();;
+			var code = $("#code").val();;
 			// var decs = $("#js_personal_desc").val();
 			if (code != '') {
 				$.ajax({

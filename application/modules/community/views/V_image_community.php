@@ -276,7 +276,7 @@
                     <fieldset class="form-group">
                         <label for="frmImgUpload">Choose Photo</label><br>
                         <!-- <form method="post" action="" enctype="multipart/form-data" id="frmImgUpload"> -->
-                        <input name="image_name[]" type="file" multiple="multiple" required />
+                        <input name="image_name[]" type="file" multiple="multiple" accept="image/x-png,image/gif,image/jpeg,image/jpg" required />
                         <!-- </form> -->
                     </fieldset>
 

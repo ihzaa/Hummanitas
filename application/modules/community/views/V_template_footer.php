@@ -80,45 +80,94 @@
     </div>
 </div>
 
-<script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
-<script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
+
 <!-- leave community -->
 <script>
     $(document).ready(function() {
-        $("#leave").click(function() {
-            var id = $('#leave').data('id');
+        if (!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        } else {
+            $("#leave").click(function() {
+                var id = $('#leave').data('id');
 
-            Swal.fire({
-                title: 'Are you sure you want to leave this community?',
-                text: '',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: "<?= base_url('ajax/leaveCommunity') ?>",
-                        method: "POST",
-                        data: {
-                            id: id
-                        },
-                        success: function(data) {
-                            window.location.href = 'http://localhost/hummanitas/user/user_community';
-                        },
-                        error: function() {
-                            Swal.fire(
-                                'Error!',
-                                'There is error when deleting gallery.',
-                                'error'
-                            )
-                        }
-                    });
+                Swal.fire({
+                    title: 'Are you sure you want to leave this community?',
+                    text: '',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('ajax/leaveCommunity') ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                window.location.href = 'http://localhost/hummanitas/user/user_community';
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when deleting gallery.',
+                                    'error'
+                                )
+                            }
+                        });
 
-                }
-            })
+                    }
+                })
 
-        });
+            });
+        }
     });
 </script>
+<script>
+    // $(document).ready(function() {
+    //     if (!window.location.hash) {
+    //         window.location = window.location + '#loaded';
+    //         window.location.reload();
+    //     } else {
+    //         $(".memberManage").click(function() {
+    //             Swal.fire({
+    //                 type: 'error',
+    //                 title: 'Access denied',
+    //                 text: 'Only admin can access this page!'
+    //             })
+    //         });
+    //         $(".settingCom").click(function() {
+    //             Swal.fire({
+    //                 type: 'error',
+    //                 title: 'Access denied',
+    //                 text: 'Only admin can access this page!'
+    //             })
+    //         });
+    //     }
+
+    // });
+    (function($) {
+        $(function() {
+            $(".memberManage").click(function() {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access denied',
+                    text: 'Only admin can access this page!'
+                })
+            });
+            $(".settingCom").click(function() {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access denied',
+                    text: 'Only admin can access this page!'
+                })
+            });
+        });
+    }(jQuery));
+</script>
+
+<script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+<script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
