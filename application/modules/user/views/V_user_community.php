@@ -484,8 +484,6 @@
             });
         </script>
 
-        <!-- footer user -->
-        <?php $this->load->view('v_template_footer') ?>
 
 </body>
 <!-- END: Body-->

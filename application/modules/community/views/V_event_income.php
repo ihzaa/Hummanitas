@@ -117,13 +117,14 @@
                             <div class="card">
                                 <div class="card-header" style="margin-left: 40%">
                                     <h1>Event Income</h1>
-                                    <?= $this->session->flashdata('message'); ?>
+
                                     <div class="" style="margin-left: 70%; margin-bottom: -30px;margin-top: 20px;">
-                                        <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
+                                        <button class="btn btn-primary mb-2 new" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
                                     </div>
                                 </div>
 
                                 <div class="card-body">
+                                    <?= $this->session->flashdata('message'); ?>
                                     <section id="add-row">
                                         <div class="row">
                                             <div class="col-12">
@@ -131,8 +132,8 @@
 
                                                     <div class="card-content">
                                                         <div class="card-body">
-
-
+                                                            <?php $listTransaction = $this->db->query('SELECT a.ANOTHER_DATE,a.ANOTHER_AMOUNT,a.ANOTHER_ID,a.ANOTHER_STATUS,u.USERNAME,u.NAME,c.ACTIVITY FROM another_income a JOIN community_member m on m.MEMBER_ID = a.USER_ID JOIN user u on m.USER_ID = u.USER_ID JOIN activity c on a.ACTIVITY_ID = c.ACTIVITY_ID WHERE a.COM_ID =' . $community['COM_ID'] . ' AND u.USER_ID =' . $user['USER_ID'] . ' ORDER BY ANOTHER_STATUS ASC')->result();
+                                                            ?>
                                                             <div class="table-responsive">
                                                                 <table class="table add-rows">
                                                                     <thead>
@@ -146,30 +147,33 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <th>1</th>
-                                                                            <th>10/1/2011</th>
-                                                                            <th>Aniv</th>
-                                                                            <th>Rp.50000</th>
-                                                                            <th>Waiting</th>
+                                                                        <?php $i = 1;
+                                                                        foreach ($listTransaction as $list) {
+                                                                            $transaction_id = $list->ANOTHER_ID;
+                                                                        ?>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    <?= $i ?>
+                                                                                </th>
+                                                                                <th>
+                                                                                    <?= date('d/m/Y', strtotime($list->ANOTHER_DATE)) ?>
+                                                                                </th>
+                                                                                <th>
+                                                                                    <?= $list->ACTIVITY ?>
+                                                                                </th>
+                                                                                <th>
+                                                                                    <?= $list->ANOTHER_AMOUNT ?>
+                                                                                </th>
+                                                                                <?php if ($list->ANOTHER_STATUS == 0) { ?>
+                                                                                    <th style="background-color:#FF6464; color:white;"> Waiting</th>
+                                                                                <?php
+                                                                                } else { ?>
+                                                                                    <th style="background-color:#48FA54; color:white;"> Paid</th>
+                                                                                <?php } ?>
 
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th>2</th>
-                                                                            <th>10/1/2011</th>
-                                                                            <th>Aniv</th>
-                                                                            <th>Rp.50000</th>
-                                                                            <th>Waiting</th>
-
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th>3</th>
-                                                                            <th>10/1/2011</th>
-                                                                            <th>Aniv</th>
-                                                                            <th>Rp.50000</th>
-                                                                            <th>Waiting</th>
-
-                                                                        </tr>
+                                                                            </tr>
+                                                                        <?php $i++;
+                                                                        } ?>
 
                                                                     </tbody>
 
@@ -231,29 +235,34 @@
                                 </div>
 
                                 <div class="col-xl-12 col-md-12 col-sm-12">
-                                    <?php
+                                    <div class="card collapse-icon accordion-icon-rotate">
+                                        <div class="card-body">
+                                            <div class="accordion" id="accordionExample" data-toggle-hover="true">
+                                                <?php
 
-                                    if (count($activity) > 0) { ?>
-                                        <?php foreach ($activity as $activity) {
-                                            $id = $activity->ACTIVITY_ID;
-                                        ?>
-                                            <div class="card collapse-icon accordion-icon-rotate">
-                                                <div class="card-body">
-                                                    <div class="accordion" id="accordionExample" data-toggle-hover="true">
+                                                if (count($activity) > 0) { ?>
+                                                    <?php foreach ($activity as $activity) {
+                                                        $id = $activity->ACTIVITY_ID;
+                                                    ?>
+
                                                         <div class="collapse-margin">
-                                                            <div class="card-header" id="headingOne" data-toggle="collapse" role="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            <div class="card-header" id="heading<?= $id ?>" data-toggle="collapse" role="button" data-target="#collapse<?= $id ?>" aria-expanded="false" aria-controls="collapse<?= $id ?>">
                                                                 <span class="lead collapse-title collapsed">
                                                                     <?= $activity->ACTIVITY ?>
                                                                 </span>
 
-                                                                <?php $Total = $this->db->query('SELECT SUM(ANOTHER_AMOUNT) as TOTAL FROM another_income  WHERE COM_ID =' . $community['COM_ID'] . ' AND ACTIVITY_ID =' . $id)->row_array();
+                                                                <?php $Total = $this->db->query('SELECT SUM(ANOTHER_AMOUNT) as TOTAL FROM another_income  WHERE ANOTHER_STATUS =  1 AND COM_ID =' . $community['COM_ID'] . ' AND ACTIVITY_ID =' . $id)->row_array();
                                                                 ?>
                                                                 <h4 style="position: absolute;margin-left: 900px;">
-                                                                    <strong>Total:</strong> <?= $Total['TOTAL'] ?></h4>
+                                                                    <strong>Total:</strong> <?php if ($Total['TOTAL'] != NULL) {
+                                                                                                echo $Total['TOTAL'];
+                                                                                            } else {
+                                                                                                echo '-';
+                                                                                            } ?></h4>
                                                                 <a href="" style="margin-right: 30px"><i class="feather icon-x"></i></a>
                                                             </div>
 
-                                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                            <div id="collapse<?= $id ?>" class="collapse" aria-labelledby="heading<?= $id ?>" data-parent="#accordionExample">
                                                                 <div class="card-body">
 
                                                                     <section id="add-row">
@@ -267,7 +276,7 @@
                                                                                                 <button class="btn btn-primary mb-2" id="adminTransacton" data-toggle="modal" data-value="<?= $id ?>" data-target="#myModal"><i class="feather icon-plus"></i>&nbsp;
                                                                                                     New Transaction</button>
                                                                                             </div>
-                                                                                            <?php $listTransaction = $this->db->query('SELECT a.ANOTHER_DATE,a.ANOTHER_AMOUNT,a.ANOTHER_ID,a.ANOTHER_STATUS,u.USERNAME,u.NAME,c.ACTIVITY FROM another_income a JOIN community_member m on m.MEMBER_ID = a.USER_ID JOIN user u on m.USER_ID = u.USER_ID JOIN activity c on a.ACTIVITY_ID = c.ACTIVITY_ID WHERE a.COM_ID =' . $community['COM_ID'] . ' AND a.ACTIVITY_ID =' . $id)->result();
+                                                                                            <?php $listTransaction = $this->db->query('SELECT a.ANOTHER_DATE,a.ANOTHER_AMOUNT,a.ANOTHER_ID,a.ANOTHER_STATUS,u.USERNAME,u.NAME,c.ACTIVITY FROM another_income a JOIN community_member m on m.MEMBER_ID = a.USER_ID JOIN user u on m.USER_ID = u.USER_ID JOIN activity c on a.ACTIVITY_ID = c.ACTIVITY_ID WHERE a.COM_ID =' . $community['COM_ID'] . ' AND a.ACTIVITY_ID =' . $id . ' ORDER BY ANOTHER_STATUS ASC')->result();
                                                                                             ?>
 
                                                                                             <div class="table-responsive">
@@ -283,44 +292,41 @@
                                                                                                         </tr>
                                                                                                     </thead>
                                                                                                     <tbody>
-                                                                                                        <?php if (count($listTransaction) != 0) {
-                                                                                                            $i = 1;
-                                                                                                            foreach ($listTransaction as $list) {
-                                                                                                                $transaction_id = $list->ANOTHER_ID;
+                                                                                                        <?php $i = 1;
+                                                                                                        foreach ($listTransaction as $list) {
+                                                                                                            $transaction_id = $list->ANOTHER_ID;
                                                                                                         ?>
-                                                                                                                <tr style="cursor: pointer;" data-toggle="modal" data-id="<?= $transaction_id ?>" data-target="#confirmModal">
-                                                                                                                    <th>
-                                                                                                                        <?= $i ?>
-                                                                                                                    </th>
-                                                                                                                    <th>
-                                                                                                                        <?= date('d/m/Y', strtotime($list->ANOTHER_DATE)) ?>
-                                                                                                                    </th>
-                                                                                                                    <th>
-                                                                                                                        <?php if ($list->NAME != NULL) {
-                                                                                                                            echo $list->NAME;
-                                                                                                                        } else {
-                                                                                                                            echo $list->USERNAME;
-                                                                                                                        } ?>
-                                                                                                                    </th>
-                                                                                                                    <th>
-                                                                                                                        <?= $list->ACTIVITY ?>
-                                                                                                                    </th>
-                                                                                                                    <th>
-                                                                                                                        <?= $list->ANOTHER_AMOUNT ?>
-                                                                                                                    </th>
-                                                                                                                    <th>Waiting</th>
+                                                                                                            <tr class="baris" style="cursor: pointer;" data-id="<?= $transaction_id ?>" data-value="<?= $activity->ACTIVITY_ID ?>">
+                                                                                                                <th>
+                                                                                                                    <?= $i ?>
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    <?= date('d/m/Y', strtotime($list->ANOTHER_DATE)) ?>
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    <?php if ($list->NAME != NULL) {
+                                                                                                                        echo $list->NAME;
+                                                                                                                    } else {
+                                                                                                                        echo $list->USERNAME;
+                                                                                                                    } ?>
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    <?= $list->ACTIVITY ?>
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    <?= $list->ANOTHER_AMOUNT ?>
+                                                                                                                </th>
+                                                                                                                <?php if ($list->ANOTHER_STATUS == 0) { ?>
+                                                                                                                    <th style="background-color:#FF6464; color:white;"> Waiting</th>
+                                                                                                                <?php
+                                                                                                                } else { ?>
+                                                                                                                    <th style="background-color:#48FA54; color:white;"> Paid</th>
+                                                                                                                <?php } ?>
 
-                                                                                                                </tr>
-                                                                                                            <?php $i++;
-                                                                                                            } ?>
+                                                                                                            </tr>
+                                                                                                        <?php $i++;
+                                                                                                        } ?>
 
-                                                                                                        <?php } else { ?>
-                                                                                                            <div class="col-12">
-                                                                                                                <div style="min-height: 200px; ">
-                                                                                                                    <h1 align="center" style="margin: 100px 0px">No transaction</h1>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        <?php } ?>
 
                                                                                                     </tbody>
 
@@ -340,20 +346,21 @@
                                                             </div>
                                                         </div>
 
+
+                                                    <?php
+                                                    }
+                                                } else {
+                                                    ?>
+                                                    <div class="col-12">
+                                                        <div style="height: 200px; ">
+                                                            <h1 align="center" style="margin: 100px 0px">There is still no event income available</h1>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        <?php    }
-                                    } else {
-                                        ?>
-                                        <div class="col-12">
-                                            <div style="height: 200px; ">
-                                                <h1 align="center" style="margin: 100px 0px">There is still no community created</h1>
+                                                <?php }
+                                                ?>
                                             </div>
                                         </div>
-                                    <?php }
-                                    ?>
-
+                                    </div>
                                 </div>
 
                                 <br><br>
@@ -384,66 +391,32 @@
                                 </div>
 
                                 <div class="modal-body">
+                                    <?= form_open_multipart(base_url('community/' . $community['COM_ID'] . '/finance/income/2/addTransaction')); ?>
                                     <h5>Event</h5>
-                                    <ul class="list-unstyled mb-0">
-
-                                        <li>
-                                            <fieldset>
-                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" value="false">
-                                                    <span class="vs-checkbox">
-                                                        <span class="vs-checkbox--check">
-                                                            <i class="vs-icon feather icon-check"></i>
-                                                        </span>
-                                                    </span>
-                                                    <span class="">Aniv</span>
-                                                </div>
-                                            </fieldset>
-
-                                        </li>
-
-
-
-                                        <li>
-                                            <fieldset>
-                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                    <input type="checkbox" value="false">
-                                                    <span class="vs-checkbox">
-                                                        <span class="vs-checkbox--check">
-                                                            <i class="vs-icon feather icon-check"></i>
-                                                        </span>
-                                                    </span>
-                                                    <span class="">Meeting</span>
-                                                </div>
-                                            </fieldset>
-                                        </li>
+                                    <ul class="list-unstyled mb-0 listEventIncome">
 
                                     </ul>
-
-
-
                                     <div>
                                         <br>
                                         <h5>Amount</h5>
-                                        <input type="text" class="form-control" placeholder="Amount" style="width: 100%;">
+                                        <input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" style="width: 100%;">
+                                        <p style="font-size: 9px">format example: "20000"</p>
                                     </div>
 
                                     <br>
                                     <h5>Proof Of Payment</h5>
-                                    <div class="col-12">
+                                    <div class="custom-file">
 
-                                        <input id="uploadFile1" placeholder="Pilih File..." disabled="disabled" />
-                                        <div class="fileUpload btn btn-primary">
-                                            <span>Upload</span>
-                                            <input id="uploadBtn1" type="file" class="upload" />
-                                        </div>
+                                        <input type="file" class="custom-file-input" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="image" name="image">
+                                        <label class="custom-file-label" for="image">Choose file</label>
                                     </div>
 
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                                    <button type="submit" id="memberSend" class="btn btn-primary">Send</button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -468,6 +441,7 @@
                                         <input type="text" id="activityId" name="activityId" class="form-control" placeholder="Amount" style="width: 100%;" hidden>
                                         <h5>Amount</h5>
                                         <input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" style="width: 100%;">
+                                        <p style="font-size: 9px">format example: "20000"</p>
                                     </div>
 
                                     <br>
@@ -488,59 +462,7 @@
                         </div>
                     </div>
 
-                    <!-- confirm modal -->
-                    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Transaction</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
 
-                                <div class="modal-body">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <div class="controls">
-                                                <label>Name</label>
-                                                <input readonly="" class="form-control" value="Azmi">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <div class="controls">
-                                                <label>Payment Information</label>
-                                                <input readonly="" class="form-control" value="Pembayaran Bulan March">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <div class="controls">
-                                                <label>
-                                                    Proof Of Payment
-                                                </label>
-                                                <br>
-                                                <a href="app-assets/images/profile/user-uploads/user-13.jpg" data-lightbox="mygallery">
-                                                    <img src="app-assets/images/profile/user-uploads/user-13.jpg" alt="Card image">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
 
@@ -568,12 +490,14 @@
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/user-profile.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/faq-kb.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/datatables/datatable.js"></script>
+                    <!-- <script src="< ?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script> -->
                     <!-- END: Page JS-->
 
                     <!-- footer user -->
                     <?php $this->load->view('user/v_template_footer') ?>
                     <!-- footer community -->
                     <?php $this->load->view('v_template_footer') ?>
+
 
                     <script>
                         $(document).on("click", "#adminTransacton", function() {
@@ -583,7 +507,103 @@
                         });
                     </script>
 
+                    <!-- confirm modal -->
+                    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalScrollableTitle">Transaction</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body" id="confirmBody">
+
+
+
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('.baris').click(function() {
+                                var transactionId = $(this).data('id');
+
+                                $.ajax({
+                                    url: "<?php echo base_url('ajax/get_event_transaction') ?>",
+                                    method: "POST",
+                                    data: {
+                                        transactionId: transactionId
+                                    },
+                                    success: function(data) {
+                                        $('#confirmBody').html(data);
+                                        $('#confirmModal').modal('show');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
+                    <script>
+                        $("#confirmButton").click(function() {
+                            var id = $('#transactionId').val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: '<?php echo base_url('ajax/confirmEventIncome') ?>',
+                                data: {
+                                    id: id
+                                },
+                                success: function(data) {
+                                    if (data == 'success') {
+                                        Swal.fire(
+                                            'Request success!',
+                                            'Transaction has been confirmed.',
+                                            'success'
+                                        )
+                                    } else if (data == 'failed') {
+                                        Swal.fire(
+                                            'Request failed!',
+                                            'You already confirm this transaction.',
+                                            'warning'
+                                        )
+                                    }
+                                },
+                                error: function() {
+                                    alert('fail');
+                                }
+                            });
+                        });
+                    </script>
+                    <script>
+                        $(document).ready(function() {
+                            $(".new").click(function() {
+                                $.ajax({
+                                    url: "<?= base_url('ajax/' . $community['COM_ID'] . '/listEventIncome') ?>",
+                                    method: "POST",
+                                    dataType: "json",
+                                    success: function(data) {
+                                        var html = '';
+                                        var i;
+                                        for (i in data) {
+                                            html += '<li><fieldset><div class = "vs-checkbox-con vs-checkbox-primary" ><input type = "checkbox" name="activityId" value = "' + data[i].ACTIVITY_ID + '" ><span class = "vs-checkbox" ><span class="vs-checkbox--check"><i class="vs-icon feather icon-check"></i></span></span><span class ="" >' + data[i].ACTIVITY + '</span></div></fieldset></li>'
+                                        }
+                                        $('.listEventIncome').html(html);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
 </body>
 <!-- END: Body-->
+
 
 </html>

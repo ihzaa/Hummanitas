@@ -159,4 +159,27 @@ class M_ajax extends CI_Model
         $query = $this->db->query('SELECT * FROM notification n JOIN community_member m on n.RECIPIENT_ID = m.MEMBER_ID WHERE m.USER_ID = ' . $user_id . ' AND NOTIF_STATUS = 0');
         return $query->result();
     }
+
+    function get_event_transaction($id)
+    {
+        $query = $this->db->query('SELECT a.ANOTHER_DATE,a.ANOTHER_AMOUNT,a.ANOTHER_ID,a.COM_ID,a.PROOF,a.ANOTHER_STATUS,u.USERNAME,u.NAME FROM another_income a JOIN community_member m on m.MEMBER_ID = a.USER_ID JOIN user u on m.USER_ID = u.USER_ID WHERE a.ANOTHER_ID = ' . $id);
+        return $query->row_array();
+    }
+
+    function confirmEventIncome($id)
+    {
+        $this->db->query('UPDATE another_income SET ANOTHER_STATUS = 1 WHERE ANOTHER_ID = ' . $id);
+    }
+
+    function checkEventTransaction($id)
+    {
+        $query = $this->db->query('SELECT * FROM another_income WHERE ANOTHER_ID = ' . $id . ' AND ANOTHER_STATUS = 0');
+        return $query->result();
+    }
+
+    function listEventIncome($id)
+    {
+        $query = $this->db->query('SELECT a.ACTIVITY_ID,a.ACTIVITY FROM activity a JOIN event e on a.EVENT_ID = e.EVENT_ID WHERE e.COM_ID = ' . $id);
+        return $query->result();
+    }
 }

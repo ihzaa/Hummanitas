@@ -206,10 +206,12 @@
 								</div>
 								<div class="post" id="kotak-postingan">
 									<?php
+									$count = 0;
 									if ($postingan != NULL) {
 										foreach ($postingan as $p) {
 											if ($p->POST_IMAGE) {
-												echo '<div class="card">
+												if ($is_like[$count]) {
+													echo '<div class="card">
 										<div class="card-body">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="avatar mr-1">
@@ -224,8 +226,10 @@
 											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="d-flex align-items-center">
-													<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
-													<span>0</span>
+													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
+													<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
+													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
+													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 													<span>0</span>
 												</div>
@@ -237,8 +241,41 @@
 											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
 										</div>
 									</div>';
+												} else {
+													echo '<div class="card">
+										<div class="card-body">
+											<div class="d-flex justify-content-start align-items-center mb-1">
+												<div class="avatar mr-1">
+													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
+												</div>
+												<div class="user-page-info">
+													<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a></p>
+													<span class="font-small-2">' . $p->UP_DATE . '</span>
+												</div>
+											</div>
+											<p>' . $p->POST_CONTENT . '</p>
+											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
+											<div class="d-flex justify-content-start align-items-center mb-1">
+												<div class="d-flex align-items-center">
+													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
+													<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
+													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
+													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
+													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
+													<span>0</span>
+												</div>
+											</div>
+											<fieldset class="form-label-group mb-50">
+												<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+												<label for="label-textarea">Add Comment</label>
+											</fieldset>
+											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+										</div>
+									</div>';
+												}
 											} else {
-												echo '<div class="card">
+												if ($is_like[$count]) {
+													echo '<div class="card">
 										<div class="card-body">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="avatar mr-1">
@@ -252,8 +289,10 @@
 											<p>' . $p->POST_CONTENT . '</p>
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="d-flex align-items-center">
-													<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
-													<span>0</span>
+													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
+													<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
+													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
+													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 													<span>0</span>
 												</div>
@@ -265,7 +304,39 @@
 											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
 										</div>
 									</div>';
+												} else {
+													echo '<div class="card">
+									<div class="card-body">
+										<div class="d-flex justify-content-start align-items-center mb-1">
+											<div class="avatar mr-1">
+												<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
+											</div>
+											<div class="user-page-info">
+												<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->NAME . '</strong></a></p>
+												<span class="font-small-2">' . $p->UP_DATE . '</span>
+											</div>
+										</div>
+										<p>' . $p->POST_CONTENT . '</p>
+										<div class="d-flex justify-content-start align-items-center mb-1">
+											<div class="d-flex align-items-center">
+												<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
+												<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
+												<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
+												<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
+												<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
+												<span>0</span>
+											</div>
+										</div>
+										<fieldset class="form-label-group mb-50">
+											<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+											<label for="label-textarea">Add Comment</label>
+										</fieldset>
+										<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+									</div>
+								</div>';
+												}
 											}
+											$count++;
 										}
 									} else {
 										echo '<div class="card">
@@ -440,6 +511,61 @@
 				$('#icon-gmr').toggle();
 			}
 
+			// fungsi ketika btn LIKE ditekan
+			$('.like').click(function() {
+				$(this).toggle();
+				$(this).next().toggle();
+				row = $(this).data('row');
+				$('#jml_like' + row).toggle();
+				$.ajax({
+					url: '<?= base_url('community/posting/like') ?> ',
+					data: {
+						id: $(this).data('id')
+					},
+					type: 'POST',
+					success: function(data) {
+						likeToDislike(row);
+					},
+					error: function(data) {
+						alert('tidaaa');
+					}
+				});
+			});
+
+			function likeToDislike(row) {
+				$('#dislike' + row).toggle();
+				$('#ldg' + row).toggle();
+				$('#jml_like' + row).html(parseInt($('#jml_like' + row).html()) + 1);
+				$('#jml_like' + row).toggle();
+			}
+
+			// fungsi ketika btn DISLIKE ditekan
+			$('.dislike').click(function() {
+				$(this).toggle();
+				$(this).prev().toggle();
+				row = $(this).data('row');
+				$('#jml_like' + row).toggle();
+				$.ajax({
+					url: '<?= base_url('community/posting/dislike') ?> ',
+					data: {
+						id: $(this).data('id')
+					},
+					type: 'POST',
+					success: function(data) {
+						DislikeToLike(row);
+					},
+					error: function(data) {
+						alert('tidaaa');
+					}
+				});
+			});
+
+			function DislikeToLike(row) {
+				$('#like' + row).toggle();
+				$('#ldg' + row).toggle();
+				$('#jml_like' + row).html(parseInt($('#jml_like' + row).html()) - 1);
+				$('#jml_like' + row).toggle();
+			}
 
 		});
 	</script>

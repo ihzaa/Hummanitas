@@ -18,7 +18,7 @@ class M_user extends CI_Model
 
 
             $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '2048';
+            $config['max_size'] = '0';
             $config['upload_path'] = './assets/img/user/';
 
             $this->load->library('upload', $config);

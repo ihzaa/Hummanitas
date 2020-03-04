@@ -327,4 +327,70 @@ class Ajax extends MY_Controller
         );
         echo json_encode($data);
     }
+
+    public function get_event_transaction()
+    {
+        $id = $this->input->post('transactionId');
+        if (isset($id) and !empty($id)) {
+            $transaction = $this->m_ajax->get_event_transaction($id);
+
+            if ($transaction['NAME'] == NULL) {
+                $name = $transaction['USERNAME'];
+            } else {
+                $name = $transaction['NAME'];
+            };
+            echo ' <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <input readonly id="transactionId" value="' . $id . '" hidden>
+                    <label>Name</label>
+                    <input readonly="" class="form-control" value="' . $name . '">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <label>Amount</label>
+                    <input readonly="" class="form-control" value="' . $transaction['ANOTHER_AMOUNT'] . '">
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <label>
+                        Proof Of Payment
+                    </label>
+                    <br>
+                        <img height="500px" width="400px" src="' . base_url('assets/img/community/transaction/') . $transaction['COM_ID'] . '/' . $transaction['PROOF'] . '" alt="Card image">
+                </div>
+            </div>
+        </div>
+        ';
+        }
+    }
+
+    function confirmEventIncome()
+    {
+        $id = $this->input->post('id');
+
+        $check = $this->m_ajax->checkEventTransaction($id);
+
+        if ($check != NULL) {
+            $this->m_ajax->confirmEventIncome($id);
+
+            echo 'success';
+        } else {
+            echo 'failed';
+        }
+    }
+
+    function listEventIncome()
+    {
+        $id = $this->uri->segment(2);
+        $list = $this->m_ajax->listEventIncome($id);
+        echo json_encode($list);
+    }
 }
