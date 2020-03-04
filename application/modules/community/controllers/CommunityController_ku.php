@@ -29,6 +29,9 @@ class CommunityController_ku extends MY_Controller
 		$id_member = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 		$isi = $this->input->post('isi');
 
+		$row = $this->input->post('cnt_row');
+
+		//start notif
 		$user = $this->m_user->getUser();
 		$username = $user['USERNAME'];
 		$community = $this->m_community->get_com_detail($id_com);
@@ -42,6 +45,7 @@ class CommunityController_ku extends MY_Controller
 		//insert table notification
 		$this->m_community->insertNotif($id_com, $icon, $subject, $text, $link);
 
+		//end notif
 		$config['upload_path']          = 'assets/img/post/' . $id_member;
 		$config['allowed_types']        = 'gif|jpg|png';
 		$new_name = time() . '-' . $id_com . '-' . $id_member . '-' . $_FILES['gambar']['name'];
@@ -56,7 +60,7 @@ class CommunityController_ku extends MY_Controller
 		}
 		$user = $this->m_community_ku->getUserData($this->session->userdata('id'));
 		if (!$this->upload->do_upload('gambar')) {
-			$this->m_community_ku->storePostToDB($id_com, $id_member, $isi, NULL);
+			$id_post = $this->m_community_ku->storePostToDB($id_com, $id_member, $isi, NULL);
 			$output = '<div class="card" style="display : block;">
 			<div class="card-body">
 				<div class="d-flex justify-content-start align-items-center mb-1">
@@ -71,8 +75,10 @@ class CommunityController_ku extends MY_Controller
 				<p>' . $isi . '</p>
 				<div class="d-flex justify-content-start align-items-center mb-1">
 					<div class="d-flex align-items-center">
-						<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
-						<span>0</span>
+						<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $row . '" data-row="' . $row . '" data-toggle="tooltip" title="Like" data-id="' . $id_post . '"></i>
+						<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $row . '" data-row="' . $row . '" role="status" style="display:none;"></div>
+						<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $row . '" data-row="' . $row . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $id_post . '"></i>
+						<span id="jml_like' . $row . '">0</span>
 						<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 						<span>0</span>
 					</div>
@@ -86,7 +92,7 @@ class CommunityController_ku extends MY_Controller
 		</div>';
 			echo $output;
 		} else {
-			$this->m_community_ku->storePostToDB($id_com, $id_member, $isi, $lengkap);
+			$id_post = $this->m_community_ku->storePostToDB($id_com, $id_member, $isi, $lengkap);
 			$output = '<div class="card" style="display : block;">
 		<div class="card-body">
 			<div class="d-flex justify-content-start align-items-center mb-1">
@@ -102,8 +108,10 @@ class CommunityController_ku extends MY_Controller
 			<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($lengkap) . '" alt="avtar img holder">
 			<div class="d-flex justify-content-start align-items-center mb-1">
 				<div class="d-flex align-items-center">
-					<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
-					<span>0</span>
+					<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $row . '" data-row="' . $row . '" data-toggle="tooltip" title="Like" data-id="' . $id_post . '"></i>
+					<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $row . '" data-row="' . $row . '" role="status" style="display:none;"></div>
+					<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $row . '" data-row="' . $row . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $id_post . '"></i>
+					<span id="jml_like' . $row . '">0</span>
 					<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 					<span>0</span>
 				</div>
@@ -117,5 +125,21 @@ class CommunityController_ku extends MY_Controller
 	</div>';
 			echo $output;
 		}
+	}
+
+	function like()
+	{
+		$id_post = $this->input->post('id');
+		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
+
+		$this->m_community_ku->like($id_post, $id_mem);
+	}
+
+	function dislike()
+	{
+		$id_post = $this->input->post('id');
+		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
+
+		$this->m_community_ku->dislike($id_post, $id_mem);
 	}
 }

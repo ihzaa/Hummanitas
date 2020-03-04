@@ -130,7 +130,10 @@
                                                 <div class="card-content">
                                                     <div class="card-body">
                                                         <div class="">
-                                                            <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#myModal" style="margin-left: 88%"><i class="feather icon-plus"></i>&nbsp; Outcome</button>
+                                                            <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#myModal" style="margin-left: 88%"><i class="feather icon-plus"></i>&nbsp; Outcome</button>
+
+                                                            <?php } ?>
                                                         </div>
 
 
@@ -150,7 +153,6 @@
 
                                                                     <?php
                                                                     $i = 1;
-                                                                    $a = 0;
                                                                     foreach ($outcome as $outcome) {
                                                                     ?>
                                                                         <tr>
@@ -158,20 +160,20 @@
                                                                             <th><?= date('d M, Y', strtotime($outcome->OUTCOME_DATE))  ?></th>
                                                                             <th><?= $outcome->USERNAME ?></th>
                                                                             <th><?= $outcome->OUTCOME_ACTIVITY ?></th>
-                                                                            <th>Rp.<?= $outcome->OUTCOME_AMOUNT ?></th>
+                                                                            <th><?= $outcome->OUTCOME_AMOUNT ?></th>
 
                                                                         </tr>
 
-
+                                                                    <?php } ?>
                                                                 </tbody>
                                                                 <tfooter>
                                                                     <th></th>
                                                                     <th></th>
                                                                     <th>Total</th>
                                                                     <th></th>
-                                                                    <th><?= $a = $a + ($outcome->OUTCOME_AMOUNT) ?></th>
+                                                                    <th><?= $total['total'] ?></th>
                                                                 </tfooter>
-                                                            <?php } ?>
+
 
                                                             </table>
                                                         </div>

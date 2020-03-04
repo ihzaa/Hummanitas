@@ -22,8 +22,8 @@ class Community_outcome extends MY_Controller
         $data['user'] = $this->m_user->getUser();
         $data['community'] = $this->m_community->get_com_detail($id);
         $data['outcome'] = $this->m_community_outcome->get_outcome_detail($id);
-        // var_dump($data['outcome']);
-        // die;
+        $data['total'] = $this->m_community_outcome->sumTotal($id);
+
         $this->load->view('v_outcome_admin', $data);
     }
 

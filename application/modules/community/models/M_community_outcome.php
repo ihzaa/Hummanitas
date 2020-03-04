@@ -7,6 +7,10 @@ class M_community_outcome extends CI_Model
     {
         return $query = $this->db->query('SELECT o.OUTCOME_DATE,o.OUTCOME_ACTIVITY,o.OUTCOME_AMOUNT,u.USERNAME,o.OUTCOME_ID FROM outcome o JOIN community_member m ON o.MEMBER_ID = m.MEMBER_ID JOIN user u ON u.USER_ID=m.USER_ID WHERE o.COM_ID =' . $id)->result();
     }
+    function sumTotal($id)
+    {
+        return $query = $this->db->query('SELECT sum(OUTCOME_AMOUNT) as total FROM outcome WHERE COM_ID =' . $id)->row_array();
+    }
 
     function addOutcome($com_id, $member_id)
     {

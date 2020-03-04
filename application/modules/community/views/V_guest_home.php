@@ -153,7 +153,7 @@
 							<div class="col-lg-6 col-12">
 								<div class="post">
 									<?php
-
+									$count = 0;
 									if ($postingan != NULL) {
 										foreach ($postingan as $p) {
 											if ($p->POST_IMAGE) {
@@ -172,8 +172,8 @@
 												<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
 												<div class="d-flex justify-content-start align-items-center mb-1">
 													<div class="d-flex align-items-center">
-														<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
-														<span>0</span>
+														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
+														<span>' . $jml_like[$count] . '</span>
 														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 														<span>0</span>
 													</div>
@@ -200,8 +200,8 @@
 												<p>' . $p->POST_CONTENT . '</p>
 												<div class="d-flex justify-content-start align-items-center mb-1">
 													<div class="d-flex align-items-center">
-														<i class="feather icon-heart font-medium-2 mr-50" data-toggle="tooltip" title="Like"></i>
-														<span>0</span>
+														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
+														<span>' . $jml_like[$count] . '</span>
 														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 														<span>0</span>
 													</div>
@@ -214,6 +214,7 @@
 											</div>
 										</div>';
 											}
+											$count++;
 										}
 									} else {
 										echo '<div class="card">
@@ -385,11 +386,23 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="modal fade text-left" id="warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel140" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					Sorry, you can not like the post because you are not member of this community.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-warning waves-effect waves-light" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- footer user -->
 	<?php $this->load->view('user/v_template_footer') ?>
 	<!-- footer community -->
 	<?php $this->load->view('v_template_footer') ?>
+	<script src="<?= base_url('assets/'); ?>app-assets/js/scripts/modal/components-modal.js"></script>
 </body>
 <!-- END: Body-->
 
@@ -399,7 +412,7 @@
 	$(document).ready(function() {
 		$("#join-form").submit(function(e) {
 			e.preventDefault();
-			var code = $("#sw").val();;
+			var code = $("#code").val();;
 			// var decs = $("#js_personal_desc").val();
 			if (code != '') {
 				$.ajax({

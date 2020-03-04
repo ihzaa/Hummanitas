@@ -120,13 +120,19 @@ $route['ajax/(:num)/leaveCommunity'] = 'ajax/leaveCommunity';
 $route['ajax/(:num)/getChat'] = 'ajax/get_collab_chat';
 $route['ajax/(:num)/getMember'] = 'ajax/get_collab_member';
 $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
-
-//mounthly cash community
-$route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
+$route['ajax/(:num)/listEventIncome'] = 'ajax/listEventIncome';
 
 //post
+$route['community/posting/like'] = 'community/communitycontroller_ku/like';
+$route['community/posting/dislike'] = 'community/communitycontroller_ku/dislike';
 $route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
 
 //outcome
 $route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcome';
 $route['community/(:num)/finance/outcome/add'] = 'community/community_outcome/outcomeAdd';
+//finance
+$route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
+$route['community/(:num)/finance/income/2'] = 'community/communitynew/event_income';
+$route['community/(:num)/finance/income/2/addEvent'] = 'community/communitynew/add_event';
+$route['community/(:num)/finance/income/2/addTransaction'] = 'community/communitynew/addEventTransaction';
+$route['community/(:num)/finance/income/3'] = 'community/communitynew/event_income';

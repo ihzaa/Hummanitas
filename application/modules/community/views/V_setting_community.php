@@ -114,7 +114,7 @@
                                                                 <div class="col-sm-3">
                                                                     <div class="custom-file">
 
-                                                                        <input type="file" class="custom-file-input" id="image" name="image">
+                                                                        <input type="file" class="custom-file-input" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="image" name="image">
                                                                         <label class="custom-file-label" for="image">Choose file</label>
                                                                     </div>
                                                                 </div>
@@ -206,7 +206,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-radio-con">
-                                                                                <input type="radio" name="vueradio" checked value="1">
+                                                                                <input type="radio" name="vueradio" value="1">
                                                                                 <span class="vs-radio">
                                                                                     <span class="vs-radio--border"></span>
                                                                                     <span class="vs-radio--circle"></span>
@@ -218,7 +218,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-radio-con">
-                                                                                <input type="radio" name="vueradio" value="0">
+                                                                                <input type="radio" name="vueradio" checked value="0">
                                                                                 <span class="vs-radio">
                                                                                     <span class="vs-radio--border"></span>
                                                                                     <span class="vs-radio--circle"></span>
@@ -233,7 +233,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-radio-con">
-                                                                                <input type="radio" name="vueradio" value="1">
+                                                                                <input type="radio" name="vueradio" checked value="0">
                                                                                 <span class="vs-radio">
                                                                                     <span class="vs-radio--border"></span>
                                                                                     <span class="vs-radio--circle"></span>
@@ -245,7 +245,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-radio-con">
-                                                                                <input type="radio" name="vueradio" checked value="0">
+                                                                                <input type="radio" name="vueradio" value="1">
                                                                                 <span class="vs-radio">
                                                                                     <span class="vs-radio--border"></span>
                                                                                     <span class="vs-radio--circle"></span>
