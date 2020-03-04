@@ -12,6 +12,7 @@ class M_community_ku extends CI_Model
 	public function storePostToDB($id_com, $id_mem, $isi, $foto)
 	{
 		$this->db->query('INSERT INTO `post` (`POST_ID`, `MEMBER_ID`, `COM_ID`, `POST_CONTENT`, `UP_DATE`, `POST_IMAGE`) VALUES (NULL, "' . $id_mem . '", "' . $id_com . '", "' . $isi . '", current_timestamp(), "' . $foto . '")');
+		return $this->db->query('select POST_ID from post ORDER BY POST_ID DESC LIMIT 1')->result()[0]->POST_ID;
 	}
 
 	public function getUserData($id)

@@ -180,13 +180,16 @@
 										<div class="new-postbox">
 											<div class="avatar mr-50"><img src="<?= base_url('assets/img/user/') . $user['USER_IMAGE']; ?>" alt="png" height="50"></div>
 											<div class="newpst-input">
+												<?php
+												$count = 0;
+												?>
 												<form id="form-post" action="<?= base_url('community/' . $community['COM_ID'] . '/posting') ?>" method="POST" enctype="multipart/form-data">
 													<textarea rows="2" id="isi" name="isi" style="height: 70px;" placeholder="write something"></textarea>
 													<br>
 													<div class="attachments">
 														<ul>
 															<li style="float: left;">
-
+																<input type="hidden" name="cnt_row" id="cnt_row" value="<?= count($postingan) ?>">
 																<label class="fileContainer">
 																	<input type='file' id="gambar" name="gambar" />
 																	<img id="blah" src="#" alt="" width="250" />
@@ -206,7 +209,6 @@
 								</div>
 								<div class="post" id="kotak-postingan">
 									<?php
-									$count = 0;
 									if ($postingan != NULL) {
 										foreach ($postingan as $p) {
 											if ($p->POST_IMAGE) {
@@ -486,33 +488,44 @@
 
 			$("#form-post").submit(function(e) {
 				e.preventDefault();
-				$.ajax({
-					url: $(this).attr("action"),
-					data: new FormData(this),
-					cache: false,
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success: function(data) {
-						// $('#kotak-postingan').prepend(data);
-						$(data).prependTo('#kotak-postingan').slideDown('slow');
-						reset_input();
-					},
-					error: function(data) {
-						alert('tidaaa');
-					}
-				});
+				var isi = $('textarea[name=isi]').val();
+				var gambar = $('input[name=gambar]').val();
+				if (isi == '' && gambar == '') {
+					Swal.fire(
+						'Failed!',
+						'You must fill post description or post photo or both',
+						'error'
+					);
+				} else {
+					$.ajax({
+						url: $(this).attr("action"),
+						data: new FormData(this),
+						cache: false,
+						processData: false,
+						contentType: false,
+						type: 'POST',
+						success: function(data) {
+							// $('#kotak-postingan').prepend(data);
+							$(data).prependTo('#kotak-postingan').slideDown('slow');
+							reset_input();
+						},
+						error: function(data) {
+							alert('tidaaa');
+						}
+					});
+				}
 			});
 
 			function reset_input() {
 				$('#isi').val('');
 				$('#gambar').val('');
 				$('#blah').attr('src', '#');
-				$('#icon-gmr').toggle();
+				$('#icon-gmr').show();
+				$('#cnt_row').val(parseInt($('#cnt_row').val()) + 1);
 			}
 
 			// fungsi ketika btn LIKE ditekan
-			$('.like').click(function() {
+			$(document).on("click", ".like", function() {
 				$(this).toggle();
 				$(this).next().toggle();
 				row = $(this).data('row');
@@ -540,7 +553,7 @@
 			}
 
 			// fungsi ketika btn DISLIKE ditekan
-			$('.dislike').click(function() {
+			$(document).on("click", ".dislike", function() {
 				$(this).toggle();
 				$(this).prev().toggle();
 				row = $(this).data('row');
@@ -566,7 +579,6 @@
 				$('#jml_like' + row).html(parseInt($('#jml_like' + row).html()) - 1);
 				$('#jml_like' + row).toggle();
 			}
-
 		});
 	</script>
 
