@@ -464,6 +464,14 @@
 	<script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
 	<script src="<?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script>
 	<!-- END: Page JS-->
+
+	<!-- footer user -->
+	<?php $this->load->view('user/v_template_footer') ?>
+	<!-- footer community -->
+	<?php $this->load->view('v_template_footer') ?>
+
+	<!-- FUNGSI PREVIEW INPUT GAMBAR POSTINGAN -->
+
 	<script>
 		$(document).ready(function() {
 			function readURL(input) {
@@ -570,12 +578,7 @@
 		});
 	</script>
 
-	<!-- footer user -->
-	<?php $this->load->view('user/v_template_footer') ?>
-	<!-- footer community -->
-	<?php $this->load->view('v_template_footer') ?>
 
-	<!-- FUNGSI PREVIEW INPUT GAMBAR POSTINGAN -->
 
 
 

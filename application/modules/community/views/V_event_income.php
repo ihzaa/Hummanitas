@@ -317,7 +317,7 @@
                                                                                                                     <?= $list->ANOTHER_AMOUNT ?>
                                                                                                                 </th>
                                                                                                                 <?php if ($list->ANOTHER_STATUS == 0) { ?>
-                                                                                                                    <th style="background-color:#FF6464; color:white;"> Waiting</th>
+                                                                                                                    <th class="status_<?= $transaction_id ?>" style="background-color:#FF6464; color:white;"> Waiting</th>
                                                                                                                 <?php
                                                                                                                 } else { ?>
                                                                                                                     <th style="background-color:#48FA54; color:white;"> Paid</th>
@@ -555,7 +555,7 @@
                     <script>
                         $("#confirmButton").click(function() {
                             var id = $('#transactionId').val();
-
+                            // var status = $('#activityId').val();
                             $.ajax({
                                 type: "POST",
                                 url: '<?php echo base_url('ajax/confirmEventIncome') ?>',
@@ -569,6 +569,7 @@
                                             'Transaction has been confirmed.',
                                             'success'
                                         )
+                                        changeStatus(id);
                                     } else if (data == 'failed') {
                                         Swal.fire(
                                             'Request failed!',
@@ -582,7 +583,14 @@
                                 }
                             });
                         });
+
+                        function changeStatus(a) {
+                            $('.status_' + a).style.backgroundColor = '#FF6464';
+                            $('.status_' + a).style.color = '#FFFFFF';
+                        }
                     </script>
+
+
                     <script>
                         $(document).ready(function() {
                             $(".new").click(function() {
