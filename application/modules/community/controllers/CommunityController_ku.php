@@ -15,13 +15,6 @@ class CommunityController_ku extends MY_Controller
 		is_logged_in();
 	}
 
-	function idx()
-	{
-		$id = $this->uri->segment('2');
-		$data['community'] = $this->m_community->get_com_detail($id);
-		$this->load->view('v_monthly_cash', $data);
-	}
-
 	function posting()
 	{
 

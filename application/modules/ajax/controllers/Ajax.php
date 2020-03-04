@@ -21,7 +21,7 @@ class Ajax extends MY_Controller
         if (count($result) > 0) {
             foreach ($result as $result) {
                 if ($result->ROLE != NULL) {
-                    $output .=  '<a href="' . base_url('user/guest_profile/' . $result->ID)  . '"><div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
+                    $output .=  '<a href="' . base_url('user/user_profile_guest/' . $result->ID)  . '"><div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
             
             <div class="col-12"> 
                 <div class="row align-items-center">

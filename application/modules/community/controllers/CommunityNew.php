@@ -16,6 +16,15 @@ class CommunityNew extends MY_Controller
         is_logged_in();
     }
 
+    function idx()
+    {
+        $id = $this->uri->segment('2');
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+        $data['community'] = $this->m_community->get_com_detail($id);
+        $this->load->view('v_monthly_cash', $data);
+    }
+
     // finance event income
     function event_income()
     {

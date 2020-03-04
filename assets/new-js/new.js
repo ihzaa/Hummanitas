@@ -1,9 +1,9 @@
 /* LoadMore */
 
-$('.post .card').slice(0, 1).show();
+$('.post .card').slice(0, 3).show();
 
 $('#more').on('click', function () {
-    $('.post .card:hidden').slice(0, 1).slideDown();
+    $('.post .card:hidden').slice(0, 3).slideDown();
 
     if ($('.post .card:hidden').length === 0) {
         $('#more').fadeOut();
@@ -14,7 +14,7 @@ $('#more').on('click', function () {
 $('.member .card').slice(0, 3).show();
 
 $('#moreMember').on('click', function () {
-    $('.member .card:hidden').slice(0, 1).slideDown();
+    $('.member .card:hidden').slice(0, 3).slideDown();
 
     if ($('.member .card:hidden').length === 0) {
         $('#moreMember').fadeOut();
@@ -47,7 +47,7 @@ $('#moreCom').on('click', function () {
 $('.memberManage .card').slice(0, 3).show();
 
 $('#memberManage').on('click', function () {
-    $('.memberManage .card:hidden').slice(0, 1).slideDown();
+    $('.memberManage .card:hidden').slice(0, 3).slideDown();
 
     if ($('.memberManage .card:hidden').length === 0) {
         $('#memberManage').fadeOut();
