@@ -170,7 +170,7 @@
 									if ($postingan != NULL) {
 										foreach ($postingan as $p) {
 											if ($p->POST_IMAGE) {
-												if ($is_like[$count]) {
+												if (count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $p->POST_ID . '" AND `MEMBER_ID` = "' . $memberId . '"')->result()) == 1) {
 													echo '<div class="card">
 													<div class="card-body">
 													<div class="d-flex justify-content-start align-items-center mb-1">
@@ -240,7 +240,7 @@
 													</div>';
 												}
 											} else {
-												if ($is_like[$count]) {
+												if (count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $p->POST_ID . '" AND `MEMBER_ID` = "' . $memberId . '"')->result()) == 1) {
 													echo '<div class="card">
 													<div class="card-body">
 													<div class="d-flex justify-content-start align-items-center mb-1">

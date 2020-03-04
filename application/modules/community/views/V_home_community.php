@@ -191,7 +191,7 @@
 															<li style="float: left;">
 																<input type="hidden" name="cnt_row" id="cnt_row" value="<?= count($postingan) ?>">
 																<label class="fileContainer">
-																	<input type='file' id="gambar" name="gambar" />
+																	<input type='file' id="gambar" name="gambar" accept="image/x-png,image/gif,image/jpeg,image/jpg" />
 																	<img id="blah" src="#" alt="" width="250" />
 																	<i class="fa fa-image" id="icon-gmr"></i>
 																</label>
@@ -199,6 +199,7 @@
 
 															<li>
 																<button type="submit" href="#" id="btn-posting-ya">Post</button>
+																<div class="spinner-border text-primary mr-100" id="ldg-post" role="status" style="display:none;"></div>
 															</li>
 														</ul>
 													</div>
@@ -212,7 +213,7 @@
 									if ($postingan != NULL) {
 										foreach ($postingan as $p) {
 											if ($p->POST_IMAGE) {
-												if ($is_like[$count]) {
+												if (count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $p->POST_ID . '" AND `MEMBER_ID` = "' . $memberId . '"')->result()) == 1) {
 													echo '<div class="card">
 										<div class="card-body">
 											<div class="d-flex justify-content-start align-items-center mb-1">
@@ -276,7 +277,7 @@
 									</div>';
 												}
 											} else {
-												if ($is_like[$count]) {
+												if (count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $p->POST_ID . '" AND `MEMBER_ID` = "' . $memberId . '"')->result()) == 1) {
 													echo '<div class="card">
 										<div class="card-body">
 											<div class="d-flex justify-content-start align-items-center mb-1">
@@ -294,7 +295,7 @@
 													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
-													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
+													<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 													<span>0</span>
 												</div>
@@ -324,7 +325,7 @@
 												<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
 												<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
 												<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-												<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
+												<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 												<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
 												<span>0</span>
 											</div>
@@ -496,6 +497,8 @@
 
 			$("#form-post").submit(function(e) {
 				e.preventDefault();
+				$('#btn-posting-ya').toggle();
+				$('#ldg-post').toggle();
 				var isi = $('textarea[name=isi]').val();
 				var gambar = $('input[name=gambar]').val();
 				if (isi == '' && gambar == '') {
@@ -504,6 +507,8 @@
 						'You must fill post description or post photo or both',
 						'error'
 					);
+					$('#btn-posting-ya').toggle();
+					$('#ldg-post').toggle();
 				} else {
 					$.ajax({
 						url: $(this).attr("action"),
@@ -530,6 +535,8 @@
 				$('#blah').attr('src', '#');
 				$('#icon-gmr').show();
 				$('#cnt_row').val(parseInt($('#cnt_row').val()) + 1);
+				$('#btn-posting-ya').show();
+				$('#ldg-post').hide();
 			}
 
 			// fungsi ketika btn LIKE ditekan

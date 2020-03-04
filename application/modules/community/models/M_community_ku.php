@@ -46,7 +46,9 @@ class M_community_ku extends CI_Model
 
 	public function like($post, $mem)
 	{
-		$this->db->query('INSERT INTO `like` (`LIKE_ID`, `POST_ID`, `MEMBER_ID`, `CREATED_AT`) VALUES (NULL, "' . $post . '", "' . $mem . '", current_timestamp())');
+		$cnt = count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $post . '" AND `MEMBER_ID`= "' . $mem . '"')->result());
+		if ($cnt == 0)
+			$this->db->query('INSERT INTO `like` (`LIKE_ID`, `POST_ID`, `MEMBER_ID`, `CREATED_AT`) VALUES (NULL, "' . $post . '", "' . $mem . '", current_timestamp())');
 	}
 
 	public function dislike($post, $mem)
@@ -65,7 +67,7 @@ class M_community_ku extends CI_Model
 			}
 			$str_query = $str_query . ',"' . $id_member[$i]->COM_ID . '"';
 		}
-		$str_query = $str_query . ')';
+		$str_query = $str_query . ') ORDER BY `UP_DATE` DESC';
 		return $this->db->query($str_query)->result();
 	}
 }
