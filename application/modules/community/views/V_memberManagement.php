@@ -279,7 +279,7 @@
                                                                         <div class="card" style="border: 1px solid #babfc7">
                                                                             <div class="card-header mx-auto">
                                                                                 <div class="avatar avatar-xl">
-                                                                                    <img class="img-fluid" src="<?= base_url('assets/img/user/') . $member->USER_IMAGE; ?>" alt="img placeholder">
+                                                                                    <img class="img-fluid" src="<?= base_url('assets/img/user/') . $req->USER_IMAGE; ?>" alt="img placeholder">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="card-content">

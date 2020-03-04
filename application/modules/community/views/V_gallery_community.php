@@ -108,7 +108,7 @@
                                         <h4>About</h4>
                                         <div class="dropdown">
                                             <a data-toggle="dropdown"><i class="feather icon-more-horizontal cursor-pointer"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('community/setting_community'); ?>">Edit Info</a></div>
+                                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>">Edit Info</a></div>
                                         </div>
                                     </div>
                                     <div class="card-body">
