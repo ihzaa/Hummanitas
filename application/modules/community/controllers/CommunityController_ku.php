@@ -84,11 +84,15 @@ class CommunityController_ku extends MY_Controller
 						<span>0</span>
 					</div>
 				</div>
+				<hr>
+				<div id="kotak-komen' . $id_post . '">
+				</div>
 				<fieldset class="form-label-group mb-50">
-					<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+					<textarea class="form-control" id="input-comment' .  $id_post . '" rows="3" placeholder="Add Comment"></textarea>
 					<label for="label-textarea">Add Comment</label>
 				</fieldset>
-				<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+				<button type="button" class="btn btn-sm btn-primary btn-comment-post" data-id="' . $id_post . '">Post Comment</button>
+				<div class="spinner-border text-primary mr-100 " id="ldg-comment' . $id_post . '" role="status" style="display:none;"></div>
 			</div>
 		</div>';
 			echo $output;
@@ -125,11 +129,15 @@ class CommunityController_ku extends MY_Controller
 					<span>0</span>
 				</div>
 			</div>
+			<hr>
+			<div id="kotak-komen' . $id_post . '">
+			</div>
 			<fieldset class="form-label-group mb-50">
-				<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+				<textarea class="form-control" id="input-comment' .  $id_post . '" rows="3" placeholder="Add Comment"></textarea>
 				<label for="label-textarea">Add Comment</label>
 			</fieldset>
-			<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+			<button type="button" class="btn btn-sm btn-primary btn-comment-post" data-id="' . $id_post . '">Post Comment</button>
+			<div class="spinner-border text-primary mr-100 " id="ldg-comment' . $id_post . '" role="status" style="display:none;"></div>
 		</div>
 	</div>';
 			echo $output;
@@ -162,5 +170,28 @@ class CommunityController_ku extends MY_Controller
 		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 
 		$this->m_community_ku->dislike($id_post, $id_mem);
+	}
+
+	function storeComment()
+	{
+		$id_post = $this->input->post('id_post');
+		$isi = $this->input->post('isi');
+		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
+
+
+		$this->m_community_ku->storeComment($id_post, $id_mem, $isi);
+
+		echo '
+		<div class="d-flex justify-content-start align-items-center mb-1">
+			<div class="avatar mr-50">
+				<img src="' . base_url("assets/img/user/" . $this->m_user->getUser()["USER_IMAGE"]) . '" alt="Avatar" height="30" width="30">
+			</div>
+			<div class="user-page-info">
+				<h6 class="mb-0"><a href="" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
+				</h6>
+				<span class="font-small-2">' . $isi . '</span>
+			</div>
+		</div>
+		<hr>';
 	}
 }

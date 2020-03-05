@@ -45,6 +45,15 @@ class M_community_ku extends CI_Model
 		return $ret;
 	}
 
+	public function commentPerPost($arr)
+	{
+		$ret = array();
+		for ($i = 0; $i < count($arr); $i++) {
+			$ret[$i] = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $arr[$i]->POST_ID . '" ORDER BY `CREATE_AT` DESC')->result();
+		}
+		return $ret;
+	}
+
 	public function isLike($arr)
 	{
 		$ret = array();
@@ -80,5 +89,10 @@ class M_community_ku extends CI_Model
 		}
 		$str_query = $str_query . ') ORDER BY `UP_DATE` DESC';
 		return $this->db->query($str_query)->result();
+	}
+
+	public function storeComment($post, $mem, $isi)
+	{
+		$this->db->query('INSERT INTO `comment` (`COMMENT_ID`, `MEMBER_ID`, `POST_ID`, `COMMENT_CONTENT`, `CREATE_AT`) VALUES (NULL, "' . $mem . '", "' . $post . '", "' . $isi . '", current_timestamp())');
 	}
 }

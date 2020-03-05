@@ -243,16 +243,12 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>0</span>
+													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<fieldset class="form-label-group mb-50">
-												<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-												<label for="label-textarea">Add Comment</label>
-											</fieldset>
-											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-										</div>
-									</div>';
+											<hr>
+											<div id="kotak-komen' . $p->POST_ID . '">
+											';
 													} else {
 														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
 										<div class="card-body">
@@ -274,16 +270,11 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>0</span>
+													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<fieldset class="form-label-group mb-50">
-												<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-												<label for="label-textarea">Add Comment</label>
-											</fieldset>
-											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-										</div>
-									</div>';
+											<hr>
+											<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 
 													//jika belum like
@@ -310,16 +301,11 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>0</span>
+													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<fieldset class="form-label-group mb-50">
-												<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-												<label for="label-textarea">Add Comment</label>
-											</fieldset>
-											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-										</div>
-									</div>';
+											<hr>
+											<div id="kotak-komen' . $p->POST_ID . '">';
 														//jika pemilik
 													} else {
 														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
@@ -350,16 +336,11 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>0</span>
+													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<fieldset class="form-label-group mb-50">
-												<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-												<label for="label-textarea">Add Comment</label>
-											</fieldset>
-											<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-										</div>
-									</div>';
+											<hr>
+											<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 												}
 
@@ -388,16 +369,11 @@
 																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span>0</span>
+																		<span>' . count($comment[$count]) . '</span>
 																	</div>
 																</div>
-																<fieldset class="form-label-group mb-50">
-																	<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-																	<label for="label-textarea">Add Comment</label>
-																</fieldset>
-																<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-															</div>
-														</div>';
+																<hr>
+																<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 													//pemilik
 													else {
@@ -428,16 +404,11 @@
 																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span>0</span>
+																		<span>' . count($comment[$count]) . '</span>
 																	</div>
 																</div>
-																<fieldset class="form-label-group mb-50">
-																	<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-																	<label for="label-textarea">Add Comment</label>
-																</fieldset>
-																<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-															</div>
-														</div>';
+																<hr>
+																<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 												}
 												//belum like
@@ -463,16 +434,11 @@
 												<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 												<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 												<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-												<span>0</span>
+												<span>' . count($comment[$count]) . '</span>
 											</div>
 										</div>
-										<fieldset class="form-label-group mb-50">
-											<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-											<label for="label-textarea">Add Comment</label>
-										</fieldset>
-										<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-									</div>
-								</div>';
+										<hr>
+										<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 													//pemilik
 													else {
@@ -503,19 +469,40 @@
 																			<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 																			<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																			<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																			<span>0</span>
+																			<span>' . count($comment[$count]) . '</span>
 																		</div>
 																	</div>
-																	<fieldset class="form-label-group mb-50">
-																		<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-																		<label for="label-textarea">Add Comment</label>
-																	</fieldset>
-																	<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-																</div>
-															</div>';
+																	<hr>
+																	<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 												}
 											}
+
+											foreach ($comment[$count] as $c) {
+												echo '
+												<div class="d-flex justify-content-start align-items-center mb-1">
+													<div class="avatar mr-50">
+														<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
+													</div>
+													<div class="user-page-info">
+														<h6 class="mb-0"><a href="" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
+														</h6>
+														<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
+													</div>
+												</div>
+												<hr>';
+											}
+
+											echo '
+											</div>
+											<fieldset class="form-label-group mb-50">
+												<textarea class="form-control" id="input-comment' . $p->POST_ID . '" rows="3" placeholder="Add Comment"></textarea>
+												<label for="label-textarea">Add Comment</label>
+											</fieldset>
+											<button type="button" class="btn btn-sm btn-primary btn-comment-post" data-id="' . $p->POST_ID . '">Post Comment</button>
+											<div class="spinner-border text-primary mr-100 " id="ldg-comment' . $p->POST_ID . '" role="status" style="display:none;"></div>
+										</div>
+									</div>';
 											$count++;
 										}
 									} else {
@@ -793,9 +780,7 @@
 								id_post: id
 							},
 							type: 'POST',
-							success: function(data) {
-								alert('ya');
-							},
+							success: function(data) {},
 							error: function(data) {
 								alert('tidaaa');
 							}
@@ -810,6 +795,37 @@
 					}
 				})
 			});
+
+			$(document).on('click', '.btn-comment-post', function() {
+
+				id = $(this).data('id');
+				isi_com = $('#input-comment' + id).val();
+				if (isi_com != '') {
+					$(this).hide();
+					$(this).next().show();
+					$.ajax({
+						url: '<?= base_url('posting/comment/store') ?> ',
+						data: {
+							id_post: id,
+							isi: isi_com
+						},
+						type: 'POST',
+						success: function(data) {
+							$(data).appendTo('#kotak-komen' + id).slideDown('slow');
+							reset_comment_input(id);
+						},
+						error: function(data) {
+							alert('tidaaa');
+						}
+					});
+				}
+			});
+
+			function reset_comment_input(id) {
+				$('#input-comment' + id).val('');
+				$('#ldg-comment' + id).prev().show();
+				$('#ldg-comment' + id).hide();
+			}
 		});
 	</script>
 
