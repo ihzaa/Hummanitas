@@ -15,6 +15,17 @@ class M_community_ku extends CI_Model
 		return $this->db->query('select POST_ID from post ORDER BY POST_ID DESC LIMIT 1')->result()[0]->POST_ID;
 	}
 
+
+	public function getOnePost($id)
+	{
+		return $this->db->query('SELECT `POST_IMAGE` FROM `post` WHERE `POST_ID` = "' . $id . '"')->result()[0];
+	}
+
+	public function deletePost($id)
+	{
+		$this->db->query('DELETE FROM `post` WHERE `POST_ID` = "' . $id . '"');
+	}
+
 	public function getUserData($id)
 	{
 		return $this->db->query('SELECT * FROM `user` WHERE `USER_ID` = "' . $id . '"')->result()[0];

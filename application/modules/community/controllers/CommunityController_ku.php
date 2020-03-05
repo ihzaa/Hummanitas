@@ -41,7 +41,7 @@ class CommunityController_ku extends MY_Controller
 		//end notif
 		$config['upload_path']          = 'assets/img/post/' . $id_member;
 		$config['allowed_types']        = 'gif|jpg|png';
-		$new_name = time() . '-' . $id_com . '-' . $id_member . '-' . $_FILES['gambar']['name'];
+		$new_name = time() . '-' . rand(0, 10000) . '-' . $id_com . '-' . $id_member . '.' . pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
 		$config['file_name'] = $new_name;
 
 		//var lengkap = letak + nama file
@@ -54,7 +54,7 @@ class CommunityController_ku extends MY_Controller
 		$user = $this->m_community_ku->getUserData($this->session->userdata('id'));
 		if (!$this->upload->do_upload('gambar')) {
 			$id_post = $this->m_community_ku->storePostToDB($id_com, $id_member, $isi, NULL);
-			$output = '<div class="card" style="display : block;">
+			$output = '<div class="card" id="Kpost' . $id_post . '" style="display : block;">
 			<div class="card-body">
 				<div class="d-flex justify-content-start align-items-center mb-1">
 					<div class="avatar mr-1">
@@ -63,6 +63,14 @@ class CommunityController_ku extends MY_Controller
 					<div class="user-page-info">
 						<p class="mb-0"><a href="" style="color: black;"><strong>' . $user->NAME . '</strong></a></p>
 						<span class="font-small-2">' . date("Y-m-d H:i:s", time()) . '</span>
+						<div class="btn-group ml-2">
+							<div class="dropdown">
+								<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
+									<a class="dropdown-item delete-post-btn" data-id="' . $id_post . '" href="#">Delete</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<p>' . $isi . '</p>
@@ -86,7 +94,7 @@ class CommunityController_ku extends MY_Controller
 			echo $output;
 		} else {
 			$id_post = $this->m_community_ku->storePostToDB($id_com, $id_member, $isi, $lengkap);
-			$output = '<div class="card" style="display : block;">
+			$output = '<div class="card" id="Kpost' . $id_post . '" style="display : block;">
 		<div class="card-body">
 			<div class="d-flex justify-content-start align-items-center mb-1">
 				<div class="avatar mr-1">
@@ -95,6 +103,14 @@ class CommunityController_ku extends MY_Controller
 				<div class="user-page-info">
 					<p class="mb-0"><a href="" style="color: black;"><strong>' . $user->NAME . '</strong></a></p>
 					<span class="font-small-2">' . date("Y-m-d H:i:s", time()) . '</span>
+					<div class="btn-group ml-2">
+						<div class="dropdown">
+							<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
+								<a class="dropdown-item delete-post-btn" data-id="' . $id_post . '" href="#">Delete</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<p>' . $isi . '</p>
@@ -117,6 +133,18 @@ class CommunityController_ku extends MY_Controller
 		</div>
 	</div>';
 			echo $output;
+		}
+	}
+
+	function deletePost()
+	{
+		$this->load->helper("file");
+		if ($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE != '') {
+			$this->m_community_ku->deletePost($this->input->post('id_post'));
+		} else {
+			if (unlink($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE)) {
+				$this->m_community_ku->deletePost($this->input->post('id_post'));
+			}
 		}
 	}
 
