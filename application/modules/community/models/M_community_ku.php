@@ -49,7 +49,7 @@ class M_community_ku extends CI_Model
 	{
 		$ret = array();
 		for ($i = 0; $i < count($arr); $i++) {
-			$ret[$i] = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $arr[$i]->POST_ID . '" ORDER BY `CREATE_AT` DESC')->result();
+			$ret[$i] = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $arr[$i]->POST_ID . '" ORDER BY `CREATE_AT` ASC')->result();
 		}
 		return $ret;
 	}

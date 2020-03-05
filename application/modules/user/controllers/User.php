@@ -26,6 +26,7 @@ class User extends MY_Controller
 		$data['user_com'] = $this->m_user->get_user_com($data['user']['USER_ID']);
 		$data['postingan'] = $this->m_community_ku->get_postingan_per_com_di_home($this->session->userdata('id'));
 		$data['jml_like'] = $this->m_community_ku->hitung_like($data['postingan']);
+		$data['comment'] = $this->m_community_ku->commentPerPost($data['postingan']);
 		$data['memberId'] = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 		$this->load->view('v_user_home', $data);
 	}
