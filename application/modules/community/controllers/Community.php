@@ -710,6 +710,7 @@ class Community extends MY_Controller
 		$data['member'] = $this->m_community->get_com_member($id);
 		$data['image'] = $this->m_community->get_com_image($id);
 		$data['postingan'] = $this->m_community_ku->get_postingan_per_com($id);
+		$data['comment'] = $this->m_community_ku->commentPerPost($data['postingan']);
 		$data['jml_like'] = $this->m_community_ku->hitung_like($data['postingan']);
 
 		$user_id = $data['user']['USER_ID'];

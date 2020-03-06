@@ -175,16 +175,9 @@
 														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
 														<span>' . $jml_like[$count] . '</span>
 														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-														<span>0</span>
+														<span>' . count($comment[$count]) . '</span>
 													</div>
-												</div>
-												<fieldset class="form-label-group mb-50">
-													<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-													<label for="label-textarea">Add Comment</label>
-												</fieldset>
-												<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-											</div>
-										</div>';
+												</div>';
 											} else {
 												echo '<div class="card">
 											<div class="card-body">
@@ -203,17 +196,38 @@
 														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
 														<span>' . $jml_like[$count] . '</span>
 														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-														<span>0</span>
+														<span>' . count($comment[$count]) . '</span>
 													</div>
 												</div>
-												<fieldset class="form-label-group mb-50">
-													<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-													<label for="label-textarea">Add Comment</label>
-												</fieldset>
-												<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
-											</div>
-										</div>';
+										';
 											}
+
+											echo '
+											<div class="divider">
+												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+											</div>
+											<div id="kotak-komen' . $p->POST_ID . '">';
+											if (!empty($comment[$count])) {
+												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="' . $comment[$count][count($comment[$count]) - 1]->COMMENT_ID . '">';
+												for ($i = count($comment[$count]) - 1; $i >= 0; $i--) {
+													$c = $comment[$count][$i];
+													echo '
+													<div class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar mr-50">
+															<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
+														</div>
+														<div class="user-page-info">
+															<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
+															</h6>
+															<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
+														</div>
+													</div>
+													<hr>';
+												}
+											} else {
+												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="">';
+											}
+											echo '</div></div></div>';
 											$count++;
 										}
 									} else {

@@ -147,7 +147,7 @@ class CommunityController_ku extends MY_Controller
 	function deletePost()
 	{
 		$this->load->helper("file");
-		if ($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE != '') {
+		if ($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE == '') {
 			$this->m_community_ku->deletePost($this->input->post('id_post'));
 		} else {
 			if (unlink($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE)) {

@@ -243,7 +243,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -272,7 +272,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -305,7 +305,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -342,7 +342,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span>' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -377,7 +377,7 @@
 																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span>' . count($comment[$count]) . '</span>
+																		<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 																	</div>
 																</div>
 																<div class="divider">
@@ -414,7 +414,7 @@
 																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span>' . count($comment[$count]) . '</span>
+																		<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 																	</div>
 																</div>
 																<div class="divider">
@@ -446,7 +446,7 @@
 												<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 												<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 												<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-												<span>' . count($comment[$count]) . '</span>
+												<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 											</div>
 										</div>
 										<div class="divider">
@@ -483,7 +483,7 @@
 																			<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 																			<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																			<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																			<span>' . count($comment[$count]) . '</span>
+																			<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
 																		</div>
 																	</div>
 																	<div class="divider">
@@ -652,6 +652,7 @@
 	<script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/user-profile.js"></script>
 	<script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
 	<script src="<?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script>
+	<script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
 	<!-- END: Page JS-->
 
 	<!-- footer user -->
@@ -844,6 +845,7 @@
 			});
 
 			function reset_comment_input(id) {
+				$('#jml_cmt' + id).html(parseInt($('#jml_cmt' + id).html()) + 1);
 				$('#input-comment' + id).val('');
 				$('#ldg-comment' + id).prev().show();
 				$('#ldg-comment' + id).hide();
