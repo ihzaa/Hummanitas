@@ -226,8 +226,8 @@
 													<span class="font-small-2">' . $p->UP_DATE . '</span>
 													<div class="btn-group ml-2">
 														<div class="dropdown">
-														<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
+															<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+															<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
 																<a class="dropdown-item delete-post-btn" data-id="' . $p->POST_ID . '" href="#">Delete</a>
 															</div>
 														</div>
