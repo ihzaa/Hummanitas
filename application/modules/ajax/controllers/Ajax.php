@@ -458,4 +458,66 @@ class Ajax extends MY_Controller
             echo 'failed';
         }
     }
+
+    function selectedMonthlyIncome()
+    {
+        $com_id = $this->uri->segment(2);
+        $value = $this->input->post('valueSelected');
+
+        $selected = $this->m_ajax->selectedMonthlyIncome($com_id, $value);
+        $Total = $this->m_ajax->totalMonthlyIncome($com_id, $value);
+        $output = '';
+        $total = '';
+
+        if ($selected != NULL) {
+            foreach ($selected as $selected) {
+                $i = 1;
+                $output .= '<tr>
+                    <th>
+                       ' . $i . '
+                    </th>
+                    <th>
+                        ' . $selected->MONTH . '
+                    </th>
+                    <th>
+                        ' . $selected->YEAR . '
+                    </th>
+                    <th>
+                        ' . $selected->TOTAL . '
+                    </th>
+            
+                </tr>';
+                $i++;
+            }
+        } else {
+            $output .= '<tr>
+                    <th>
+                    <div class="center">
+                      No Data Found.
+                      </div>
+                    </th>
+            
+                </tr>';
+        }
+
+
+        if ($Total != 0) {
+            $total .= '<tr>
+            <th></th>
+            <th>Total</th>
+            <th></th>
+            <th><strong>' . $Total['TOTAL'] . '</strong></th>
+        </tr>';
+        } else {
+            $total .= '<tr>
+        </tr>';
+        }
+
+
+        $data = array(
+            'row' => $output,
+            'total' => $total
+        );
+        echo json_encode($data);
+    }
 }

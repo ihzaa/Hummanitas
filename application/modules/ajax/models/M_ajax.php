@@ -199,4 +199,16 @@ class M_ajax extends CI_Model
         $query = $this->db->query('SELECT * FROM monthly_cash WHERE CASH_ID = ' . $id . ' AND CASH_STATUS = 0');
         return $query->result();
     }
+
+    function selectedMonthlyIncome($com_id, $value)
+    {
+        $query = $this->db->query("SELECT c.MONTHYEAR_ID,SUM(c.CASH_AMOUNT) AS 'TOTAL',m.MONTH,y.YEAR FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE c.COM_ID = " . $com_id . " AND m.MONTH LIKE '%$value%' AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID")->result();
+        return $query;
+    }
+
+    function totalMonthlyIncome($com_id, $value)
+    {
+        $query = $this->db->query("SELECT SUM(c.CASH_AMOUNT) AS 'TOTAL' FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE c.COM_ID = " . $com_id . " AND m.MONTH LIKE '%$value%' AND c.CASH_STATUS = 1 ")->row_array();
+        return $query;
+    }
 }

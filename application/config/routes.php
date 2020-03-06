@@ -135,6 +135,7 @@ $route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcom
 $route['community/(:num)/finance/outcome/add'] = 'community/community_outcome/outcomeAdd';
 
 //finance
+//income
 $route['community/(:num)/finance/income/1'] = 'community/communitynew/idx';
 $route['community/(:num)/finance/income/1/addTransaction'] = 'community/communitynew/addMonthlyTransaction';
 $route['ajax/(:num)/saveDonation'] = 'ajax/saveDonation';
@@ -142,3 +143,9 @@ $route['community/(:num)/finance/income/2'] = 'community/communitynew/event_inco
 $route['community/(:num)/finance/income/2/addEvent'] = 'community/communitynew/add_event';
 $route['community/(:num)/finance/income/2/addTransaction'] = 'community/communitynew/addEventTransaction';
 $route['community/(:num)/finance/income/3'] = 'community/communitynew/total_income';
+$route['ajax/(:num)/selectedMonthlyIncome'] = 'ajax/selectedMonthlyIncome';
+//outcome
+$route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcome';
+$route['community/(:num)/finance/outcome/add'] = 'community/community_outcome/outcomeAdd';
+//total
+$route['community/(:num)/finance/total'] = 'community/communitynew/profitLoss';

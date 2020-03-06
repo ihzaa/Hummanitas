@@ -149,6 +149,7 @@ class CommunityNew extends MY_Controller
         $data['community'] = $this->m_community->get_com_detail($id);
         $data['month'] = $this->m_communitynew->listMonth();
         $data['monthlyIncome'] = $this->m_communitynew->sumMonthlyCash($id);
+        $data['totalMonthly'] = $this->m_communitynew->totalMonthlyCash($id);
         $data['eventIncome'] = $this->m_communitynew->sumEventCash($id);
         $user_id = $data['user']['USER_ID'];
 
@@ -157,6 +158,29 @@ class CommunityNew extends MY_Controller
 
 
                 $this->load->view('v_total_income', $data);
+            } else {
+                redirect('community/' . $id . '/guest');
+            }
+        } else {
+            redirect('community/authorized');
+        }
+    }
+
+    //profit loss
+    function profitLoss()
+    {
+        $id = $this->uri->segment('2');
+        $data['user'] = $this->m_user->getUser();
+        $data['community'] = $this->m_community->get_com_detail($id);
+        $data['year'] = $this->m_communitynew->listYear();
+        $data['outcome'] = $this->m_communitynew->totalOutcome($id);
+        $data['income'] = $this->m_communitynew->totalIncome($id);
+        $data['balance'] = $this->m_communitynew->balance($id);
+        $user_id = $data['user']['USER_ID'];
+
+        if ($this->m_community->getCom($id)) {
+            if ($this->m_community->cekUser($user_id, $id) != NULL) {
+                $this->load->view('v_profit_loss', $data);
             } else {
                 redirect('community/' . $id . '/guest');
             }
