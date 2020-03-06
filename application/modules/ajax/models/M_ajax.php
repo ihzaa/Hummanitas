@@ -199,4 +199,47 @@ class M_ajax extends CI_Model
         $query = $this->db->query('SELECT * FROM monthly_cash WHERE CASH_ID = ' . $id . ' AND CASH_STATUS = 0');
         return $query->result();
     }
+
+    function selectedMonthlyIncome($com_id, $value)
+    {
+        $query = $this->db->query("SELECT c.MONTHYEAR_ID,SUM(c.CASH_AMOUNT) AS 'TOTAL',m.MONTH,y.YEAR FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE c.COM_ID = " . $com_id . " AND m.MONTH LIKE '%$value%' AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID")->result();
+        return $query;
+    }
+
+    function totalMonthlyIncome($com_id, $value)
+    {
+        $query = $this->db->query("SELECT SUM(c.CASH_AMOUNT) AS 'TOTAL' FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE c.COM_ID = " . $com_id . " AND m.MONTH LIKE '%$value%' AND c.CASH_STATUS = 1 ")->row_array();
+        return $query;
+    }
+
+    function selectedTotalIncome($com_id, $value)
+    {
+
+        $income = $this->db->query("SELECT c.CASH_ACTIVITY,y.YEAR,SUM(c.CASH_AMOUNT) AS 'TOTAL' FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE y.YEAR LIKE '%2020%' AND c.COM_ID = " . $com_id . " AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID
+        UNION ALL
+        SELECT a.ACTIVITY,e.ANOTHER_DATE,SUM(e.ANOTHER_AMOUNT) AS 'TOTAL' FROM another_income e JOIN activity a ON e.ACTIVITY_ID = a.ACTIVITY_ID WHERE e.ANOTHER_DATE LIKE '%2020%' AND e.COM_ID = " . $com_id . " AND e.ANOTHER_STATUS = 1 GROUP BY e.ACTIVITY_ID")->result();
+
+        return $income;
+    }
+
+    function selectedTotalOutcome($com_id, $value)
+    {
+        $outcome = $this->db->query("SELECT OUTCOME_ACTIVITY,OUTCOME_DATE,SUM(OUTCOME_AMOUNT) AS 'TOTAL' FROM outcome WHERE OUTCOME_DATE LIKE '%$value%' AND COM_ID =" . $com_id)->result();
+
+        return $outcome;
+    }
+
+    function totalSelectedIncome($com_id, $value)
+    {
+        $query = $this->db->query("SELECT SUM(t.TOTAL) AS 'TOTAL' FROM (SELECT c.CASH_ACTIVITY,y.YEAR,SUM(c.CASH_AMOUNT) AS 'TOTAL' FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE y.YEAR LIKE '%$value%' AND c.COM_ID = " . $com_id . " AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID
+        UNION ALL
+        SELECT a.ACTIVITY,e.ANOTHER_DATE,SUM(e.ANOTHER_AMOUNT) AS 'TOTAL' FROM another_income e JOIN activity a ON e.ACTIVITY_ID = a.ACTIVITY_ID WHERE e.ANOTHER_DATE LIKE '%$value%' AND e.COM_ID = " . $com_id . " AND e.ANOTHER_STATUS = 1 GROUP BY e.ACTIVITY_ID) t")->row_array();
+        return $query;
+    }
+
+    function totalSelectedOutcome($com_id, $value)
+    {
+        $query = $this->db->query("SELECT SUM(OUTCOME_AMOUNT) AS 'TOTAL' FROM outcome WHERE COM_ID = " . $com_id . " AND OUTCOME_DATE LIKE '%$value%' ")->row_array();
+        return $query;
+    }
 }
