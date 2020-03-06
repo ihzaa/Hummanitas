@@ -103,7 +103,7 @@ class Community extends MY_Controller
 
 		$output = '';
 
-		$output .= '<?= form_open_multipart("community/"' . $com_id . '"/event/editEvent"); ?>
+		$output .= form_open_multipart('community/' . $com_id . '/event/eventEdit') . '
 
 
 		<div class="form-group">
@@ -113,9 +113,9 @@ class Community extends MY_Controller
 
 				<div class="col-sm-6">
 					<div class="custom-file">
-
-						<input type="file" class="custom-file-input" id="image" name="image">
-						<label class="custom-file-label" for="image">Choose file</label>
+						
+						<input type="file" class="custom-file-input" id="image" name="image" value=" ">
+						<label class="custom-file-label" for="image">' . $event['EVENT_THUMBNAIL'] . '</label>
 					</div>
 				</div>
 			</div>
@@ -176,14 +176,32 @@ class Community extends MY_Controller
 
 </div>
 <div class="modal-footer">
-	<button type="submit" class="btn btn-primary">save</button>
+	<button type="submit" class="btn btn-primary"  name="save" value="' . $event['EVENT_ID'] . '">save</button>
 	</form>
-	<form action="" method="POST">
-	<button type="submit" class="btn btn-danger" value="' . $event['EVENT_ID'] . '">delete</button>
+	<form action="event/delete" method="POST">
+	<button type="submit" class="btn btn-danger" name="delete" value="' . $event['EVENT_ID'] . '">delete</button>
 	</form>
 	</div>';
 
 		echo $output;
+	}
+
+	function editEvent1()
+	{
+		$com_id = $this->uri->segment('2');
+		$event_id = $this->input->post('save');
+		$upload_image = $_FILES['image']['name'];
+
+		$this->m_community->eventEdit($upload_image, $event_id);
+		redirect('community/' . $com_id . '/event');
+	}
+
+	function eventDel()
+	{
+		$com_id = $this->uri->segment('2');
+		$event_id = $this->input->post('delete');
+		$this->m_community->eventDel($event_id);
+		redirect('community/' . $com_id . '/event');
 	}
 
 	function event_detail()

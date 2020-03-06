@@ -59,6 +59,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['community/(:num)'] = 'community';
 $route['community/(:num)/report'] = 'community/report';
+$route['user/user_profile_guest/(:num)/report'] = 'user/report';
 $route['community/(:num)/setting'] = 'community/setting_community';
 $route['community/(:num)/setting_community1'] = 'community/setting_community1';
 $route['community/(:num)/member'] = 'community/listMember';
@@ -77,6 +78,8 @@ $route['community/(:num)/collaboration/reject'] = 'community/rejectCollab';
 $route['community/(:num)/event'] = 'community/event';
 $route['community/(:num)/event/add'] = 'community/createEvent';
 $route['community/(:num)/event/editEvent'] = 'community/editEvent';
+$route['community/(:num)/event/eventEdit'] = 'community/editEvent1';
+$route['community/(:num)/event/delete'] = 'community/eventDel';
 $route['community/(:num)/event/(:num)'] = 'community/event_detail';
 
 //member management komunitas
