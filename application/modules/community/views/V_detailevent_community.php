@@ -106,8 +106,24 @@
                                     <p style="margin-top: -10px" class="text-muted"><?= $event['EVENT_LOC'] ?></p>
                                 </div>
                                 <div class="col">
-                                    <h5 align="center" style="margin-top: -15px;">Event Income: 2000000</h5>
-                                    <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; Donate</button>
+                                    <?php
+                                    $data = $this->db->query('SELECT * FROM activity where EVENT_ID = ' . $this->uri->segment(4))->result();
+                                    $activity_id = $data[0]->ACTIVITY_ID;
+
+
+                                    if ($data != NULL) {
+
+                                        $Total = $this->db->query('SELECT SUM(ANOTHER_AMOUNT) as TOTAL FROM  event e  join activity a on e.EVENT_ID = a.EVENT_ID  join another_income i on a.ACTIVITY_ID=i.ACTIVITY_ID WHERE e.EVENT_ID=' . $this->uri->segment(4))->row_array();
+                                    ?>
+
+                                        <h5 align="center" style="margin-top: -15px;">Event Income: <?php if ($Total['TOTAL'] != NULL) {
+                                                                                                        echo $Total['TOTAL'];
+                                                                                                    } else {
+                                                                                                        echo '-';
+                                                                                                    } ?></h5>
+                                        <button class="btn btn-primary mb-2" data-toggle="modal" name="Donate" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; Donate</button>
+                                    <?php }  ?>
+
 
                                 </div>
                             </div>
@@ -134,36 +150,39 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Transaction</h5>
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">DONATE</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
+                    <?= form_open_multipart(base_url('community/' . $community['COM_ID'] . '/event/' . $event['EVENT_ID'] . '/addDonate')); ?>
+                    <h5>Event</h5>
+                    <ul class="list-unstyled mb-0 listEventIncome">
 
+                    </ul>
                     <div>
                         <br>
                         <h5>Amount</h5>
-                        <input type="text" class="form-control" placeholder="Amount" style="width: 100%;">
+                        <input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" style="width: 100%;">
+                        <p style="font-size: 9px">format example: "20000"</p>
                     </div>
 
                     <br>
                     <h5>Proof Of Payment</h5>
-                    <div class="col-12">
+                    <div class="custom-file">
 
-                        <input id="uploadFile1" placeholder="Pilih File..." disabled="disabled" />
-                        <div class="fileUpload btn btn-primary">
-                            <span>Upload</span>
-                            <input id="uploadBtn1" type="file" class="upload" />
-                        </div>
+                        <input type="file" class="custom-file-input" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="image" name="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
                     </div>
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                    <button type="submit" id="memberSend" class="btn btn-primary">Send</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

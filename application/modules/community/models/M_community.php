@@ -323,20 +323,31 @@ class M_community extends CI_Model
         $this->upload->do_upload('image');
         $gbr = $this->upload->data('file_name');
 
-        $data = [
-            'START_DATE' => $this->input->post('startDate'),
-            'EVENT_LOC' => $this->input->post('location'),
+        if ($gbr != NULL) {
 
-            'EVENT_DESC' => $this->input->post('description'),
-            'EVENT_THUMBNAIL' => $gbr,
-            'EVENT_TITLE' => $this->input->post('title'),
-            'END_DATE' => $this->input->post('endDate'),
+            $data = [
+                'START_DATE' => $this->input->post('startDate'),
+                'EVENT_LOC' => $this->input->post('location'),
 
+                'EVENT_DESC' => $this->input->post('description'),
+                'EVENT_THUMBNAIL' => $gbr,
+                'EVENT_TITLE' => $this->input->post('title'),
+                'END_DATE' => $this->input->post('endDate'),
+            ];
+            $this->db->where('EVENT_ID', $event_id);
+            $this->db->update('event', $data);
+        } else {
+            $data = [
+                'START_DATE' => $this->input->post('startDate'),
+                'EVENT_LOC' => $this->input->post('location'),
 
-        ];
-
-        $this->db->where('EVENT_ID', $event_id);
-        $this->db->update('event', $data);
+                'EVENT_DESC' => $this->input->post('description'),
+                'EVENT_TITLE' => $this->input->post('title'),
+                'END_DATE' => $this->input->post('endDate'),
+            ];
+            $this->db->where('EVENT_ID', $event_id);
+            $this->db->update('event', $data);
+        }
     }
 
     function eventDel($event_id)

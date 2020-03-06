@@ -282,25 +282,6 @@
     <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/pickers/pickadate/datepicker.js"></script>
     <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/pickers/pickadate/main.js"></script>
     <!-- END: Page JS-->
-    <script>
-        $(document).ready(function() {
-                    $("#collab-list li").click(function() {
-                        var id = $('#collab-list').find('li.active').data('id');
-
-                        $.ajax({
-                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getChat') ?>",
-                            method: "POST",
-                            data: {
-                                id: id
-                            },
-                            success: function(data) {
-                                $(".chats").html(data);
-
-                            }
-                        });
-                    });
-                }
-    </script>
 
     <!-- footer user -->
     <?php $this->load->view('user/v_template_footer') ?>

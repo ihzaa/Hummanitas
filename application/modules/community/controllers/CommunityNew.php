@@ -109,6 +109,25 @@ class CommunityNew extends MY_Controller
         redirect('community/' . $com_id . '/finance/income/2');
     }
 
+    function addEventDonate()
+    {
+        $com_id = $this->uri->segment(2);
+        $event_id = $this->uri->segment(4);
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+
+        $member = $this->m_communitynew->cekMember($user_id, $com_id);
+        $member_id = $member['MEMBER_ID'];
+
+        $upload_image = $_FILES['image']['name'];
+
+        $this->m_communitynew->addDonate($upload_image, $com_id, $member_id);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        <p class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
+        redirect('community/' . $com_id . '/event/' . $event_id);
+    }
+
     function addMonthlyTransaction()
     {
         $com_id = $this->uri->segment(2);

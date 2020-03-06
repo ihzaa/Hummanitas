@@ -145,4 +145,5 @@ $route['ajax/(:num)/saveDonation'] = 'ajax/saveDonation';
 $route['community/(:num)/finance/income/2'] = 'community/communitynew/event_income';
 $route['community/(:num)/finance/income/2/addEvent'] = 'community/communitynew/add_event';
 $route['community/(:num)/finance/income/2/addTransaction'] = 'community/communitynew/addEventTransaction';
+$route['community/(:num)/event/(:num)/addDonate'] = 'community/communitynew/addEventDonate';
 $route['community/(:num)/finance/income/3'] = 'community/communitynew/total_income';

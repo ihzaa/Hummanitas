@@ -53,6 +53,36 @@ class M_communityNew extends CI_Model
         $this->db->insert('another_income', $data);
     }
 
+    function addDonate($upload_image, $com_id, $user_id)
+    {
+        $this->load->library('upload');
+        $nmfile = "file_" . time();
+        $config['upload_path']        = 'assets/img/community/transaction/' . $com_id;
+        $config['allowed_types']    = 'gif|jpg|png|jpeg';
+        $config['max_size']            = 0;
+
+        if (!file_exists('assets/img/community/transaction/' . $com_id)) {
+            mkdir('assets/img/community/transaction/' . $com_id, 0777, true);
+        }
+
+        $this->upload->initialize($config);
+        $this->upload->do_upload('image');
+        $gbr = $this->upload->data('file_name');
+
+        $data = $this->db->query('SELECT * FROM activity where EVENT_ID = ' . $this->uri->segment(4))->result();
+        $activity_id = $data[0]->ACTIVITY_ID;
+
+        $data = array(
+            'ACTIVITY_ID' => $activity_id,
+            'USER_ID' => $user_id,
+            'COM_ID' => $com_id,
+            'PROOF' => $gbr,
+            'ANOTHER_AMOUNT' => $this->input->post('amount'),
+            'ANOTHER_STATUS' => 0
+        );
+        $this->db->insert('another_income', $data);
+    }
+
     function cekMember($user_id, $com_id)
     {
         $q = $this->db->get_where('community_member', array("USER_ID" => $user_id, "COM_ID" => $com_id))->row_array();
