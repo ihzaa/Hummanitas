@@ -16,6 +16,38 @@ class CommunityNew extends MY_Controller
         is_logged_in();
     }
 
+    function idx()
+    {
+        $id = $this->uri->segment('2');
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+        $data['community'] = $this->m_community->get_com_detail($id);
+        $data['month'] = $this->m_communitynew->listMonth();
+        $data['year'] = $this->m_communitynew->listYear();
+        $data['unpaid'] = $this->m_communitynew->unpaidMember($id);
+        $data['listTransaction'] = $this->m_communitynew->getMonthlyTransaction($id);
+        $data['transaction'] = $this->m_communitynew->memberMonthlyTransaction($id, $user_id);
+
+        $stryYear = date('Y');
+        $year = (int) $stryYear;
+
+        $data['paid'] = $this->m_communitynew->paidMember($id, $year);
+
+        if ($this->m_communitynew->cekYear($year) == NULL) {
+            $this->m_communitynew->addYear($year);
+            $this->m_communitynew->addMonthYear($year);
+        }
+        if ($this->m_community->getCom($id)) {
+            if ($this->m_community->cekUser($user_id, $id) != NULL) {
+                $this->load->view('v_monthly_cash', $data);
+            } else {
+                redirect('community/' . $id . '/guest');
+            }
+        } else {
+            redirect('community/authorized');
+        }
+    }
+
     // finance event income
     function event_income()
     {
@@ -75,5 +107,61 @@ class CommunityNew extends MY_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         <p class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
         redirect('community/' . $com_id . '/finance/income/2');
+    }
+
+    function addMonthlyTransaction()
+    {
+        $com_id = $this->uri->segment(2);
+        $data['community'] = $this->m_community->get_com_detail($com_id);
+        $amount = $data['community']['JUMLAH_KAS'];
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+
+        $upload_image = $_FILES['image']['name'];
+
+        $month_id = $this->input->post('month');
+        $year = $this->input->post('selectYear');
+        $i = 0;
+
+
+        foreach ($month_id as $month_id) {
+            $month_id = $month_id;
+            $month = $this->m_communitynew->getMonth($month_id);
+            $month = $month['MONTH'];
+            $monthYearId = $this->m_communitynew->getMonthYear($month_id, $year);
+            $monthYearId = $monthYearId['ID'];
+
+            if (!$this->m_communitynew->checkMonthlyCash($monthYearId, $user_id, $com_id)) {
+                $this->m_communitynew->addMonthlyTransaction($upload_image, $monthYearId, $month, $com_id, $user_id, $amount);
+            }
+            $i++;
+        }
+        redirect('community/' . $com_id . '/finance/income/1');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        <p class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
+    }
+
+    //Total income
+    function total_income()
+    {
+        $id = $this->uri->segment('2');
+        $data['user'] = $this->m_user->getUser();
+        $data['community'] = $this->m_community->get_com_detail($id);
+        $data['month'] = $this->m_communitynew->listMonth();
+        $data['monthlyIncome'] = $this->m_communitynew->sumMonthlyCash($id);
+        $data['eventIncome'] = $this->m_communitynew->sumEventCash($id);
+        $user_id = $data['user']['USER_ID'];
+
+        if ($this->m_community->getCom($id)) {
+            if ($this->m_community->cekUser($user_id, $id) != NULL) {
+
+
+                $this->load->view('v_total_income', $data);
+            } else {
+                redirect('community/' . $id . '/guest');
+            }
+        } else {
+            redirect('community/authorized');
+        }
     }
 }

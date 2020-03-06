@@ -77,6 +77,9 @@ $route['community/(:num)/collaboration/reject'] = 'community/rejectCollab';
 //event komunitas
 $route['community/(:num)/event'] = 'community/event';
 $route['community/(:num)/event/add'] = 'community/createEvent';
+$route['community/(:num)/event/editEvent'] = 'community/editEvent';
+$route['community/(:num)/event/eventEdit'] = 'community/editEvent1';
+$route['community/(:num)/event/delete'] = 'community/eventDel';
 $route['community/(:num)/event/(:num)'] = 'community/event_detail';
 
 //member management komunitas
@@ -126,14 +129,19 @@ $route['ajax/(:num)/listEventIncome'] = 'ajax/listEventIncome';
 //post
 $route['community/posting/like'] = 'community/communitycontroller_ku/like';
 $route['community/posting/dislike'] = 'community/communitycontroller_ku/dislike';
+$route['community/posting/delete'] = 'community/communitycontroller_ku/deletePost';
 $route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
+$route['posting/comment/store'] = 'community/communitycontroller_ku/storeComment';
 
 //outcome
 $route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcome';
 $route['community/(:num)/finance/outcome/add'] = 'community/community_outcome/outcomeAdd';
+
 //finance
-$route['community/(:num)/finance/income/1'] = 'community/communitycontroller_ku/idx';
+$route['community/(:num)/finance/income/1'] = 'community/communitynew/idx';
+$route['community/(:num)/finance/income/1/addTransaction'] = 'community/communitynew/addMonthlyTransaction';
+$route['ajax/(:num)/saveDonation'] = 'ajax/saveDonation';
 $route['community/(:num)/finance/income/2'] = 'community/communitynew/event_income';
 $route['community/(:num)/finance/income/2/addEvent'] = 'community/communitynew/add_event';
 $route['community/(:num)/finance/income/2/addTransaction'] = 'community/communitynew/addEventTransaction';
-$route['community/(:num)/finance/income/3'] = 'community/communitynew/event_income';
+$route['community/(:num)/finance/income/3'] = 'community/communitynew/total_income';

@@ -89,9 +89,9 @@
                                         <img src="<?= base_url('assets/img/community/event/') . $events->EVENT_THUMBNAIL; ?>" alt="element 04" width="200px" height="115px" class="float-left mt-3 pl-2" style="padding-right: 1.5rem">
                                         <div class="card-body" align='left'>
                                             <h4 class="card-title mt-3"><?php echo $events->EVENT_TITLE ?></h4>
-                                            <p class="card-text mb-25"><?php echo $events->END_DATE ?></p>
+                                            <p class="card-text mb-25"><?php echo date('d M, Y', strtotime($events->END_DATE))  ?></p>
                                             <a href="<?= base_url('community/' . $community['COM_ID'] . '/event' . '/' . $id); ?>" class="btn btn-primary mt-1">View</a>
-                                            <button class="btn btn-primary mt-1" data-toggle="modal" value="<?php $id ?>" data-target="#myModal">edit</button>
+                                            <button class="btn btn-primary mt-1 edit" value="<?= $id ?>">edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -118,8 +118,7 @@
     <!-- END: Content-->
 
     <!-- calendar Modal starts-->
-
-    <!-- Modal -->
+    <!-- Modal Add-->
     <div class="modal fade" id="myModal2" style="z-index: 1041" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -223,12 +222,10 @@
     </div>
     </div>
 
-    <?php
 
 
-    ?>
-    <!-- Modal -->
-    <div class="modal fade" id="myModalID" style="z-index: 1041" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <!-- Modal Edit-->
+    <div class="modal fade" id="myModal" style="z-index: 1041" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
 
@@ -239,98 +236,15 @@
                     </button>
                 </div>
 
-                <div class="modal-body">
-
-                    <?= form_open_multipart('community/' . $community['COM_ID'] . '/event/add'); ?>
-
-
-                    <div class="form-group">
-                        <label style="margin-left: 20px">Change profile photo</label>
-                        <div class="row align-items-center">
+                <!-- <?= form_open_multipart('community/' . $community['COM_ID'] . '/event/eventEdit'); ?> -->
+                <div class="modal-body" id="editEvent">
 
 
-                            <div class="col-sm-6">
-                                <div class="custom-file">
-
-                                    <input type="file" class="custom-file-input" id="image" name="image">
-                                    <label class="custom-file-label" for="image">Choose file</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <div class="controls">
-                            <label for="account-name">Title</label>
-                            <input type="text" class="form-control" name="title" placeholder="Title" required data-validation-required-message="This name field is required" value="<?php echo $event->EVENT_TITLE ?>">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="controls">
-                            <label for="account-name">Location</label>
-                            <input type="text" class="form-control" name="location" placeholder="Location" required data-validation-required-message="This name field is required">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="startDate">Start date</label>
-                        <div class="docs-datepicker">
-                            <div class="input-group">
-
-                                <input type="date" class="form-control " id="startDate" name="startDate" placeholder="Pick a date" autocomplete="off" ">
-                                <div class=" input-group-append">
-                                <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="docs-datepicker-container"></div>
-                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="EndDate">End date</label>
-                    <div class="docs-datepicker">
-                        <div class="input-group">
-
-                            <input type="date" class="form-control " id="endDate" name="endDate" placeholder="Pick a date" autocomplete="off">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="docs-datepicker-container"></div>
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="accountTextarea">Description</label>
-                    <textarea class="form-control" name="description" id="accountTextarea" rows="3" placeholder=""></textarea>
-                </div>
-
-
-
-
-
-
 
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">save</button>
-                <button type="submit" class="btn btn-flat-danger ">delete</button>
 
-            </div>
-            </form>
         </div>
-    </div>
-    </div>
     </div>
 
 
@@ -392,6 +306,26 @@
     <?php $this->load->view('user/v_template_footer') ?>
     <!-- footer community -->
     <?php $this->load->view('v_template_footer') ?>
+
+    <script>
+        $(document).ready(function() {
+            $('.edit').on('click', function() {
+                var id = $(this).val();
+
+                $.ajax({
+                    url: "<?= base_url('community/' . $community['COM_ID'] . '/event/editEvent') ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $('#editEvent').html(data);
+                        $('#myModal').modal('show');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 <!-- END: Body-->
 

@@ -15,13 +15,6 @@ class CommunityController_ku extends MY_Controller
 		is_logged_in();
 	}
 
-	function idx()
-	{
-		$id = $this->uri->segment('2');
-		$data['community'] = $this->m_community->get_com_detail($id);
-		$this->load->view('v_monthly_cash', $data);
-	}
-
 	function posting()
 	{
 
@@ -48,7 +41,7 @@ class CommunityController_ku extends MY_Controller
 		//end notif
 		$config['upload_path']          = 'assets/img/post/' . $id_member;
 		$config['allowed_types']        = 'gif|jpg|png';
-		$new_name = time() . '-' . $id_com . '-' . $id_member . '-' . $_FILES['gambar']['name'];
+		$new_name = time() . '-' . rand(0, 10000) . '-' . $id_com . '-' . $id_member . '.' . pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
 		$config['file_name'] = $new_name;
 
 		//var lengkap = letak + nama file
@@ -61,7 +54,7 @@ class CommunityController_ku extends MY_Controller
 		$user = $this->m_community_ku->getUserData($this->session->userdata('id'));
 		if (!$this->upload->do_upload('gambar')) {
 			$id_post = $this->m_community_ku->storePostToDB($id_com, $id_member, $isi, NULL);
-			$output = '<div class="card" style="display : block;">
+			$output = '<div class="card" id="Kpost' . $id_post . '" style="display : block;">
 			<div class="card-body">
 				<div class="d-flex justify-content-start align-items-center mb-1">
 					<div class="avatar mr-1">
@@ -70,6 +63,14 @@ class CommunityController_ku extends MY_Controller
 					<div class="user-page-info">
 						<p class="mb-0"><a href="" style="color: black;"><strong>' . $user->NAME . '</strong></a></p>
 						<span class="font-small-2">' . date("Y-m-d H:i:s", time()) . '</span>
+						<div class="btn-group ml-2">
+							<div class="dropdown">
+								<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
+									<a class="dropdown-item delete-post-btn" data-id="' . $id_post . '" href="#">Delete</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<p>' . $isi . '</p>
@@ -83,17 +84,21 @@ class CommunityController_ku extends MY_Controller
 						<span>0</span>
 					</div>
 				</div>
+				<hr>
+				<div id="kotak-komen' . $id_post . '">
+				</div>
 				<fieldset class="form-label-group mb-50">
-					<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+					<textarea class="form-control" id="input-comment' .  $id_post . '" rows="3" placeholder="Add Comment"></textarea>
 					<label for="label-textarea">Add Comment</label>
 				</fieldset>
-				<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+				<button type="button" class="btn btn-sm btn-primary btn-comment-post" data-id="' . $id_post . '">Post Comment</button>
+				<div class="spinner-border text-primary mr-100 " id="ldg-comment' . $id_post . '" role="status" style="display:none;"></div>
 			</div>
 		</div>';
 			echo $output;
 		} else {
 			$id_post = $this->m_community_ku->storePostToDB($id_com, $id_member, $isi, $lengkap);
-			$output = '<div class="card" style="display : block;">
+			$output = '<div class="card" id="Kpost' . $id_post . '" style="display : block;">
 		<div class="card-body">
 			<div class="d-flex justify-content-start align-items-center mb-1">
 				<div class="avatar mr-1">
@@ -102,6 +107,14 @@ class CommunityController_ku extends MY_Controller
 				<div class="user-page-info">
 					<p class="mb-0"><a href="" style="color: black;"><strong>' . $user->NAME . '</strong></a></p>
 					<span class="font-small-2">' . date("Y-m-d H:i:s", time()) . '</span>
+					<div class="btn-group ml-2">
+						<div class="dropdown">
+							<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
+								<a class="dropdown-item delete-post-btn" data-id="' . $id_post . '" href="#">Delete</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<p>' . $isi . '</p>
@@ -116,14 +129,30 @@ class CommunityController_ku extends MY_Controller
 					<span>0</span>
 				</div>
 			</div>
+			<hr>
+			<div id="kotak-komen' . $id_post . '">
+			</div>
 			<fieldset class="form-label-group mb-50">
-				<textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+				<textarea class="form-control" id="input-comment' .  $id_post . '" rows="3" placeholder="Add Comment"></textarea>
 				<label for="label-textarea">Add Comment</label>
 			</fieldset>
-			<button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+			<button type="button" class="btn btn-sm btn-primary btn-comment-post" data-id="' . $id_post . '">Post Comment</button>
+			<div class="spinner-border text-primary mr-100 " id="ldg-comment' . $id_post . '" role="status" style="display:none;"></div>
 		</div>
 	</div>';
 			echo $output;
+		}
+	}
+
+	function deletePost()
+	{
+		$this->load->helper("file");
+		if ($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE != '') {
+			$this->m_community_ku->deletePost($this->input->post('id_post'));
+		} else {
+			if (unlink($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE)) {
+				$this->m_community_ku->deletePost($this->input->post('id_post'));
+			}
 		}
 	}
 
@@ -141,5 +170,28 @@ class CommunityController_ku extends MY_Controller
 		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 
 		$this->m_community_ku->dislike($id_post, $id_mem);
+	}
+
+	function storeComment()
+	{
+		$id_post = $this->input->post('id_post');
+		$isi = $this->input->post('isi');
+		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
+
+
+		$this->m_community_ku->storeComment($id_post, $id_mem, $isi);
+
+		echo '
+		<div class="d-flex justify-content-start align-items-center mb-1">
+			<div class="avatar mr-50">
+				<img src="' . base_url("assets/img/user/" . $this->m_user->getUser()["USER_IMAGE"]) . '" alt="Avatar" height="30" width="30">
+			</div>
+			<div class="user-page-info">
+				<h6 class="mb-0"><a href="" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
+				</h6>
+				<span class="font-small-2">' . $isi . '</span>
+			</div>
+		</div>
+		<hr>';
 	}
 }

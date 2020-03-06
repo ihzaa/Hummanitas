@@ -15,6 +15,17 @@ class M_community_ku extends CI_Model
 		return $this->db->query('select POST_ID from post ORDER BY POST_ID DESC LIMIT 1')->result()[0]->POST_ID;
 	}
 
+
+	public function getOnePost($id)
+	{
+		return $this->db->query('SELECT `POST_IMAGE` FROM `post` WHERE `POST_ID` = "' . $id . '"')->result()[0];
+	}
+
+	public function deletePost($id)
+	{
+		$this->db->query('DELETE FROM `post` WHERE `POST_ID` = "' . $id . '"');
+	}
+
 	public function getUserData($id)
 	{
 		return $this->db->query('SELECT * FROM `user` WHERE `USER_ID` = "' . $id . '"')->result()[0];
@@ -34,6 +45,15 @@ class M_community_ku extends CI_Model
 		return $ret;
 	}
 
+	public function commentPerPost($arr)
+	{
+		$ret = array();
+		for ($i = 0; $i < count($arr); $i++) {
+			$ret[$i] = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $arr[$i]->POST_ID . '" ORDER BY `CREATE_AT` ASC')->result();
+		}
+		return $ret;
+	}
+
 	public function isLike($arr)
 	{
 		$ret = array();
@@ -46,7 +66,9 @@ class M_community_ku extends CI_Model
 
 	public function like($post, $mem)
 	{
-		$this->db->query('INSERT INTO `like` (`LIKE_ID`, `POST_ID`, `MEMBER_ID`, `CREATED_AT`) VALUES (NULL, "' . $post . '", "' . $mem . '", current_timestamp())');
+		$cnt = count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $post . '" AND `MEMBER_ID`= "' . $mem . '"')->result());
+		if ($cnt == 0)
+			$this->db->query('INSERT INTO `like` (`LIKE_ID`, `POST_ID`, `MEMBER_ID`, `CREATED_AT`) VALUES (NULL, "' . $post . '", "' . $mem . '", current_timestamp())');
 	}
 
 	public function dislike($post, $mem)
@@ -65,7 +87,12 @@ class M_community_ku extends CI_Model
 			}
 			$str_query = $str_query . ',"' . $id_member[$i]->COM_ID . '"';
 		}
-		$str_query = $str_query . ')';
+		$str_query = $str_query . ') ORDER BY `UP_DATE` DESC';
 		return $this->db->query($str_query)->result();
+	}
+
+	public function storeComment($post, $mem, $isi)
+	{
+		$this->db->query('INSERT INTO `comment` (`COMMENT_ID`, `MEMBER_ID`, `POST_ID`, `COMMENT_CONTENT`, `CREATE_AT`) VALUES (NULL, "' . $mem . '", "' . $post . '", "' . $isi . '", current_timestamp())');
 	}
 }

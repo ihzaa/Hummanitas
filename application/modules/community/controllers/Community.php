@@ -28,7 +28,8 @@ class Community extends MY_Controller
 		$data['user'] = $this->m_user->getUser();
 		$data['postingan'] = $this->m_community_ku->get_postingan_per_com($id);
 		$data['jml_like'] = $this->m_community_ku->hitung_like($data['postingan']);
-		$data['is_like'] = $this->m_community_ku->isLike($data['postingan']);
+		$data['comment'] = $this->m_community_ku->commentPerPost($data['postingan']);
+		$data['memberId'] = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 
 		$user_id = $data['user']['USER_ID'];
 
@@ -94,86 +95,113 @@ class Community extends MY_Controller
 		redirect('community/' . $id . '/event');
 	}
 
-	function getEvent()
+	function editEvent()
 	{
+		$event_id = $this->input->post('id');
+		$com_id = $this->uri->segment(2);
+		$event = $this->m_community->get_com_event_detail($com_id, $event_id);
 
-		$id = $this->input->post('id');
-		$event = $this->m_community->getEvent($id);
 		$output = '';
-		$output = '
+
+		$output .= form_open_multipart('community/' . $com_id . '/event/eventEdit') . '
+
+
 		<div class="form-group">
-		<label style="margin-left: 20px">Change profile photo</label>
-		<div class="row align-items-center">
+			<label style="margin-left: 20px">Change profile photo</label>
+			<div class="row align-items-center">
 
 
-			<div class="col-sm-6">
-				<div class="custom-file">
-
-					<input type="file" class="custom-file-input" id="image" name="image">
-					<label class="custom-file-label" for="image">Choose file</label>
+				<div class="col-sm-6">
+					<div class="custom-file">
+						
+						<input type="file" class="custom-file-input" id="image" name="image" value=" ">
+						<label class="custom-file-label" for="image">' . $event['EVENT_THUMBNAIL'] . '</label>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
 
 
-	<div class="form-group">
-		<div class="controls">
-			<label for="account-name">Title</label>
-			<input type="text" class="form-control" name="title" placeholder="Title" required data-validation-required-message="This name field is required" value="<?php echo $event->EVENT_TITLE ?>">
+		<div class="form-group">
+			<div class="controls">
+				<label for="account-name">Title</label>
+				<input type="text" class="form-control" name="title" placeholder="Title" value="' . $event['EVENT_TITLE'] . '" required data-validation-required-message="This name field is required">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="controls">
+				<label for="account-name">Location</label>
+				<input type="text" class="form-control" name="location" placeholder="Location" value="' . $event['EVENT_LOC'] . '" required data-validation-required-message="This name field is required">
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="startDate">Start date</label>
+			<div class="docs-datepicker">
+				<div class="input-group">
+
+					<input type="date" class="form-control " id="startDate" name="startDate" value="' . $event['START_DATE'] . '" placeholder="Pick a date" autocomplete="off" ">
+					<div class=" input-group-append">
+					<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
+						<i class="fa fa-calendar" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+			<div class="docs-datepicker-container"></div>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="controls">
-			<label for="account-name">Location</label>
-			<input type="text" class="form-control" name="location" placeholder="Location" required data-validation-required-message="This name field is required">
-		</div>
-	</div>
-
-
-	<div class="form-group">
-		<label for="startDate">Start date</label>
+		<label for="EndDate">End date</label>
 		<div class="docs-datepicker">
 			<div class="input-group">
 
-				<input type="date" class="form-control " id="startDate" name="startDate" placeholder="Pick a date" autocomplete="off" ">
-				<div class=" input-group-append">
-				<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-				</button>
+				<input type="date" class="form-control " id="endDate" name="endDate" value="' . $event['END_DATE'] . '" placeholder="Pick a date" autocomplete="off">
+				<div class="input-group-append">
+					<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
+						<i class="fa fa-calendar" aria-hidden="true"></i>
+					</button>
+				</div>
 			</div>
+			<div class="docs-datepicker-container"></div>
 		</div>
-		<div class="docs-datepicker-container"></div>
 	</div>
-</div>
-
-<div class="form-group">
-	<label for="EndDate">End date</label>
-	<div class="docs-datepicker">
-		<div class="input-group">
-
-			<input type="date" class="form-control " id="endDate" name="endDate" placeholder="Pick a date" autocomplete="off">
-			<div class="input-group-append">
-				<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-				</button>
-			</div>
-		</div>
-		<div class="docs-datepicker-container"></div>
+	<div class="form-group">
+		<label for="accountTextarea">Description</label>
+		<textarea class="form-control" name="description" id="accountTextarea" rows="3" placeholder="">' . $event['EVENT_DESC'] . '</textarea>
 	</div>
+
 </div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-primary"  name="save" value="' . $event['EVENT_ID'] . '">save</button>
+	</form>
+	<form action="event/delete" method="POST">
+	<button type="submit" class="btn btn-danger" name="delete" value="' . $event['EVENT_ID'] . '">delete</button>
+	</form>
+	</div>';
 
-
-
-<div class="form-group">
-	<label for="accountTextarea">Description</label>
-	<textarea class="form-control" name="description" id="accountTextarea" rows="3" placeholder=""></textarea>
-</div>
-
-		';
 		echo $output;
+	}
+
+	function editEvent1()
+	{
+		$com_id = $this->uri->segment('2');
+		$event_id = $this->input->post('save');
+		$upload_image = $_FILES['image']['name'];
+
+		$this->m_community->eventEdit($upload_image, $event_id);
+		redirect('community/' . $com_id . '/event');
+	}
+
+	function eventDel()
+	{
+		$com_id = $this->uri->segment('2');
+		$event_id = $this->input->post('delete');
+		$this->m_community->eventDel($event_id);
+		redirect('community/' . $com_id . '/event');
 	}
 
 	function event_detail()
