@@ -102,7 +102,7 @@
                                                 <div class="col-5">
                                                     <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                         <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $balance ?>">
+                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="2000000">
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -162,8 +162,8 @@
                         <button type="button" class="btn btn-primary" id="save" style="margin-left: 30px;display: inline-block;">Save</button>
 
                     <?php } ?>
-                    <div class="" style="display: inline-block; margin-left: 690px;">
-                        <button type="button" class="btn btn-primary mb-2 new" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
+                    <div class="" style="display: inline-block; margin-left: 640px;">
+                        <button type="button" class="btn btn-primary mb-2 year" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
                     </div>
 
                     </div>
@@ -745,6 +745,22 @@
                     });
                 });
             </script>
+
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('.year').click(function() {
+                        $.ajax({
+                            url: "<?php echo base_url('ajax/getYear') ?>",
+                            method: "POST",
+                            success: function(data) {
+                                $('#selectYear').html(data);
+                            }
+                        });
+                    });
+                });
+            </script>
+
 
             <script>
                 $("#confirmButton").click(function() {

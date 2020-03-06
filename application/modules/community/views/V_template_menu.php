@@ -51,13 +51,13 @@
                             <li data-menu=""><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>" data-toggle="dropdown" data-i18n="Documentation"><i class="feather icon-settings"></i>Setting Community</a>
                             </li>
                         <?php } else { ?>
-                            <li data-menu=""><a class="dropdown-item memberManage" id="memberManage" data-toggle="dropdown" data-i18n="Documentation"><i class="feather icon-user-check"></i>Member Management</a>
+                            <li data-menu=""><a class="dropdown-item memberManage" id="memberManage" data-target="#accessDenied" data-toggle="modal" data-i18n="Documentation"><i class="feather icon-user-check"></i>Member Management</a>
                             </li>
-                            <li data-menu=""><a class="dropdown-item settingCom" id="settingCom" data-toggle="dropdown" data-i18n="Documentation"><i class="feather icon-settings"></i>Setting Community</a>
+                            <li data-menu=""><a class="dropdown-item settingCom" id="settingCom" data-target="#accessDenied" data-toggle="modal" data-i18n="Documentation"><i class="feather icon-settings"></i>Setting Community</a>
                             </li>
                         <?php } ?>
 
-                        <li data-menu=""><a class="dropdown-item" id="leave" data-id="<?= $community['COM_ID'] ?>" data-toggle="dropdown" data-i18n="Raise Support"><i class="feather icon-log-out "></i>Leave Community</a>
+                        <li data-menu=""><a class="dropdown-item" id="leave" data-target="#leaveModal" data-toggle="modal" data-id="<?= $community['COM_ID'] ?>" data-toggle="dropdown" data-i18n="Raise Support"><i class="feather icon-log-out "></i>Leave Community</a>
                         </li>
                         <li data-menu=""><a class="dropdown-item" data-target="#myModal" data-toggle="modal" data-i18n="Raise Support"><i class="feather icon-alert-circle"></i>Report</a>
                         </li>
