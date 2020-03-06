@@ -175,7 +175,7 @@
 														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
 														<span>' . $jml_like[$count] . '</span>
 														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-														<span>' . count($comment[$count]) . '</span>
+														<span>' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 													</div>
 												</div>';
 											} else {
@@ -196,7 +196,7 @@
 														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
 														<span>' . $jml_like[$count] . '</span>
 														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-														<span>' . count($comment[$count]) . '</span>
+														<span>' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 													</div>
 												</div>
 										';
@@ -469,5 +469,33 @@
 				)
 			}
 		});
+
+		$(document).on("click", '.load-more', function() {
+			var id_post_i = $(this).data('id');
+			var last_id_i = $('#last_id_com' + id_post_i).val();
+			if ($(this).html() == 'Load More') {
+				$(this).html('Loading...');
+				$.ajax({
+					url: '<?= base_url('posting/comment/loadmore') ?> ',
+					data: {
+						id_post: id_post_i,
+						last_id: last_id_i
+					},
+					type: 'POST',
+					success: function(data) {
+						success_load_comment(id_post_i);
+						$(data).prependTo('#kotak-komen' + id_post_i).slideDown('slow');
+					},
+					error: function(data) {
+						alert('tidaaa');
+					}
+				});
+			}
+		});
+
+		function success_load_comment(i) {
+			$('#load-more' + i).parent().parent().remove();
+			$('#last_id_com' + i).remove();
+		}
 	});
 </script>

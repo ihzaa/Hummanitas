@@ -209,10 +209,18 @@ class CommunityController_ku extends MY_Controller
 					</div>';
 				echo $output;
 				return;
+			} else if (count($data) == 3) {
+				$output = ' <div class="divider">
+								<div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
+							</div>';
+			} else {
+				$output = ' <div class="divider">
+								<div class="divider-text text-primary"><a></a></div>
+							</div>';
 			}
-			$output = '<div class="divider">
-		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
-		</div>';
+			// 	$output = '<div class="divider">
+			// <div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
+			// </div>';
 			if (!empty($data)) {
 				$output = $output . '<input type="hidden" id="last_id_com' . $id_post . '" value="' . $data[count($data) - 1]->COMMENT_ID . '">';
 			} else {

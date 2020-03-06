@@ -243,7 +243,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -272,7 +272,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -305,7 +305,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -342,7 +342,7 @@
 													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
 													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 												</div>
 											</div>
 											<div class="divider">
@@ -377,7 +377,7 @@
 																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+																		<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 																	</div>
 																</div>
 																<div class="divider">
@@ -414,7 +414,7 @@
 																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
 																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+																		<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 																	</div>
 																</div>
 																<div class="divider">
@@ -446,7 +446,7 @@
 												<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 												<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 												<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-												<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+												<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 											</div>
 										</div>
 										<div class="divider">
@@ -483,7 +483,7 @@
 																			<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
 																			<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
 																			<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																			<span id="jml_cmt' . $p->POST_ID . '">' . count($comment[$count]) . '</span>
+																			<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
 																		</div>
 																	</div>
 																	<div class="divider">
