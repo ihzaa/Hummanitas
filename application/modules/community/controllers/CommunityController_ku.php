@@ -147,7 +147,7 @@ class CommunityController_ku extends MY_Controller
 	function deletePost()
 	{
 		$this->load->helper("file");
-		if ($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE != '') {
+		if ($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE == '') {
 			$this->m_community_ku->deletePost($this->input->post('id_post'));
 		} else {
 			if (unlink($this->m_community_ku->getOnePost($this->input->post('id_post'))->POST_IMAGE)) {
@@ -187,7 +187,7 @@ class CommunityController_ku extends MY_Controller
 				<img src="' . base_url("assets/img/user/" . $this->m_user->getUser()["USER_IMAGE"]) . '" alt="Avatar" height="30" width="30">
 			</div>
 			<div class="user-page-info">
-				<h6 class="mb-0"><a href="" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
+				<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $id_mem)->result()[0]->USER_ID) . '" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
 				</h6>
 				<span class="font-small-2">' . $isi . '</span>
 			</div>
@@ -209,10 +209,18 @@ class CommunityController_ku extends MY_Controller
 					</div>';
 				echo $output;
 				return;
+			} else if (count($data) == 3) {
+				$output = ' <div class="divider">
+								<div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
+							</div>';
+			} else {
+				$output = ' <div class="divider">
+								<div class="divider-text text-primary"><a></a></div>
+							</div>';
 			}
-			$output = '<div class="divider">
-		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
-		</div>';
+			// 	$output = '<div class="divider">
+			// <div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
+			// </div>';
 			if (!empty($data)) {
 				$output = $output . '<input type="hidden" id="last_id_com' . $id_post . '" value="' . $data[count($data) - 1]->COMMENT_ID . '">';
 			} else {

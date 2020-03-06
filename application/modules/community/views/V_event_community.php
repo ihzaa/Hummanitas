@@ -283,6 +283,7 @@
     <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/pickers/pickadate/main.js"></script>
     <!-- END: Page JS-->
 
+
     <!-- footer user -->
     <?php $this->load->view('user/v_template_footer') ?>
     <!-- footer community -->

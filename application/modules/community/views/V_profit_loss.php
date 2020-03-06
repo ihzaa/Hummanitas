@@ -18,6 +18,7 @@
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>app-assets/vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>app-assets/vendors/css/tables/datatable/datatables.min.css">
+
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -28,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>app-assets/css/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>app-assets/css/themes/semi-dark-layout.css">
 
+
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>app-assets/css/core/menu/menu-types/horizontal-menu.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>app-assets/css/core/colors/palette-gradient.css">
@@ -37,8 +39,6 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>assets/css/style.css">
     <!-- END: Custom CSS-->
-
-
 
 </head>
 <!-- END: Head-->
@@ -114,161 +114,39 @@
                         </div>
                     </div>
 
-
-
-
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header" style="margin-left: 40%">
-                                <h1>Total Income</h1>
-
-
+                                <h1><strong>Profit / Loss</strong></h1>
                             </div>
+                            <br>
+                            <!-- <div align="left" style="margin-left: 20px"> -->
 
-
-                            <br><br>
+                            <div style="margin-bottom: -20px;">
+                                <fieldset class="form-group" style="height: 40px;width: 15%; display:inline-block;margin-left: 50px;">
+                                    <select class="form-control select" id="select">
+                                        <option value="">Choose year</option>
+                                        <?php foreach ($year as $year) { ?>
+                                            <option value="<?= $year->YEAR ?>"><?= $year->YEAR ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </fieldset>
+                                <fieldset class="form-group" style="display: inline-block;margin-left: 550px;">
+                                    <label for="disabledInput" style="font-size: 20px"><strong>Income</strong></label>
+                                    <input style="width: 85%" type="text" class="form-control" id="income" readonly="readonly" value="<?= $income ?>">
+                                </fieldset>
+                                <fieldset class="form-group" style="display: inline-block;margin-left: 10px;">
+                                    <label for="disabledInput" style="font-size: 20px"><strong>Outcome</strong></label>
+                                    <input style="width: 85%" type="text" class="form-control" id="outcome" readonly="readonly" value="<?= $outcome ?>">
+                                </fieldset>
+                            </div>
+                            <!-- </div> -->
                             <section id="add-row">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
-                                            <div class="card-header">
-                                                <h3>Monthly Cash</h3>
-
-                                            </div>
                                             <div class="card-content">
                                                 <div class="card-body">
-
-
-                                                    <div class="table-responsive">
-                                                        <table class="table add-rows" id="monthly">
-                                                            <thead>
-                                                                <fieldset class="form-group" style="height: 40px;width: 15%;margin-bottom: -10px;">
-                                                                    <select class="form-control" id="select">
-                                                                        <option value="">Choose Month...</option>
-                                                                        <?php foreach ($month as $month) { ?>
-                                                                            <option value="<?= $month->MONTH ?>"><?= $month->MONTH ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </fieldset>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Month</th>
-                                                                    <th>Year</th>
-                                                                    <th>Total</th>
-
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="selectedMonthlyIncome">
-                                                                <?php $i = 1;
-                                                                foreach ($monthlyIncome as $monthly) {
-                                                                ?>
-                                                                    <tr>
-                                                                        <th>
-                                                                            <?= $i ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= $monthly->MONTH ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= $monthly->YEAR ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= $monthly->TOTAL ?>
-                                                                        </th>
-
-                                                                    </tr>
-                                                                <?php $i++;
-                                                                } ?>
-
-                                                            </tbody>
-                                                            <tfoot id="total">
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th>Total</th>
-                                                                    <th></th>
-                                                                    <th><strong><?= $totalMonthly['TOTAL'] ?></strong></th>
-                                                                </tr>
-                                                            </tfoot>
-
-
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                            </section>
-                            <section id="add-row">
-                                <div class="col-12">
-                                    <div class="card-header">
-                                        <h3>Event Cash</h3>
-
-                                    </div>
-                                    <div class="card">
-
-                                        <div class="card-content">
-                                            <div class="card-body">
-
-
-                                                <div class="table-responsive">
-                                                    <table class="table add-rows">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>Event</th>
-                                                                <th>Money Collected</th>
-
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php $i = 1;
-
-                                                            foreach ($eventIncome as $event) {
-                                                            ?>
-                                                                <tr>
-                                                                    <th>
-                                                                        <?= $i ?>
-                                                                    </th>
-                                                                    <th>
-                                                                        <?= $event->ACTIVITY ?>
-                                                                    </th>
-                                                                    <th>
-                                                                        <?= $event->TOTAL ?>
-                                                                    </th>
-
-                                                                </tr>
-                                                            <?php $i++;
-                                                            } ?>
-
-                                                        </tbody>
-
-
-
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section id="add-row">
-                                <div class="row">
-
-                                    <div class="col-12">
-                                        <div class="card-header">
-                                            <h3>Total</h3>
-
-                                        </div>
-                                        <div class="card">
-
-                                            <div class="card-content">
-                                                <div class="card-body">
-
 
                                                     <div class="table-responsive">
                                                         <table class="table add-rows">
@@ -276,60 +154,58 @@
                                                                 <tr>
                                                                     <th>No</th>
                                                                     <th>Activity</th>
-                                                                    <th>Total Amount</th>
-
+                                                                    <th>Year</th>
+                                                                    <th>Income</th>
+                                                                    <th>Outcome</th>
 
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id="selectProfitLoss">
+
                                                                 <?php $i = 1;
-                                                                $sum = 0;
-                                                                foreach ($eventIncome as $event) {
+                                                                $sumIncome = 0;
+                                                                $sumOutcome = 0;
+                                                                foreach ($detailIncome as $income) {
                                                                 ?>
                                                                     <tr>
-                                                                        <th>
-                                                                            <?= $i ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= $event->ACTIVITY ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= $event->TOTAL ?>
-                                                                        </th>
-
+                                                                        <th><?= $i ?></th>
+                                                                        <th><?= $income->CASH_ACTIVITY ?></th>
+                                                                        <th><?= date('Y', strtotime($income->YEAR)) ?></th>
+                                                                        <th><?= $income->TOTAL ?></th>
+                                                                        <th>-</th>
                                                                     </tr>
 
-                                                                <?php $i++;
-                                                                    $sum += $event->TOTAL;
+                                                                <?php
+                                                                    $sumIncome += $income->TOTAL;
+                                                                    $i++;
                                                                 }
-                                                                foreach ($monthlyIncome as $monthly) {
+                                                                foreach ($detailOutcome as $outcome) {
                                                                 ?>
                                                                     <tr>
-                                                                        <th>
-                                                                            <?= $i ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= 'Monthly Cash of ' . $monthly->MONTH . ' ' . $monthly->YEAR ?>
-                                                                        </th>
-                                                                        <th>
-                                                                            <?= $monthly->TOTAL ?>
-                                                                        </th>
-
+                                                                        <th><?= $i ?></th>
+                                                                        <th><?= $outcome->OUTCOME_ACTIVITY ?></th>
+                                                                        <th><?= date('Y', strtotime($outcome->OUTCOME_DATE)) ?></th>
+                                                                        <th>-</th>
+                                                                        <th><?= $outcome->TOTAL ?></th>
                                                                     </tr>
                                                                 <?php $i++;
-                                                                    $sum += $monthly->TOTAL;
+                                                                    $sumOutcome += $outcome->TOTAL;
                                                                 }
                                                                 ?>
+
 
                                                             </tbody>
+
                                                             <tfoot>
                                                                 <tr>
                                                                     <th></th>
-                                                                    <th>Total</th>
-                                                                    <th><strong><?= $sum ?></strong></th>
+                                                                    <th>total</th>
+                                                                    <th></th>
+                                                                    <th id="totalIncome"><?= $sumIncome ?></th>
+                                                                    <th id="totalOutcome"><?= $sumOutcome ?></th>
+
                                                                 </tr>
                                                             </tfoot>
-
                                                         </table>
                                                     </div>
                                                 </div>
@@ -337,15 +213,19 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </section>
+
                         </div>
                     </div>
 
 
+                    <!-- Bordered table end -->
+
+
                     <div class="sidenav-overlay"></div>
                     <div class="drag-target"></div>
+
+
 
 
                     <!-- BEGIN: Vendor JS-->
@@ -362,44 +242,44 @@
                     <script src="<?= base_url('assets/'); ?>app-assets/js/core/app-menu.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/core/app.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/components.js"></script>
-                    <script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
                     <!-- END: Theme JS-->
 
                     <!-- BEGIN: Page JS-->
-                    <script src="<?= base_url('assets/'); ?>aapp-assets/js/scripts/pages/user-profile.js"></script>
+                    <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/user-profile.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/faq-kb.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/datatables/datatable.js"></script>
-                    <!-- END: Page JS-->
 
                     <!-- footer user -->
                     <?php $this->load->view('user/v_template_footer') ?>
                     <!-- footer community -->
                     <?php $this->load->view('v_template_footer') ?>
 
-
+                    <!-- END: Page JS-->
                     <script>
-                        $('#select').on('change', function(e) {
+                        $('.select').on('change', function(e) {
                             var optionSelected = $("option:selected", this);
                             var valueSelected = this.value;
 
                             $.ajax({
-                                url: "<?php echo base_url('ajax/' . $community['COM_ID'] . '/selectedMonthlyIncome') ?>",
+                                url: "<?php echo base_url('ajax/' . $community['COM_ID'] . '/selectedProfitLoss') ?>",
                                 method: "POST",
                                 data: {
                                     valueSelected: valueSelected
                                 },
                                 dataType: "json",
                                 success: function(data) {
-                                    $('#selectedMonthlyIncome').html(data.row);
-                                    $('#total').html(data.total);
+                                    dataAll = data.row1 + data.row2;
+                                    $('#selectProfitLoss').html(dataAll);
+                                    // $('#selectProfitLoss').html(data.row2);
+                                    $('#totalIncome').html(data.total1);
+                                    $('#totalOutcome').html(data.total2);
+                                    $('#income').html(data.total1);
+                                    $('#outcome').html(data.total2);
                                 }
                             });
                         });
                     </script>
 </body>
 <!-- END: Body-->
-
-
-
 
 </html>
