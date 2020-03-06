@@ -246,7 +246,9 @@
 													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<hr>
+											<div class="divider">
+												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+											</div>
 											<div id="kotak-komen' . $p->POST_ID . '">
 											';
 													} else {
@@ -273,7 +275,9 @@
 													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<hr>
+											<div class="divider">
+												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+											</div>
 											<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 
@@ -304,7 +308,9 @@
 													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<hr>
+											<div class="divider">
+												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+											</div>
 											<div id="kotak-komen' . $p->POST_ID . '">';
 														//jika pemilik
 													} else {
@@ -339,7 +345,9 @@
 													<span>' . count($comment[$count]) . '</span>
 												</div>
 											</div>
-											<hr>
+											<div class="divider">
+												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+											</div>
 											<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 												}
@@ -372,7 +380,9 @@
 																		<span>' . count($comment[$count]) . '</span>
 																	</div>
 																</div>
-																<hr>
+																<div class="divider">
+																	<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+																</div>
 																<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 													//pemilik
@@ -407,7 +417,9 @@
 																		<span>' . count($comment[$count]) . '</span>
 																	</div>
 																</div>
-																<hr>
+																<div class="divider">
+																		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+																</div>
 																<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 												}
@@ -437,7 +449,9 @@
 												<span>' . count($comment[$count]) . '</span>
 											</div>
 										</div>
-										<hr>
+										<div class="divider">
+											<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+										</div>
 										<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 													//pemilik
@@ -472,25 +486,33 @@
 																			<span>' . count($comment[$count]) . '</span>
 																		</div>
 																	</div>
-																	<hr>
+																	<div class="divider">
+																		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
+																	</div>
 																	<div id="kotak-komen' . $p->POST_ID . '">';
 													}
 												}
 											}
 
-											foreach ($comment[$count] as $c) {
-												echo '
-												<div class="d-flex justify-content-start align-items-center mb-1">
-													<div class="avatar mr-50">
-														<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
+											if (!empty($comment[$count])) {
+												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="' . $comment[$count][count($comment[$count]) - 1]->COMMENT_ID . '">';
+												for ($i = count($comment[$count]) - 1; $i >= 0; $i--) {
+													$c = $comment[$count][$i];
+													echo '
+													<div class="d-flex justify-content-start align-items-center mb-1">
+														<div class="avatar mr-50">
+															<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
+														</div>
+														<div class="user-page-info">
+															<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
+															</h6>
+															<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
+														</div>
 													</div>
-													<div class="user-page-info">
-														<h6 class="mb-0"><a href="" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
-														</h6>
-														<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
-													</div>
-												</div>
-												<hr>';
+													<hr>';
+												}
+											} else {
+												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="">';
 											}
 
 											echo '
@@ -825,6 +847,34 @@
 				$('#input-comment' + id).val('');
 				$('#ldg-comment' + id).prev().show();
 				$('#ldg-comment' + id).hide();
+			}
+
+			$(document).on("click", '.load-more', function() {
+				var id_post_i = $(this).data('id');
+				var last_id_i = $('#last_id_com' + id_post_i).val();
+				if ($(this).html() == 'Load More') {
+					$(this).html('Loading...');
+					$.ajax({
+						url: '<?= base_url('posting/comment/loadmore') ?> ',
+						data: {
+							id_post: id_post_i,
+							last_id: last_id_i
+						},
+						type: 'POST',
+						success: function(data) {
+							success_load_comment(id_post_i);
+							$(data).prependTo('#kotak-komen' + id_post_i).slideDown('slow');
+						},
+						error: function(data) {
+							alert('tidaaa');
+						}
+					});
+				}
+			});
+
+			function success_load_comment(i) {
+				$('#load-more' + i).parent().parent().remove();
+				$('#last_id_com' + i).remove();
 			}
 		});
 	</script>

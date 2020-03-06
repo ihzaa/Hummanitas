@@ -194,4 +194,50 @@ class CommunityController_ku extends MY_Controller
 		</div>
 		<hr>';
 	}
+
+	function loadMoreComment()
+	{
+		$id_post = $this->input->post('id_post');
+		$last_id = $this->input->post('last_id');
+
+
+		if ($last_id != '') {
+			$data = $this->m_community_ku->commentPerPostMore($id_post, $last_id);
+			if (empty($data)) {
+				$output = '<div class="divider">
+					<div class="divider-text text-primary"><a></a></div>
+					</div>';
+				echo $output;
+				return;
+			}
+			$output = '<div class="divider">
+		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $id_post . '" data-id="' . $id_post . '">Load More</a></div>
+		</div>';
+			if (!empty($data)) {
+				$output = $output . '<input type="hidden" id="last_id_com' . $id_post . '" value="' . $data[count($data) - 1]->COMMENT_ID . '">';
+			} else {
+				$output = $output . '<input type="hidden" id="last_id_com' . $id_post . '" value="">';
+			}
+
+			for ($i = count($data) - 1; $i >= 0; $i--) {
+				$output = $output . '
+			<div class="d-flex justify-content-start align-items-center mb-1">
+				<div class="avatar mr-50">
+					<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $data[$i]->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
+				</div>
+				<div class="user-page-info">
+					<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $data[$i]->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $data[$i]->MEMBER_ID)->result()[0]->NAME . '</a>
+					</h6>
+					<span class="font-small-2">' . $data[$i]->COMMENT_CONTENT . '</span>
+				</div>
+			</div>
+			<hr>';
+			}
+		} else {
+			$output = '<div class="divider">
+					<div class="divider-text text-primary"><a></a></div>
+					</div>';
+		}
+		echo $output;
+	}
 }
