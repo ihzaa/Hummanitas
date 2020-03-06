@@ -476,13 +476,38 @@
 														<div class="avatar mr-50">
 															<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
 														</div>
-														<div class="user-page-info">
-															<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
-															</h6>
-															<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
+														';
+
+													if ($memberId == $c->MEMBER_ID) {
+														echo '
+														<div class="user-page-info w-100">
+															<div class="row">
+																<div class="col-auto mr-auto">
+																	<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
+																	</h6>
+																	<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
+																</div>
+																<div class="col-auto">
+																	<a class="del-comment" id="del-comment' . $c->COMMENT_ID . '" data-id="' . $c->COMMENT_ID . '" data-post="' . $p->POST_ID . '"><i class="fa fa-times-circle-o text-primary" title="Delete"></i></a>
+																</div>
+															</div>
 														</div>
 													</div>
-													<hr>';
+													<hr id="hr-ke' . $c->COMMENT_ID  . '">';
+													} else {
+														echo '
+														<div class="user-page-info w-100">
+															<div class="row">
+																<div class="col-auto mr-auto">
+																	<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.NAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->NAME . '</a>
+																	</h6>
+																	<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr id="hr-ke' . $c->COMMENT_ID  . '">';
+													}
 												}
 											} else {
 												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="">';
@@ -771,6 +796,30 @@
 		function success_load_comment(i) {
 			$('#load-more' + i).parent().parent().remove();
 			$('#last_id_com' + i).remove();
+		}
+
+		$(document).on('click', '.del-comment', function() {
+			var id_c = $(this).data('id');
+			var id = $(this).data('post');
+			$.ajax({
+				url: '<?= base_url('posting/comment/delete') ?> ',
+				data: {
+					id_com: id_c
+				},
+				type: 'POST',
+				success: function(data) {
+					ApusBlokComent(id_c, id);
+				},
+				error: function(data) {
+					alert('tidaaa');
+				}
+			});
+		});
+
+		function ApusBlokComent(i, id) {
+			$('#jml_cmt' + id).html(parseInt($('#jml_cmt' + id).html()) - 1);
+			$('#hr-ke' + i).remove();
+			$('#del-comment' + i).parent().parent().parent().parent().remove();
 		}
 	</script>
 	<!-- footer user -->

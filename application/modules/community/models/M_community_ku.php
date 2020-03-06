@@ -103,5 +103,11 @@ class M_community_ku extends CI_Model
 	public function storeComment($post, $mem, $isi)
 	{
 		$this->db->query('INSERT INTO `comment` (`COMMENT_ID`, `MEMBER_ID`, `POST_ID`, `COMMENT_CONTENT`, `CREATE_AT`) VALUES (NULL, "' . $mem . '", "' . $post . '", "' . $isi . '", current_timestamp())');
+		return $this->db->query('SELECT `COMMENT_ID` FROM `comment` ORDER BY `COMMENT_ID` DESC LIMIT 1')->result()[0]->COMMENT_ID;
+	}
+
+	public function deleteComment($id)
+	{
+		$this->db->query('DELETE FROM `comment` WHERE `COMMENT_ID` = "' . $id . '"');
 	}
 }
