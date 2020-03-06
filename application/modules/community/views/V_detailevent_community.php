@@ -208,16 +208,7 @@
 </body>
 <!-- END: Body-->
 
-<script>
-    document.getElementById("uploadBtn1").onchange = function() {
-        document.getElementById("uploadFile1").value = this.value;
-    };
-</script>
-<script>
-    document.getElementById("uploadBtn2").onchange = function() {
-        document.getElementById("uploadFile2").value = this.value;
-    };
-</script>
+
 
 
 </html>

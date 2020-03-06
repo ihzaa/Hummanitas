@@ -76,6 +76,7 @@ $route['community/(:num)/collaboration/reject'] = 'community/rejectCollab';
 //event komunitas
 $route['community/(:num)/event'] = 'community/event';
 $route['community/(:num)/event/add'] = 'community/createEvent';
+$route['community/(:num)/event/editEvent'] = 'community/editEvent';
 $route['community/(:num)/event/(:num)'] = 'community/event_detail';
 
 //member management komunitas
