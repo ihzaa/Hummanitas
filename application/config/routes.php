@@ -153,3 +153,4 @@ $route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcom
 $route['community/(:num)/finance/outcome/add'] = 'community/community_outcome/outcomeAdd';
 //total
 $route['community/(:num)/finance/total'] = 'community/communitynew/profitLoss';
+$route['ajax/(:num)/selectedProfitLoss'] = 'ajax/selectedProfitLoss';

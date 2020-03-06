@@ -124,7 +124,7 @@
 
                             <div style="margin-bottom: -20px;">
                                 <fieldset class="form-group" style="height: 40px;width: 15%; display:inline-block;margin-left: 50px;">
-                                    <select class="form-control" id="myInput">
+                                    <select class="form-control select" id="select">
                                         <option value="">Choose year</option>
                                         <?php foreach ($year as $year) { ?>
                                             <option value="<?= $year->YEAR ?>"><?= $year->YEAR ?></option>
@@ -133,11 +133,11 @@
                                 </fieldset>
                                 <fieldset class="form-group" style="display: inline-block;margin-left: 550px;">
                                     <label for="disabledInput" style="font-size: 20px"><strong>Income</strong></label>
-                                    <input style="width: 85%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $income ?>">
+                                    <input style="width: 85%" type="text" class="form-control" id="income" readonly="readonly" value="<?= $income ?>">
                                 </fieldset>
                                 <fieldset class="form-group" style="display: inline-block;margin-left: 10px;">
                                     <label for="disabledInput" style="font-size: 20px"><strong>Outcome</strong></label>
-                                    <input style="width: 85%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $outcome ?>">
+                                    <input style="width: 85%" type="text" class="form-control" id="outcome" readonly="readonly" value="<?= $outcome ?>">
                                 </fieldset>
                             </div>
                             <!-- </div> -->
@@ -160,99 +160,40 @@
 
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>1</th>
-                                                                    <th>event kejar karung</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>150.000</th>
+                                                            <tbody id="selectProfitLoss">
 
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>2</th>
-                                                                    <th>event balapan subuh</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>80.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>3</th>
-                                                                    <th>cash</th>
-                                                                    <th>2019</th>
-                                                                    <th>80.000</th>
-                                                                    <th>-</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>4</th>
-                                                                    <th>event jalan santuy</th>
-                                                                    <th>2020</th>
-                                                                    <th>-</th>
-                                                                    <th>120.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>5</th>
-                                                                    <th>event saudara dekat</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>50.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>6</th>
-                                                                    <th>penghargaan balapan liar</th>
-                                                                    <th>2019</th>
-                                                                    <th>20.000</th>
-                                                                    <th>-</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>7</th>
-                                                                    <th>event seruan adzan</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>100.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>8</th>
-                                                                    <th>event bersih lingkungan</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>100.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>9</th>
-                                                                    <th>event nobar catalunya</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>150.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>10</th>
-                                                                    <th>event merdeka bangsa</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>400.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>11</th>
-                                                                    <th>event nanam pohon</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>70.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>12</th>
-                                                                    <th>event peduli sampah</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>30.000</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>13</th>
-                                                                    <th>event konser amal</th>
-                                                                    <th>2019</th>
-                                                                    <th>-</th>
-                                                                    <th>100.000</th>
-                                                                </tr>
+                                                                <?php $i = 1;
+                                                                $sumIncome = 0;
+                                                                $sumOutcome = 0;
+                                                                foreach ($detailIncome as $income) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <th><?= $i ?></th>
+                                                                        <th><?= $income->CASH_ACTIVITY ?></th>
+                                                                        <th><?= date('Y', strtotime($income->YEAR)) ?></th>
+                                                                        <th><?= $income->TOTAL ?></th>
+                                                                        <th>-</th>
+                                                                    </tr>
+
+                                                                <?php
+                                                                    $sumIncome += $income->TOTAL;
+                                                                    $i++;
+                                                                }
+                                                                foreach ($detailOutcome as $outcome) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <th><?= $i ?></th>
+                                                                        <th><?= $outcome->OUTCOME_ACTIVITY ?></th>
+                                                                        <th><?= date('Y', strtotime($outcome->OUTCOME_DATE)) ?></th>
+                                                                        <th>-</th>
+                                                                        <th><?= $outcome->TOTAL ?></th>
+                                                                    </tr>
+                                                                <?php $i++;
+                                                                    $sumOutcome += $outcome->TOTAL;
+                                                                }
+                                                                ?>
+
+
                                                             </tbody>
 
                                                             <tfoot>
@@ -260,8 +201,8 @@
                                                                     <th></th>
                                                                     <th>total</th>
                                                                     <th></th>
-                                                                    <th>100.000</th>
-                                                                    <th>1.000.000</th>
+                                                                    <th id="totalIncome"><?= $sumIncome ?></th>
+                                                                    <th id="totalOutcome"><?= $sumOutcome ?></th>
 
                                                                 </tr>
                                                             </tfoot>
@@ -315,20 +256,25 @@
 
                     <!-- END: Page JS-->
                     <script>
-                        $('#select').on('change', function(e) {
+                        $('.select').on('change', function(e) {
                             var optionSelected = $("option:selected", this);
                             var valueSelected = this.value;
 
                             $.ajax({
-                                url: "<?php echo base_url('ajax/' . $community['COM_ID'] . '/selectedMonthlyIncome') ?>",
+                                url: "<?php echo base_url('ajax/' . $community['COM_ID'] . '/selectedProfitLoss') ?>",
                                 method: "POST",
                                 data: {
                                     valueSelected: valueSelected
                                 },
                                 dataType: "json",
                                 success: function(data) {
-                                    $('#selectedMonthlyIncome').html(data.row);
-                                    $('#total').html(data.total);
+                                    dataAll = data.row1 + data.row2;
+                                    $('#selectProfitLoss').html(dataAll);
+                                    // $('#selectProfitLoss').html(data.row2);
+                                    $('#totalIncome').html(data.total1);
+                                    $('#totalOutcome').html(data.total2);
+                                    $('#income').html(data.total1);
+                                    $('#outcome').html(data.total2);
                                 }
                             });
                         });

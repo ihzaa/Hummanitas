@@ -201,8 +201,6 @@ class M_communityNew extends CI_Model
           SELECT ANOTHER_AMOUNT FROM another_income  WHERE COM_ID=' . $com_id . ' AND ANOTHER_STATUS = 1) i')->result();
 
         $outcome = $this->db->query('SELECT SUM(OUTCOME_AMOUNT) as totalOutcome FROM outcome WHERE COM_ID =' . $com_id)->result();
-        // $income = json_encode($income);
-        // $outcome = json_encode($outcome);
 
         foreach ($income as $i) {
             foreach ($outcome as $o) {
@@ -234,6 +232,31 @@ class M_communityNew extends CI_Model
         foreach ($outcome as $o) {
             $outcome = $o->totalOutcome;
         }
+
+        return $outcome;
+    }
+
+    function totalIncomeDetail($com_id)
+    {
+        $income = $this->db->query('SELECT c.CASH_ACTIVITY,y.YEAR,SUM(c.CASH_AMOUNT) AS "TOTAL" FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE c.COM_ID = ' . $com_id . ' AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID
+        UNION ALL
+        SELECT a.ACTIVITY,e.ANOTHER_DATE,SUM(e.ANOTHER_AMOUNT) AS "TOTAL" FROM another_income e JOIN activity a ON e.ACTIVITY_ID = a.ACTIVITY_ID WHERE e.COM_ID = ' . $com_id . ' AND e.ANOTHER_STATUS = 1 GROUP BY e.ACTIVITY_ID')->result();
+
+        return $income;
+    }
+
+    function selectedTotalIncome($com_id, $value)
+    {
+        $income = $this->db->query("SELECT c.CASH_ACTIVITY,y.YEAR,SUM(c.CASH_AMOUNT) AS 'TOTAL' FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE y.YEAR LIKE '%$value%' AND c.COM_ID = ' . $com_id . ' AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID
+        UNION ALL
+        SELECT a.ACTIVITY,e.ANOTHER_DATE,SUM(e.ANOTHER_AMOUNT) AS 'TOTAL' FROM another_income e JOIN activity a ON e.ACTIVITY_ID = a.ACTIVITY_ID WHERE e.ANOTHER_DATE LIKE '%$value%' AND e.COM_ID = ' . $com_id . ' AND e.ANOTHER_STATUS = 1 GROUP BY e.ACTIVITY_ID")->result();
+
+        return $income;
+    }
+
+    function totalOutcomeDetail($com_id)
+    {
+        $outcome = $this->db->query('SELECT OUTCOME_ACTIVITY,OUTCOME_DATE,SUM(OUTCOME_AMOUNT) AS "TOTAL" FROM outcome WHERE COM_ID =' . $com_id)->result();
 
         return $outcome;
     }

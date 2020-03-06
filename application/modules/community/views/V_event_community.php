@@ -284,22 +284,22 @@
     <!-- END: Page JS-->
     <script>
         $(document).ready(function() {
-                    $("#collab-list li").click(function() {
-                        var id = $('#collab-list').find('li.active').data('id');
+            $("#collab-list li").click(function() {
+                var id = $('#collab-list').find('li.active').data('id');
 
-                        $.ajax({
-                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getChat') ?>",
-                            method: "POST",
-                            data: {
-                                id: id
-                            },
-                            success: function(data) {
-                                $(".chats").html(data);
+                $.ajax({
+                    url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getChat') ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $(".chats").html(data);
 
-                            }
-                        });
-                    });
-                }
+                    }
+                });
+            });
+        });
     </script>
 
     <!-- footer user -->

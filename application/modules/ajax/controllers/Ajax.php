@@ -520,4 +520,99 @@ class Ajax extends MY_Controller
         );
         echo json_encode($data);
     }
+
+    function selectedProfitLoss()
+    {
+        $com_id = $this->uri->segment(2);
+        $value = $this->input->post('valueSelected');
+
+
+
+        $selectedIncome = $this->m_ajax->selectedTotalIncome($com_id, $value);
+
+        $selectedOutcome = $this->m_ajax->selectedTotalOutcome($com_id, $value);
+        $totalIncome = $this->m_ajax->totalSelectedIncome($com_id, $value);
+        $totalOutcome = $this->m_ajax->totalSelectedOutcome($com_id, $value);
+
+        $outputIncome = '';
+        $outputOutcome = '';
+        $TotalIncome = '';
+        $TotalOutcome = '';
+        $i = 1;
+        if ($selectedIncome != NULL) {
+            foreach ($selectedIncome as $income) {
+
+                $outputIncome .= '
+                    <tr>
+                        <th>
+                            ' . $i . '
+                        </th>
+                        <th>
+                            ' . $income->CASH_ACTIVITY . '
+                        </th>
+                        <th>
+                            ' . date('Y', strtotime($income->YEAR)) . '
+                        </th>
+                        <th>
+                            ' . $income->TOTAL . '
+                        </th>
+                        <th>
+                            -
+                        </th>
+
+                    </tr>
+
+               ';
+                $i++;
+            }
+        }
+
+
+        if ($selectedOutcome != NULL) {
+            foreach ($selectedOutcome as $outcome) {
+                $outputOutcome .= '
+                    <tr>
+                        <th>
+                            ' . $i . '
+                        </th>
+                        <th>
+                            ' . $outcome->OUTCOME_ACTIVITY . '
+                        </th>
+                        <th>
+                            ' . date('Y', strtotime($outcome->OUTCOME_DATE)) . '
+                        </th>
+                        <th>
+                            -
+                        </th>
+                        <th>
+                            ' . $outcome->TOTAL . '
+                        </th>
+
+                    </tr>
+
+               ';
+                $i++;
+            }
+        }
+
+
+        if ($totalIncome != 0) {
+            $TotalIncome .= '<strong>' . $totalIncome['TOTAL'] . '</strong>
+        </tr>';
+        }
+
+        if ($totalOutcome != 0) {
+            $TotalOutcome .= '<strong>' . $totalOutcome['TOTAL'] . '</strong>';
+        }
+
+
+        $data = array(
+            'row1' => $outputIncome,
+            'row2' => $outputOutcome,
+            'total1' => $TotalIncome,
+            'total2' => $TotalOutcome,
+        );
+
+        echo json_encode($data);
+    }
 }

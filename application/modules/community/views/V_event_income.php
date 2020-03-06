@@ -99,7 +99,7 @@
                                                 <div class="col-5">
                                                     <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                         <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="2000000">
+                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $balance ?>">
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -491,6 +491,8 @@
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/user-profile.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/faq-kb.js"></script>
                     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/datatables/datatable.js"></script>
+                    <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+                    <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
                     <!-- <script src="< ?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script> -->
                     <!-- END: Page JS-->
 

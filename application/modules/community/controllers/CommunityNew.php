@@ -26,6 +26,7 @@ class CommunityNew extends MY_Controller
         $data['year'] = $this->m_communitynew->listYear();
         $data['unpaid'] = $this->m_communitynew->unpaidMember($id);
         $data['listTransaction'] = $this->m_communitynew->getMonthlyTransaction($id);
+        $data['balance'] = $this->m_communitynew->balance($id);
         $data['transaction'] = $this->m_communitynew->memberMonthlyTransaction($id, $user_id);
 
         $stryYear = date('Y');
@@ -56,6 +57,7 @@ class CommunityNew extends MY_Controller
         $data['community'] = $this->m_community->get_com_detail($id);
         $data['event'] = $this->m_communitynew->get_event($id);
         $data['activity'] = $this->m_communitynew->get_activity($id);
+        $data['balance'] = $this->m_communitynew->balance($id);
         $user_id = $data['user']['USER_ID'];
 
         if ($this->m_community->getCom($id)) {
@@ -151,6 +153,7 @@ class CommunityNew extends MY_Controller
         $data['monthlyIncome'] = $this->m_communitynew->sumMonthlyCash($id);
         $data['totalMonthly'] = $this->m_communitynew->totalMonthlyCash($id);
         $data['eventIncome'] = $this->m_communitynew->sumEventCash($id);
+        $data['balance'] = $this->m_communitynew->balance($id);
         $user_id = $data['user']['USER_ID'];
 
         if ($this->m_community->getCom($id)) {
@@ -173,7 +176,9 @@ class CommunityNew extends MY_Controller
         $data['user'] = $this->m_user->getUser();
         $data['community'] = $this->m_community->get_com_detail($id);
         $data['year'] = $this->m_communitynew->listYear();
+        $data['detailOutcome'] = $this->m_communitynew->totalOutcomeDetail($id);
         $data['outcome'] = $this->m_communitynew->totalOutcome($id);
+        $data['detailIncome'] = $this->m_communitynew->totalIncomeDetail($id);
         $data['income'] = $this->m_communitynew->totalIncome($id);
         $data['balance'] = $this->m_communitynew->balance($id);
         $user_id = $data['user']['USER_ID'];
