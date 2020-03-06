@@ -27,13 +27,6 @@ class M_ajax extends CI_Model
 
     function insertMessage($id, $user_id, $message, $com_id)
     {
-        // $data = array(
-        //     'USER_ID' => $user_id,
-        //     'COLLAB_ID' => $id,
-        //     'MESSAGE' => $message
-        // );
-        // $this->db->insert('chat', $data);
-
         $this->db->query('INSERT INTO chat (`USER_ID`, `RECIPIENT_ID`, `COLLAB_ID`, `MESSAGE`) SELECT ' . $user_id . ', `MEMBER_ID`,' . $id . ', "' . $message . '" FROM `community_member` WHERE `COM_ID` = ' . $com_id . ' AND MEMBER_STATUS = 1');
 
         return $this->db->insert_id();
@@ -160,6 +153,7 @@ class M_ajax extends CI_Model
         return $query->result();
     }
 
+    //Event Income
     function get_event_transaction($id)
     {
         $query = $this->db->query('SELECT a.ANOTHER_DATE,a.ANOTHER_AMOUNT,a.ANOTHER_ID,a.COM_ID,a.PROOF,a.ANOTHER_STATUS,u.USERNAME,u.NAME FROM another_income a JOIN community_member m on m.MEMBER_ID = a.USER_ID JOIN user u on m.USER_ID = u.USER_ID WHERE a.ANOTHER_ID = ' . $id);
@@ -180,6 +174,29 @@ class M_ajax extends CI_Model
     function listEventIncome($id)
     {
         $query = $this->db->query('SELECT a.ACTIVITY_ID,a.ACTIVITY FROM activity a JOIN event e on a.EVENT_ID = e.EVENT_ID WHERE e.COM_ID = ' . $id);
+        return $query->result();
+    }
+
+    //Monthly Income
+    function saveDonation($amount, $com_id)
+    {
+        $this->db->query('UPDATE community SET JUMLAH_KAS =' . $amount . ' WHERE COM_ID = ' . $com_id);
+    }
+
+    function get_Monthly_transaction($id)
+    {
+        $query = $this->db->query('SELECT c.CASH_ID,m.MONTH,y.YEAR,c.PROOF,c.COM_ID,u.USERNAME,u.NAME FROM monthly_cash c JOIN user u ON c.USER_ID = u.USER_ID JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID = y.MONTH_ID WHERE c.CASH_ID = ' . $id);
+        return $query->row_array();
+    }
+
+    function confirmMonthlyIncome($id)
+    {
+        $this->db->query('UPDATE monthly_cash SET CASH_STATUS = 1 WHERE CASH_ID = ' . $id);
+    }
+
+    function checkMonthlyTransaction($id)
+    {
+        $query = $this->db->query('SELECT * FROM monthly_cash WHERE CASH_ID = ' . $id . ' AND CASH_STATUS = 0');
         return $query->result();
     }
 }

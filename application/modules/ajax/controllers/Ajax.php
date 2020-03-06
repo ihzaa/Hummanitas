@@ -393,4 +393,69 @@ class Ajax extends MY_Controller
         $list = $this->m_ajax->listEventIncome($id);
         echo json_encode($list);
     }
+
+    function saveDonation()
+    {
+        $amount = $this->input->post('amount');
+        $com_id = $this->uri->segment(2);
+        $this->m_ajax->saveDonation($amount, $com_id);
+    }
+
+    public function get_Monthly_transaction()
+    {
+        $id = $this->input->post('transactionId');
+        if (isset($id) and !empty($id)) {
+            $transaction = $this->m_ajax->get_Monthly_transaction($id);
+
+            if ($transaction['NAME'] == NULL) {
+                $name = $transaction['USERNAME'];
+            } else {
+                $name = $transaction['NAME'];
+            };
+            echo ' <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <input readonly id="transactionId" value="' . $id . '" hidden>
+                    <label>Name</label>
+                    <input readonly="" class="form-control" value="' . $name . '">
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <label>Month & Year</label>
+                    <input readonly="" class="form-control" value="' . $transaction['MONTH'] . ' ' . $transaction['YEAR'] . '">
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <div class="controls">
+                    <label>
+                        Proof Of Payment
+                    </label>
+                    <br>
+                        <img height="500px" width="400px" src="' . base_url('assets/img/community/transaction/') . $transaction['COM_ID'] . '/' . $transaction['PROOF'] . '" alt="Card image">
+                </div>
+            </div>
+        </div>
+        ';
+        }
+    }
+
+    function confirmMonthlyIncome()
+    {
+        $id = $this->input->post('id');
+
+        $check = $this->m_ajax->checkMonthlyTransaction($id);
+
+        if ($check != NULL) {
+            $this->m_ajax->confirmMonthlyIncome($id);
+
+            echo 'success';
+        } else {
+            echo 'failed';
+        }
+    }
 }
