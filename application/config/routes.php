@@ -125,7 +125,9 @@ $route['ajax/(:num)/listEventIncome'] = 'ajax/listEventIncome';
 //post
 $route['community/posting/like'] = 'community/communitycontroller_ku/like';
 $route['community/posting/dislike'] = 'community/communitycontroller_ku/dislike';
+$route['community/posting/delete'] = 'community/communitycontroller_ku/deletePost';
 $route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
+$route['posting/comment/store'] = 'community/communitycontroller_ku/storeComment';
 
 //outcome
 $route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcome';
