@@ -187,7 +187,7 @@ class CommunityController_ku extends MY_Controller
 				<img src="' . base_url("assets/img/user/" . $this->m_user->getUser()["USER_IMAGE"]) . '" alt="Avatar" height="30" width="30">
 			</div>
 			<div class="user-page-info">
-				<h6 class="mb-0"><a href="" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
+				<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $id_mem)->result()[0]->USER_ID) . '" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
 				</h6>
 				<span class="font-small-2">' . $isi . '</span>
 			</div>
