@@ -194,7 +194,7 @@ class CommunityController_ku extends MY_Controller
 						<span class="font-small-2">' . $isi . '</span>
 					</div>
 					<div class="col-auto">
-						<a class="del-comment" id="del-comment' . $id_com . '" data-id="' . $id_com . '"><i class="fa fa-times-circle-o text-primary" title="Delete"></i></a>
+						<a class="del-comment" id="del-comment' . $id_com . '" data-id="' . $id_com . '" data-post="' . $id_post . '"><i class="fa fa-times-circle-o text-primary" title="Delete"></i></a>
 					</div>
 				</div>
 			</div>
