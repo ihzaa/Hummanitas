@@ -132,6 +132,7 @@ $route['community/posting/dislike'] = 'community/communitycontroller_ku/dislike'
 $route['community/posting/delete'] = 'community/communitycontroller_ku/deletePost';
 $route['community/(:num)/posting'] = 'community/communitycontroller_ku/posting';
 $route['posting/comment/store'] = 'community/communitycontroller_ku/storeComment';
+$route['posting/comment/loadmore'] = 'community/communitycontroller_ku/loadMoreComment';
 
 //outcome
 $route['community/(:num)/finance/outcome'] = 'community/community_outcome/outcome';
