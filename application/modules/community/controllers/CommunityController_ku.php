@@ -179,20 +179,28 @@ class CommunityController_ku extends MY_Controller
 		$id_mem = $this->m_community_ku->getMemeberId($this->session->userdata('id'))->MEMBER_ID;
 
 
-		$this->m_community_ku->storeComment($id_post, $id_mem, $isi);
+		$id_com = $this->m_community_ku->storeComment($id_post, $id_mem, $isi);
 
 		echo '
 		<div class="d-flex justify-content-start align-items-center mb-1">
 			<div class="avatar mr-50">
 				<img src="' . base_url("assets/img/user/" . $this->m_user->getUser()["USER_IMAGE"]) . '" alt="Avatar" height="30" width="30">
 			</div>
-			<div class="user-page-info">
-				<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $id_mem)->result()[0]->USER_ID) . '" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
-				</h6>
-				<span class="font-small-2">' . $isi . '</span>
+			<div class="user-page-info  w-100">
+				<div class="row">
+					<div class="col-auto mr-auto">
+						<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $id_mem)->result()[0]->USER_ID) . '" style="color: black;">' . $this->m_user->getUser()["NAME"] . '</a>
+						</h6>
+						<span class="font-small-2">' . $isi . '</span>
+					</div>
+					<div class="col-auto">
+						<a class="del-comment" id="del-comment' . $id_com . '" data-id="' . $id_com . '" data-post="' . $id_post . '"><i class="fa fa-times-circle-o text-primary" title="Delete"></i></a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<hr>';
+		<hr id="hr-ke' . $id_com . '">
+		';
 	}
 
 	function loadMoreComment()
@@ -247,5 +255,11 @@ class CommunityController_ku extends MY_Controller
 					</div>';
 		}
 		echo $output;
+	}
+
+	function deleteComment()
+	{
+		$id = $this->input->post('id_com');
+		$this->m_community_ku->deleteComment($id);
 	}
 }
