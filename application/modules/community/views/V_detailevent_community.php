@@ -108,7 +108,11 @@
                                 <div class="col">
                                     <?php
                                     $data = $this->db->query('SELECT * FROM activity where EVENT_ID = ' . $this->uri->segment(4))->result();
-                                    $activity_id = $data[0]->ACTIVITY_ID;
+
+                                    if ($data != NULL) {
+
+                                        $activity_id = $data[0]->ACTIVITY_ID;
+                                    }
 
 
                                     if ($data != NULL) {

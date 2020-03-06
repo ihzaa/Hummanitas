@@ -9,6 +9,7 @@ class Ajax extends MY_Controller
 
         $this->load->model('m_ajax');
         $this->load->model('user/m_user');
+        $this->load->model('community/m_communitynew');
     }
 
     function index()
@@ -241,9 +242,10 @@ class Ajax extends MY_Controller
         $data['user'] = $this->m_user->getUser();
         $user_id = $data['user']['USER_ID'];
 
-        $com_id = $this->input->post('id');
+        $com_id = $this->uri->segment(2);
 
         $this->m_ajax->leaveCommunity($user_id, $com_id);
+        redirect('user/');
     }
 
     function get_last_chat()
@@ -274,6 +276,18 @@ class Ajax extends MY_Controller
         $id = $this->input->post('id');
 
         $this->m_ajax->update_unseen_message($id, $user_id);
+    }
+
+    function getYear()
+    {
+        $year = $this->m_communitynew->listYear();
+
+        $option = '';
+        foreach ($year as $year) {
+            $option .= '<option value="' . $year->YEAR . '">' . $year->YEAR . '</option>';
+        }
+
+        echo $option;
     }
 
     function notification()

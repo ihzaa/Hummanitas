@@ -80,91 +80,36 @@
     </div>
 </div>
 
+<!-- Leave Modal-->
+<div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you want to leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">This decision cannot be withdrawn.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="<?= base_url('ajax/' . $community['COM_ID'] . '/leaveCommunity') ?>">Leave</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- leave community -->
-<script>
-    $(document).ready(function() {
-        if (!window.location.hash) {
-            window.location = window.location + '#loaded';
-            window.location.reload();
-        } else {
-            $("#leave").click(function() {
-                var id = $('#leave').data('id');
 
-                Swal.fire({
-                    title: 'Are you sure you want to leave this community?',
-                    text: '',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
-                }).then((result) => {
-                    if (result.value) {
-                        $.ajax({
-                            url: "<?= base_url('ajax/leaveCommunity') ?>",
-                            method: "POST",
-                            data: {
-                                id: id
-                            },
-                            success: function(data) {
-                                window.location.href = 'http://localhost/hummanitas/user/user_community';
-                            },
-                            error: function() {
-                                Swal.fire(
-                                    'Error!',
-                                    'There is error when deleting gallery.',
-                                    'error'
-                                )
-                            }
-                        });
-
-                    }
-                })
-
-            });
-        }
-    });
-</script>
-<script>
-    // $(document).ready(function() {
-    //     if (!window.location.hash) {
-    //         window.location = window.location + '#loaded';
-    //         window.location.reload();
-    //     } else {
-    //         $(".memberManage").click(function() {
-    //             Swal.fire({
-    //                 type: 'error',
-    //                 title: 'Access denied',
-    //                 text: 'Only admin can access this page!'
-    //             })
-    //         });
-    //         $(".settingCom").click(function() {
-    //             Swal.fire({
-    //                 type: 'error',
-    //                 title: 'Access denied',
-    //                 text: 'Only admin can access this page!'
-    //             })
-    //         });
-    //     }
-
-    // });
-    (function($) {
-        $(function() {
-            $(".memberManage").click(function() {
-                Swal.fire({
-                    type: 'error',
-                    title: 'Access denied',
-                    text: 'Only admin can access this page!'
-                })
-            });
-            $(".settingCom").click(function() {
-                Swal.fire({
-                    type: 'error',
-                    title: 'Access denied',
-                    text: 'Only admin can access this page!'
-                })
-            });
-        });
-    }(jQuery));
-</script>
+<div class="modal fade" id="accessDenied" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div align="center" style="border-radius:10px;border: 1px">
+                <img class="mt-2" src="<?= base_url('assets/'); ?>app-assets/images/pages/lock.png" style="heigth: 200px;width:200px;" class="img-fluid align-self-center" alt="branding logo">
+                <h1 class="font-large-2 my-2">Access denied!</h1>
+                <p>
+                    Only admin can access this page.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -484,7 +484,27 @@
             });
         </script>
 
-
+        <!-- searching -->
+        <script>
+            $(document).ready(function() {
+                $('#keyword').keyup(function() {
+                    var search = $('#keyword').val();
+                    if (search != '') {
+                        $.ajax({
+                            url: "<?= base_url('ajax') ?>",
+                            method: "POST",
+                            data: {
+                                search: search
+                            },
+                            success: function(data) {
+                                $('#result').html(data);
+                            }
+                        });
+                    }
+                });
+            });
+            // 
+        </script>
 </body>
 <!-- END: Body-->
 

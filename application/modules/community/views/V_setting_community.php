@@ -82,12 +82,6 @@
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex py-75" id="account-pill-info" data-toggle="pill" href="#account-vertical-info" aria-expanded="false">
-                                        <i class="feather icon-info mr-50 font-medium-3"></i>
-                                        Management setting
-                                    </a>
-                                </li>
 
                             </ul>
                         </div>
@@ -273,74 +267,7 @@
                                                 </form>
                                             </div>
 
-                                            <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                <form novalidate>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <select class="select2 form-control">
-                                                                    <option value="Leader">Leader</option>
-                                                                    <option value="rectangle">yusuf</option>
-                                                                    <option value="rombo">Azmi</option>
-                                                                    <option value="romboid">recky</option>
-                                                                    <option value="trapeze">alif</option>
 
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <select class="select2 form-control">
-                                                                    <option value="Leader">vice leader</option>
-                                                                    <option value="rectangle">yusuf</option>
-                                                                    <option value="rombo">Azmi</option>
-                                                                    <option value="romboid">recky</option>
-                                                                    <option value="trapeze">alif</option>
-
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <select class="select2 form-control">
-                                                                    <option value="Leader">finance manager</option>
-                                                                    <option value="rectangle">yusuf</option>
-                                                                    <option value="rombo">Azmi</option>
-                                                                    <option value="romboid">recky</option>
-                                                                    <option value="trapeze">alif</option>
-
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <select class="select2 form-control">
-                                                                    <option value="Leader">secretary</option>
-                                                                    <option value="rectangle">yusuf</option>
-                                                                    <option value="rombo">Azmi</option>
-                                                                    <option value="romboid">recky</option>
-                                                                    <option value="trapeze">alif</option>
-
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-
-
-
-
-
-                                                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                            <button type="submit" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0">Save
-                                                                changes</button>
-                                                            <button type="reset" class="btn btn-outline-warning">Cancel</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
 
 
 
