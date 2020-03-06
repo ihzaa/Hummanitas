@@ -284,7 +284,7 @@ class M_community extends CI_Model
         $this->load->library('upload');
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '0';
-        $config['upload_path'] = 'assets/img/community/event';
+        $config['upload_path'] = 'assets/img/community/event/';
 
         $this->upload->initialize($config);
         $this->upload->do_upload('image');
@@ -310,6 +310,40 @@ class M_community extends CI_Model
 
         return $this->db->insert_id();
     }
+
+    function eventEdit($upload_image, $event_id)
+    {
+
+        $this->load->library('upload');
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '0';
+        $config['upload_path'] = 'assets/img/community/event/';
+
+        $this->upload->initialize($config);
+        $this->upload->do_upload('image');
+        $gbr = $this->upload->data('file_name');
+
+        $data = [
+            'START_DATE' => $this->input->post('startDate'),
+            'EVENT_LOC' => $this->input->post('location'),
+
+            'EVENT_DESC' => $this->input->post('description'),
+            'EVENT_THUMBNAIL' => $gbr,
+            'EVENT_TITLE' => $this->input->post('title'),
+            'END_DATE' => $this->input->post('endDate'),
+
+
+        ];
+
+        $this->db->where('EVENT_ID', $event_id);
+        $this->db->update('event', $data);
+    }
+
+    function eventDel($event_id)
+    {
+        $this->db->where('EVENT_ID', $event_id)->delete('event');
+    }
+
 
     function insertNotif($com_id, $icon, $subject, $text, $link)
     {
@@ -373,6 +407,8 @@ class M_community extends CI_Model
         }
     }
 
+
+
     function setting_com($com_id)
     {
 
@@ -414,6 +450,14 @@ class M_community extends CI_Model
         $query = $this->db->get_where('event', array("EVENT_ID" => $event_id, "COM_ID" => $com_id))->row_array();
         return $query;
     }
+
+    public function getEvent($event_id)
+    {
+        $query = $this->db->get_where('event', array("EVENT_ID" => $event_id))->row_array();
+        return $query;
+    }
+
+
 
     function getMemberId($com_id, $user_id)
     {

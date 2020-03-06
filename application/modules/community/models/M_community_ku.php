@@ -49,8 +49,17 @@ class M_community_ku extends CI_Model
 	{
 		$ret = array();
 		for ($i = 0; $i < count($arr); $i++) {
-			$ret[$i] = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $arr[$i]->POST_ID . '" ORDER BY `CREATE_AT` ASC')->result();
+			$ret[$i] = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $arr[$i]->POST_ID . '" ORDER BY `CREATE_AT` DESC LIMIT 3')->result();
 		}
+		return $ret;
+	}
+
+	public function commentPerPostMore($id_post, $last_id)
+	{
+		// $ret = array();
+		// for ($i = 0; $i < count($arr); $i++) {
+		$ret = $this->db->query('SELECT * FROM `comment` WHERE `POST_ID`= "' . $id_post . '" AND `COMMENT_ID` < "' . $last_id . '" ORDER BY `CREATE_AT` DESC LIMIT 3')->result();
+		// }
 		return $ret;
 	}
 

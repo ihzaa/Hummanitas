@@ -207,4 +207,17 @@ class M_user extends CI_Model
     {
         return $query = $this->db->get_where('user', ['USER_ID' => $user_id])->row_array();
     }
+
+    function report($report, $guest_id, $user_id)
+    {
+
+        $data = array(
+
+            'USER_ID' => $user_id,
+            'SUSPECT_ID' => $guest_id,
+            'REPORT_DESC' => $report,
+
+        );
+        $this->db->insert('report', $data);
+    }
 }

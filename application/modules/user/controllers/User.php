@@ -245,4 +245,32 @@ class User extends MY_Controller
 			redirect('community/' . $com_id . '/guest');
 		}
 	}
+
+	function Report()
+	{
+		$this->form_validation->set_rules('report', 'report', 'required');
+		$guest_id = $this->uri->segment('3');
+		$data['user'] = $this->m_user->getUser();
+		$user_id = $data['user']['USER_ID'];
+		$report = $_POST['report'];
+		$a = '';
+		$i = 0;
+		foreach ($report as $report) {
+			if ($i == 0) {
+				$a =  $report;
+			} else {
+				$a = $a . ',' . $report;
+			}
+			$i++;
+		}
+
+
+		$this->m_user->report($a, $guest_id, $user_id);
+
+		$this->load->library('user_agent');
+		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        <p class="mb-0"> Success reporting community.</p></div>');
+
+		redirect($this->agent->referrer());
+	}
 }

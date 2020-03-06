@@ -75,19 +75,21 @@
 
                     if (count($event) > 0) {
 
-                        foreach ($event as $event) {
+                        foreach ($event as $events) {
 
-                            $id = $event->EVENT_ID;
+                            $id = $events->EVENT_ID;
+
+
 
                     ?>
 
                             <div class="col-lg-4 col-md-6 col-sm-12" style="display: inline-block;margin: 0 -2px ">
                                 <div class="card border-primary text-center bg-transparent">
                                     <div class="card-content">
-                                        <img src="<?= base_url('assets/img/community/event/') . $event->EVENT_THUMBNAIL; ?>" alt="element 04" width="200px" height="115px" class="float-left mt-3 pl-2" style="padding-right: 1.5rem">
+                                        <img src="<?= base_url('assets/img/community/event/') . $events->EVENT_THUMBNAIL; ?>" alt="element 04" width="200px" height="115px" class="float-left mt-3 pl-2" style="padding-right: 1.5rem">
                                         <div class="card-body" align='left'>
-                                            <h4 class="card-title mt-3"><?php echo $event->EVENT_TITLE ?></h4>
-                                            <p class="card-text mb-25"><?php echo $event->END_DATE ?></p>
+                                            <h4 class="card-title mt-3"><?php echo $events->EVENT_TITLE ?></h4>
+                                            <p class="card-text mb-25"><?php echo date('d M, Y', strtotime($events->END_DATE))  ?></p>
                                             <a href="<?= base_url('community/' . $community['COM_ID'] . '/event' . '/' . $id); ?>" class="btn btn-primary mt-1">View</a>
                                             <button class="btn btn-primary mt-1 edit" value="<?= $id ?>">edit</button>
                                         </div>
@@ -221,6 +223,7 @@
     </div>
 
 
+
     <!-- Modal Edit-->
     <div class="modal fade" id="myModal" style="z-index: 1041" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -233,11 +236,14 @@
                     </button>
                 </div>
 
+                <!-- <?= form_open_multipart('community/' . $community['COM_ID'] . '/event/eventEdit'); ?> -->
                 <div class="modal-body" id="editEvent">
 
 
                 </div>
+
             </div>
+
         </div>
     </div>
 
@@ -276,7 +282,25 @@
     <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/pickers/pickadate/datepicker.js"></script>
     <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/pickers/pickadate/main.js"></script>
     <!-- END: Page JS-->
+    <script>
+        $(document).ready(function() {
+                    $("#collab-list li").click(function() {
+                        var id = $('#collab-list').find('li.active').data('id');
 
+                        $.ajax({
+                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getChat') ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                $(".chats").html(data);
+
+                            }
+                        });
+                    });
+                }
+    </script>
 
     <!-- footer user -->
     <?php $this->load->view('user/v_template_footer') ?>
