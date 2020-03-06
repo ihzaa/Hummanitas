@@ -94,6 +94,88 @@ class Community extends MY_Controller
 		redirect('community/' . $id . '/event');
 	}
 
+	function getEvent()
+	{
+
+		$id = $this->input->post('id');
+		$event = $this->m_community->getEvent($id);
+		$output = '';
+		$output = '
+		<div class="form-group">
+		<label style="margin-left: 20px">Change profile photo</label>
+		<div class="row align-items-center">
+
+
+			<div class="col-sm-6">
+				<div class="custom-file">
+
+					<input type="file" class="custom-file-input" id="image" name="image">
+					<label class="custom-file-label" for="image">Choose file</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<div class="controls">
+			<label for="account-name">Title</label>
+			<input type="text" class="form-control" name="title" placeholder="Title" required data-validation-required-message="This name field is required" value="<?php echo $event->EVENT_TITLE ?>">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="controls">
+			<label for="account-name">Location</label>
+			<input type="text" class="form-control" name="location" placeholder="Location" required data-validation-required-message="This name field is required">
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="startDate">Start date</label>
+		<div class="docs-datepicker">
+			<div class="input-group">
+
+				<input type="date" class="form-control " id="startDate" name="startDate" placeholder="Pick a date" autocomplete="off" ">
+				<div class=" input-group-append">
+				<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+		<div class="docs-datepicker-container"></div>
+	</div>
+</div>
+
+<div class="form-group">
+	<label for="EndDate">End date</label>
+	<div class="docs-datepicker">
+		<div class="input-group">
+
+			<input type="date" class="form-control " id="endDate" name="endDate" placeholder="Pick a date" autocomplete="off">
+			<div class="input-group-append">
+				<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+		<div class="docs-datepicker-container"></div>
+	</div>
+</div>
+
+
+
+<div class="form-group">
+	<label for="accountTextarea">Description</label>
+	<textarea class="form-control" name="description" id="accountTextarea" rows="3" placeholder=""></textarea>
+</div>
+
+		';
+		echo $output;
+	}
+
 	function event_detail()
 	{
 		$com_id = $this->uri->segment('2');

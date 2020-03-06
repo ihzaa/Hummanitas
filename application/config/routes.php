@@ -59,6 +59,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['community/(:num)'] = 'community';
 $route['community/(:num)/report'] = 'community/report';
+$route['user/user_profile_guest/(:num)/report'] = 'user/report';
 $route['community/(:num)/setting'] = 'community/setting_community';
 $route['community/(:num)/setting_community1'] = 'community/setting_community1';
 $route['community/(:num)/member'] = 'community/listMember';

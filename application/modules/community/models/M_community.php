@@ -284,7 +284,7 @@ class M_community extends CI_Model
         $this->load->library('upload');
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '0';
-        $config['upload_path'] = 'assets/img/community/event';
+        $config['upload_path'] = 'assets/img/community/event/';
 
         $this->upload->initialize($config);
         $this->upload->do_upload('image');
@@ -412,6 +412,12 @@ class M_community extends CI_Model
     public function get_com_event_detail($com_id, $event_id)
     {
         $query = $this->db->get_where('event', array("EVENT_ID" => $event_id, "COM_ID" => $com_id))->row_array();
+        return $query;
+    }
+
+    public function getEvent($event_id)
+    {
+        $query = $this->db->get_where('event', array("EVENT_ID" => $event_id))->row_array();
         return $query;
     }
 

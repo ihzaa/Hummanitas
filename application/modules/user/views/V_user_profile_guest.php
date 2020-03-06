@@ -190,71 +190,72 @@
                 <div class="modal-body">
                     <div class="card-body">
                         <ul class="list-unstyled mb-0">
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
+                            <form method="post" action="<?= base_url('user/user_profile_guest/' . $user_guest['USER_ID'] . '/report') ?>">
+                                <li class="d-inline-block mr-2">
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input type="checkbox" name="report[]" value="pornography">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="">Pornography</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="false">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
+                                            <span class="">Pornography</span>
+                                        </div>
+                                    </fieldset>
+                                </li>
+                                <li class="d-inline-block mr-2">
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input type="checkbox" name="report[]" value="deception">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="">Deception</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="false">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
+                                            <span class="">Deception</span>
+                                        </div>
+                                    </fieldset>
+                                </li>
+                                <li class="d-inline-block mr-2">
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input type="checkbox" name="report[]" value="bad words">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="">bad words</span>
-                                    </div>
-                                </fieldset>
-                            </li>
-                            <li class="d-inline-block mr-2">
-                                <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" value="false">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
+                                            <span class="">bad words</span>
+                                        </div>
+                                    </fieldset>
+                                </li>
+                                <li class="d-inline-block mr-2">
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input type="checkbox" name="report[]" value="Fake Account">
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="">Fake Account</span>
-                                    </div>
-                                </fieldset>
-                            </li>
+                                            <span class="">Fake Account</span>
+                                        </div>
+                                    </fieldset>
+                                </li>
                         </ul>
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea rows="4" id="textarea" style="width: 475px; height:100px ; margin-left: 16px" required="required"></textarea>
+                    <textarea rows="4" id="textarea" name="report[]" style="width: 475px; height:100px ; margin-left: 16px" required="required"></textarea>
                     <label class="control-label" for="textarea"></label><i class="mtrl-select"></i>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Report</button>
+                    <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Report</button>
                 </div>
 
             </div>
-
+            </form>
         </div>
     </div>
 
