@@ -83,7 +83,7 @@ class CommunityController_ku extends MY_Controller
 						<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $row . '" data-row="' . $row . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $id_post . '"></i>
 						<span id="jml_like' . $row . '">0</span>
 						<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-						<span>0</span>
+						<span id="jml_cmt' . $id_post . '">0</span>
 					</div>
 				</div>
 				<hr>
@@ -128,7 +128,7 @@ class CommunityController_ku extends MY_Controller
 					<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $row . '" data-row="' . $row . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $id_post . '"></i>
 					<span id="jml_like' . $row . '">0</span>
 					<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-					<span>0</span>
+					<span id="jml_cmt' . $id_post . '">0</span>
 				</div>
 			</div>
 			<hr>

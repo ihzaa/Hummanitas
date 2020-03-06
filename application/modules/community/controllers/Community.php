@@ -11,7 +11,9 @@ class Community extends MY_Controller
 		$this->load->model('m_community_ku');
 		$this->load->model('user/m_user');
 		$this->load->library('form_validation');
-
+		if ($this->session->userdata('role_id') != 2) {
+			redirect('auth');
+		}
 		is_logged_in();
 	}
 
