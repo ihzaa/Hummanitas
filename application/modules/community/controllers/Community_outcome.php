@@ -12,13 +12,16 @@ class Community_outcome extends MY_Controller
         $this->load->model('m_community_outcome');
         $this->load->model('user/m_user');
         $this->load->library('form_validation');
-
+        if ($this->session->userdata('role_id') != 2) {
+            redirect('auth');
+        }
         is_logged_in();
     }
 
     function outcome()
     {
         $id = $this->uri->segment('2');
+        $data['balance'] = $this->m_communitynew->balance($id);
         $data['user'] = $this->m_user->getUser();
         $data['community'] = $this->m_community->get_com_detail($id);
         $data['outcome'] = $this->m_community_outcome->get_outcome_detail($id);

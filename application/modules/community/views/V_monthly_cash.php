@@ -102,7 +102,7 @@
                                                 <div class="col-5">
                                                     <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                         <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="2000000">
+                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -147,7 +147,7 @@
                                         <strong><label style="margin-left: 20px">Donation Every Month</label></strong>
                                         <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) == NULL) { ?>
                                             <input type="number" id="donation" class="form-control" placeholder="Amount" value="<?php if ($community['JUMLAH_KAS'] != 0) {
-                                                                                                                                    echo $community['JUMLAH_KAS'];
+                                                                                                                                    echo  number_format($community['JUMLAH_KAS']);
                                                                                                                                 } ?>" style="width: 100%; margin-left: 20px" readonly>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
 
                             <?php } else { ?>
                                 <input type="number" id="donation" class="form-control" placeholder="Amount" value="<?php if ($community['JUMLAH_KAS'] != 0) {
-                                                                                                                        echo $community['JUMLAH_KAS'];
+                                                                                                                        echo  number_format($community['JUMLAH_KAS']);
                                                                                                                     } ?>" style="width: 100%; margin-left: 20px">
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                                                                         <?= $list->YEAR ?>
                                                                     </th>
                                                                     <th>
-                                                                        <?= $list->CASH_AMOUNT ?>
+                                                                        <?= number_format($list->CASH_AMOUNT) ?>
                                                                     </th>
                                                                     <?php if ($list->CASH_STATUS == 0) { ?>
                                                                         <th id="status<?= $i ?>" style="background-color:#FF6464; color:white;"> Waiting</th>
@@ -401,7 +401,7 @@
                                                                         <?= $list->YEAR ?>
                                                                     </th>
                                                                     <th>
-                                                                        <?= $list->CASH_AMOUNT ?>
+                                                                        <?= number_format($list->CASH_AMOUNT) ?>
                                                                     </th>
                                                                     <?php if ($list->CASH_STATUS == 0) { ?>
                                                                         <th id="status<?= $i ?>" style="background-color:#FF6464; color:white;"> Waiting</th>
