@@ -107,20 +107,18 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<p>Tart I love sugar plum I love oat cake. Sweet roll caramels I love
-											jujubes.
-											Topping cake wafer.</p>
+										<p><?= $user['BIO'] ?></p>
 										<div class="mt-1">
 											<h6 class="mb-0">Phone Number</h6>
-											<p>031826739881</p>
+											<p><?= $user['NOTELP'] ?></p>
 										</div>
 										<div class="mt-1">
 											<h6 class="mb-0">Lives:</h6>
-											<p>Jl. Ngampelsari, Malang</p>
+											<p><?= $user['ADDRESS'] ?></p>
 										</div>
 										<div class="mt-1">
 											<h6 class="mb-0">Email:</h6>
-											<p>bucketful@fiendhead.org</p>
+											<p><?= $user['EMAIL'] ?></p>
 										</div>
 										<!-- <div class="mt-1">
                                             <h6 class="mb-0">Website:</h6>
@@ -548,55 +546,27 @@
 										<div>
 											<p class="mb-75"><strong>Upcoming Events</strong></p>
 										</div>
-										<p>Sat, 16, Feb</p>
+										<?php $event = $this->db->query('SELECT * FROM event e join community c on e.COM_ID=c.COM_ID join community_member cm on cm.COM_ID=c.COM_ID WHERE cm.USER_ID="' . $this->session->userdata('id') . '" ORDER BY e.EVENT_ID DESC LIMIT 5')->result() ?>
+
+
 									</div>
-									<div class="card-content">
-										<div class="list-group analytics-list">
-											<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-												<div class="float-left">
-													<p class="text-bold-600 font-medium-2 mb-0 mt-25">Refactor button
-														component</p>
-													<small>16 February 2019</small>
-													<a href="home-community.html">
-														<p class="mb-75">by <strong>Komunitas Bola Basket</strong> </p>
-													</a>
-												</div>
-											</div>
-											<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-												<div class="float-left">
-													<p class="text-bold-600 font-medium-2 mb-0 mt-25">Submit report to
-														admin</p>
-													<small>20 February 2019</small>
-													<a href="home-community.html">
-														<p class="mb-75">by <strong>Komunitas BPecinta Kucing</strong>
+									<?php foreach ($event as $event) { ?>
+										<div class="card-content">
+											<div class="list-group analytics-list">
+												<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
+													<div class="float-left">
+														<p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event->EVENT_TITLE ?>
 														</p>
-													</a>
-												</div>
-											</div>
-											<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-												<div class="float-left">
-													<p class="text-bold-600 font-medium-2 mb-0 mt-25">Prepare
-														presentation</p>
-													<small>25 February 2019</small>
-													<a href="home-community.html">
-														<p class="mb-75">by <strong>Komunitas Bola Basket</strong> </p>
-													</a>
+														<small><?php echo date('d M, Y', strtotime($event->START_DATE))  ?></small>
+														<a href="<?= base_url('community/') . $event->COM_ID; ?>">
+															<p class="mb-75">by <strong><?= $event->COM_NAME ?></strong> </p>
+														</a>
+													</div>
 												</div>
 
 											</div>
-											<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-												<div class="float-left">
-													<p class="text-bold-600 font-medium-2 mb-0 mt-25">Calculate monthly
-														income</p>
-													<small>28 February 2019</small>
-													<a href="home-community.html">
-														<p class="mb-75">by <strong>Komunitas Pecinta Kucing</strong>
-														</p>
-													</a>
-												</div>
-											</div>
 										</div>
-									</div>
+									<?php } ?>
 								</div>
 
 							</div>

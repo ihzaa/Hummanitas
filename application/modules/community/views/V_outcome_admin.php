@@ -101,7 +101,7 @@
                                             </div>
                                             <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                 <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                <input style="width: 90%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $balance ?>">
+                                                <input style="width: 90%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
                                             </fieldset>
                                         </nav>
                                     </div>
@@ -160,7 +160,7 @@
                                                                             <th><?= date('d M, Y', strtotime($outcome->OUTCOME_DATE))  ?></th>
                                                                             <th><?= $outcome->USERNAME ?></th>
                                                                             <th><?= $outcome->OUTCOME_ACTIVITY ?></th>
-                                                                            <th><?= $outcome->OUTCOME_AMOUNT ?></th>
+                                                                            <th><?= number_format($outcome->OUTCOME_AMOUNT) ?></th>
 
                                                                         </tr>
 
@@ -171,7 +171,7 @@
                                                                     <th></th>
                                                                     <th>Total</th>
                                                                     <th></th>
-                                                                    <th><?= $total['total'] ?></th>
+                                                                    <th><?= number_format($total['total']) ?></th>
                                                                 </tfooter>
 
 
@@ -292,7 +292,7 @@
                                             <div class="form-group">
                                                 <div class="controls">
                                                     <label for="account-name">Name</label>
-                                                    <input readonly class="form-control" id="name" name="name" placeholder="Name" required data-validation-required-message="This name field is required" value="<?= $user['USERNAME'] ?>">
+                                                    <input readonly class="form-control" id="name" required name="name" placeholder="Name" required data-validation-required-message="This name field is required" value="<?= $user['USERNAME'] ?>">
                                                 </div><br>
                                             </div>
 
@@ -314,12 +314,12 @@
 
                                             <div class="form-group">
                                                 <label for="accountTextarea">Activity</label>
-                                                <textarea class="form-control" id="activity" name="activity" rows="2" placeholder=""></textarea>
+                                                <textarea class="form-control" id="activity" required name="activity" rows="2" placeholder=""></textarea>
                                             </div>
 
                                             <div>
                                                 <label>Amount</label>
-                                                <input type="text" class="form-control" placeholder="Amount" id="amount" name="amount" style="width: 100%;">
+                                                <input type="text" class="form-control" required placeholder="Amount" id="amount" name="amount" style="width: 100%;">
                                             </div>
 
 

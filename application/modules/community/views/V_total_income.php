@@ -102,7 +102,7 @@
                                                 <div class="col-5">
                                                     <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                         <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $balance ?>">
+                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -173,7 +173,7 @@
                                                                             <?= $monthly->YEAR ?>
                                                                         </th>
                                                                         <th>
-                                                                            <?= $monthly->TOTAL ?>
+                                                                            <?= number_format($monthly->TOTAL) ?>
                                                                         </th>
 
                                                                     </tr>
@@ -186,7 +186,7 @@
                                                                     <th></th>
                                                                     <th>Total</th>
                                                                     <th></th>
-                                                                    <th><strong><?= $totalMonthly['TOTAL'] ?></strong></th>
+                                                                    <th><strong><?= number_format($totalMonthly['TOTAL']) ?></strong></th>
                                                                 </tr>
                                                             </tfoot>
 
@@ -238,7 +238,7 @@
                                                                         <?= $event->ACTIVITY ?>
                                                                     </th>
                                                                     <th>
-                                                                        <?= $event->TOTAL ?>
+                                                                        <?= number_format($event->TOTAL) ?>
                                                                     </th>
 
                                                                 </tr>
@@ -294,7 +294,7 @@
                                                                             <?= $event->ACTIVITY ?>
                                                                         </th>
                                                                         <th>
-                                                                            <?= $event->TOTAL ?>
+                                                                            <?= number_format($event->TOTAL) ?>
                                                                         </th>
 
                                                                     </tr>
@@ -312,7 +312,7 @@
                                                                             <?= 'Monthly Cash of ' . $monthly->MONTH . ' ' . $monthly->YEAR ?>
                                                                         </th>
                                                                         <th>
-                                                                            <?= $monthly->TOTAL ?>
+                                                                            <?= number_format($monthly->TOTAL) ?>
                                                                         </th>
 
                                                                     </tr>
@@ -326,7 +326,7 @@
                                                                 <tr>
                                                                     <th></th>
                                                                     <th>Total</th>
-                                                                    <th><strong><?= $sum ?></strong></th>
+                                                                    <th><strong><?= number_format($sum) ?></strong></th>
                                                                 </tr>
                                                             </tfoot>
 

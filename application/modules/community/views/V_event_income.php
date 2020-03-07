@@ -99,7 +99,7 @@
                                                 <div class="col-5">
                                                     <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                         <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $balance ?>">
+                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                                                                                     <?= $list->ACTIVITY ?>
                                                                                 </th>
                                                                                 <th>
-                                                                                    <?= $list->ANOTHER_AMOUNT ?>
+                                                                                    <?= number_format($list->ANOTHER_AMOUNT) ?>
                                                                                 </th>
                                                                                 <?php if ($list->ANOTHER_STATUS == 0) { ?>
                                                                                     <th style="background-color:#FF6464; color:white;"> Waiting</th>
@@ -255,7 +255,7 @@
                                                                 ?>
                                                                 <h4 style="position: absolute;margin-left: 900px;">
                                                                     <strong>Total:</strong> <?php if ($Total['TOTAL'] != NULL) {
-                                                                                                echo $Total['TOTAL'];
+                                                                                                echo number_format($Total['TOTAL']);
                                                                                             } else {
                                                                                                 echo '-';
                                                                                             } ?></h4>
@@ -314,7 +314,7 @@
                                                                                                                     <?= $list->ACTIVITY ?>
                                                                                                                 </th>
                                                                                                                 <th>
-                                                                                                                    <?= $list->ANOTHER_AMOUNT ?>
+                                                                                                                    <?= number_format($list->ANOTHER_AMOUNT) ?>
                                                                                                                 </th>
                                                                                                                 <?php if ($list->ANOTHER_STATUS == 0) { ?>
                                                                                                                     <th id="status<?= $i ?>" style="background-color:#FF6464; color:white;"> Waiting</th>

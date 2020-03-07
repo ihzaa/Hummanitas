@@ -102,7 +102,7 @@
                                                 <div class="col-5">
                                                     <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
                                                         <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= $balance ?>">
+                                                        <input style="width: 100%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -133,11 +133,11 @@
                                 </fieldset>
                                 <fieldset class="form-group" style="display: inline-block;margin-left: 550px;">
                                     <label for="disabledInput" style="font-size: 20px"><strong>Income</strong></label>
-                                    <input style="width: 85%" type="text" class="form-control" id="income" readonly="readonly" value="<?= $income ?>">
+                                    <input style="width: 85%" type="text" class="form-control" id="income" readonly="readonly" value="<?= number_format($income) ?>">
                                 </fieldset>
                                 <fieldset class="form-group" style="display: inline-block;margin-left: 10px;">
                                     <label for="disabledInput" style="font-size: 20px"><strong>Outcome</strong></label>
-                                    <input style="width: 85%" type="text" class="form-control" id="outcome" readonly="readonly" value="<?= $outcome ?>">
+                                    <input style="width: 85%" type="text" class="form-control" id="outcome" readonly="readonly" value="<?= number_format($outcome) ?>">
                                 </fieldset>
                             </div>
                             <!-- </div> -->
@@ -171,7 +171,7 @@
                                                                         <th><?= $i ?></th>
                                                                         <th><?= $income->CASH_ACTIVITY ?></th>
                                                                         <th><?= date('Y', strtotime($income->YEAR)) ?></th>
-                                                                        <th><?= $income->TOTAL ?></th>
+                                                                        <th><?= number_format($income->TOTAL) ?></th>
                                                                         <th>-</th>
                                                                     </tr>
 
@@ -186,7 +186,7 @@
                                                                         <th><?= $outcome->OUTCOME_ACTIVITY ?></th>
                                                                         <th><?= date('Y', strtotime($outcome->OUTCOME_DATE)) ?></th>
                                                                         <th>-</th>
-                                                                        <th><?= $outcome->TOTAL ?></th>
+                                                                        <th><?= number_format($outcome->TOTAL) ?></th>
                                                                     </tr>
                                                                 <?php $i++;
                                                                     $sumOutcome += $outcome->TOTAL;
@@ -201,8 +201,8 @@
                                                                     <th></th>
                                                                     <th>total</th>
                                                                     <th></th>
-                                                                    <th id="totalIncome"><?= $sumIncome ?></th>
-                                                                    <th id="totalOutcome"><?= $sumOutcome ?></th>
+                                                                    <th id="totalIncome"><?= number_format($sumIncome) ?></th>
+                                                                    <th id="totalOutcome"><?= number_format($sumOutcome) ?></th>
 
                                                                 </tr>
                                                             </tfoot>
