@@ -122,7 +122,7 @@
 															<label style="margin-left: 20px">Change cover community</label>
 															<br><br>
 
-															<img src="<?= base_url('assets/img/community/cover/') . $community['COM_COVER']; ?>" style="height: 200px;width: 450px">
+															<img src="<?= base_url('assets/img/community/cover/') . $community['COM_COVER']; ?>" id="cvr-prev" style="height: 200px;width: 450px">
 															<br><br>
 															<div class="row align-items-center">
 
@@ -340,6 +340,22 @@
 		}
 
 		$("#image").change(function() {
+			readURL(this);
+		});
+
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#cvr-prev').attr('src', e.target.result);
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#cover").change(function() {
 			readURL(this);
 		});
 	</script>
