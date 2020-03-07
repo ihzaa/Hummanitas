@@ -10,8 +10,8 @@
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+				<div class="sidebar-brand-icon">
+					<i class="fas fa-user"></i>
 				</div>
 				<div class="sidebar-brand-text mx-3">Admin</div>
 			</a>
@@ -106,7 +106,7 @@
 						</li>
 						<li class="nav-item dropdown no-arrow mx-1">
 							<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">
-								<i class="fas fa-church"></i>
+								<i class="fas fa-user"></i>
 							</a>
 							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
 								<a class="dropdown-item" href="<?= base_url('admin/kelola-profil') ?>">
