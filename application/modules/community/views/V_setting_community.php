@@ -343,7 +343,7 @@
 			readURL(this);
 		});
 
-		function readURL(input) {
+		function readURLCVR(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
@@ -356,7 +356,7 @@
 		}
 
 		$("#cover").change(function() {
-			readURL(this);
+			readURLCVR(this);
 		});
 	</script>
 </body>
