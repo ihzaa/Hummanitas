@@ -136,7 +136,7 @@
                                     <h6>About</h6>
                                     <div class="about-user">
                                         <fieldset class="mb-0">
-                                            <textarea data-length="120" class="form-control char-textarea" id="textarea-counter" rows="5" readonly placeholder="About User"><?= $user['BIO'] ?></textarea>
+                                            <textarea data-length="120" class="form-control char-textarea" id="textarea-counter" rows="5" readonly placeholder="<?= $user['BIO'] ?>"><?= $user['BIO'] ?></textarea>
                                         </fieldset>
                                         <small class="counter-value float-right"><span class="char-count">108</span> /
                                             120
@@ -172,8 +172,10 @@
                             <div id="users-list" class="chat-user-list list-group position-relative" style="margin-top: 0px;">
                                 <h3 class="primary p-1 mb-0" style="border-bottom: 1px solid rgb(197, 197, 197);">
                                     Collaboration List</h3>
-                                <a href="" id="new" style="margin: 10px auto;" data-toggle="modal" data-target="#createCollab" class="">+New
-                                    Collaboration</a>
+                                <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                    <a href="" id="new" style="margin: 10px auto;" data-toggle="modal" data-target="#createCollab" class="">+New
+                                        Collaboration</a>
+                                <?php } ?>
                                 <ul class="chat-users-list-wrapper media-list" id="collab-list">
                                     <?php if (count($collab) > 0) {
 

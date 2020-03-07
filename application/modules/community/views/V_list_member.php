@@ -109,10 +109,12 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h4>About</h4>
-                                        <div class="dropdown">
-                                            <a data-toggle="dropdown"><i class="feather icon-more-horizontal cursor-pointer"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>">Edit Info</a></div>
-                                        </div>
+                                        <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                            <div class="dropdown">
+                                                <a data-toggle="dropdown"><i class="feather icon-more-horizontal cursor-pointer"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>">Edit Info</a></div>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                     <div class="card-body">
                                         <p><?= $community['COM_DESC']; ?></p>
@@ -134,7 +136,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="col-lg-6 col-12">
 
@@ -184,14 +185,8 @@
                                                                             echo $member->NAME;
                                                                         } ?></h4>
                                                                     <small class="text-dark">
-                                                                        <?php if ($member->ISLEADER == 1) {
-                                                                            echo 'Leader';
-                                                                        } else if ($member->ISVICELEADER == 1) {
-                                                                            echo 'Vice Leader';
-                                                                        } else if ($member->ISSECRETARY == 1) {
-                                                                            echo 'Secretary';
-                                                                        } else if ($member->ISTREASURER == 1) {
-                                                                            echo 'Treasurer';
+                                                                        <?php if ($member->ISADMIN == 1) {
+                                                                            echo 'Admin';
                                                                         }
 
                                                                         ?></small>

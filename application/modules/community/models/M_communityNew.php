@@ -275,18 +275,9 @@ class M_communityNew extends CI_Model
         return $income;
     }
 
-    function selectedTotalIncome($com_id, $value)
-    {
-        $income = $this->db->query("SELECT c.CASH_ACTIVITY,y.YEAR,SUM(c.CASH_AMOUNT) AS 'TOTAL' FROM monthly_cash c JOIN monthyear y ON c.MONTHYEAR_ID = y.ID JOIN month m ON m.MONTH_ID=y.MONTH_ID WHERE y.YEAR LIKE '%$value%' AND c.COM_ID = ' . $com_id . ' AND c.CASH_STATUS = 1 GROUP BY c.MONTHYEAR_ID
-        UNION ALL
-        SELECT a.ACTIVITY,e.ANOTHER_DATE,SUM(e.ANOTHER_AMOUNT) AS 'TOTAL' FROM another_income e JOIN activity a ON e.ACTIVITY_ID = a.ACTIVITY_ID WHERE e.ANOTHER_DATE LIKE '%$value%' AND e.COM_ID = ' . $com_id . ' AND e.ANOTHER_STATUS = 1 GROUP BY e.ACTIVITY_ID")->result();
-
-        return $income;
-    }
-
     function totalOutcomeDetail($com_id)
     {
-        $outcome = $this->db->query('SELECT OUTCOME_ACTIVITY,OUTCOME_DATE,SUM(OUTCOME_AMOUNT) AS "TOTAL" FROM outcome WHERE COM_ID =' . $com_id)->result();
+        $outcome = $this->db->query('SELECT OUTCOME_ACTIVITY,OUTCOME_DATE,OUTCOME_AMOUNT AS "TOTAL" FROM outcome WHERE COM_ID =' . $com_id)->result();
 
         return $outcome;
     }

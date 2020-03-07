@@ -211,9 +211,9 @@
                                                                     <div class="card-body text-center">
 
                                                                         <img src="<?= base_url('assets/img/community/profile/') . $com->COM_IMAGE; ?>" class="mx-auto mb-2" width="100" alt="knowledge-base-image">
-                                                                        <h4><?php echo $com->COM_NAME ?></h4>
-                                                                        <small class="text-dark" style="font-size: 15px"><strong>Malang</strong></small><br>
-                                                                        <small class="text-dark"><?php echo $com->COM_ADDRESS ?></small>
+                                                                        <h4><?= $com->COM_NAME ?></h4>
+                                                                        <small class="text-dark" style="font-size: 15px"><strong><?= $com->COM_ADDRESS ?></strong></small><br>
+                                                                        <small class="text-dark"><?= $com->COM_EMAIL ?></small>
 
                                                                     </div>
                                                                     <div class="tutorial">

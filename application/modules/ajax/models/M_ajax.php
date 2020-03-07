@@ -224,7 +224,7 @@ class M_ajax extends CI_Model
 
     function selectedTotalOutcome($com_id, $value)
     {
-        $outcome = $this->db->query("SELECT OUTCOME_ACTIVITY,OUTCOME_DATE,SUM(OUTCOME_AMOUNT) AS 'TOTAL' FROM outcome WHERE OUTCOME_DATE LIKE '%$value%' AND COM_ID =" . $com_id)->result();
+        $outcome = $this->db->query("SELECT OUTCOME_ACTIVITY,OUTCOME_DATE,OUTCOME_AMOUNT AS 'TOTAL' FROM outcome WHERE OUTCOME_DATE LIKE '%$value%' AND COM_ID =" . $com_id)->result();
 
         return $outcome;
     }

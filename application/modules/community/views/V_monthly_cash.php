@@ -147,7 +147,7 @@
                                         <strong><label style="margin-left: 20px">Donation Every Month</label></strong>
                                         <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) == NULL) { ?>
                                             <input type="number" id="donation" class="form-control" placeholder="Amount" value="<?php if ($community['JUMLAH_KAS'] != 0) {
-                                                                                                                                    echo  number_format($community['JUMLAH_KAS']);
+                                                                                                                                    echo $community['JUMLAH_KAS'];
                                                                                                                                 } ?>" style="width: 100%; margin-left: 20px" readonly>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
 
                             <?php } else { ?>
                                 <input type="number" id="donation" class="form-control" placeholder="Amount" value="<?php if ($community['JUMLAH_KAS'] != 0) {
-                                                                                                                        echo  number_format($community['JUMLAH_KAS']);
+                                                                                                                        echo $community['JUMLAH_KAS'];
                                                                                                                     } ?>" style="width: 100%; margin-left: 20px">
                             </div>
                         </div>

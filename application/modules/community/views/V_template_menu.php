@@ -3,7 +3,7 @@
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-without-dd-arrow navbar-shadow menu-border" role="navigation" data-menu="menu-wrapper">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="home-user.html">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="<?php echo base_url('user/user_community') ?>">
                         <div class="brand-logo"></div>
                         <h2 class="brand-text mb-0">Hummanitas</h2>
                     </a></li>

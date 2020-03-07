@@ -23,9 +23,9 @@ class M_community extends CI_Model
 
     public function get_com_member($id)
     {
-        $this->db->limit(7);
+
         // $q = $this->db->join('user', 'user.USER_ID = community_member.USER_ID')->join('community', 'community.COM_ID = community_member.COM_ID')->get_where('community_member', array("community_member.COM_ID" => $id, "MEMBER_STATUS" => 1));
-        $q = $this->db->query('Select u.USER_ID, u.USERNAME, u.USER_IMAGE, u.NAME, m.MEMBER_ID,m.ISADMIN, m.COM_ID From user u JOIN community_member m on u.USER_ID = m.USER_ID WHERE m.COM_ID = ' . $id . ' AND m.MEMBER_STATUS = 1');
+        $q = $this->db->query('Select u.USER_ID, u.USERNAME, u.USER_IMAGE, u.NAME, m.MEMBER_ID,m.ISADMIN, m.COM_ID From user u JOIN community_member m on u.USER_ID = m.USER_ID WHERE m.COM_ID = ' . $id . ' AND m.MEMBER_STATUS = 1 LIMIT 7');
 
         return $q->result();
     }
@@ -97,8 +97,7 @@ class M_community extends CI_Model
 
     function get_com_image($id)
     {
-        $this->db->limit(9);
-        $q = $this->db->query('Select c.COM_ID, i.IMAGE, i.IMAGE_ID, g.GALLERY_ID, g.GALLERY_NAME From community c JOIN images i on c.COM_ID = i.COM_ID JOIN gallery g on i.GALLERY_ID = g.GALLERY_ID WHERE i.COM_ID = ' . $id);
+        $q = $this->db->query('Select c.COM_ID, i.IMAGE, i.IMAGE_ID, g.GALLERY_ID, g.GALLERY_NAME From community c JOIN images i on c.COM_ID = i.COM_ID JOIN gallery g on i.GALLERY_ID = g.GALLERY_ID WHERE i.COM_ID = ' . $id . ' LIMIT 9');
         return $q->result();
     }
 

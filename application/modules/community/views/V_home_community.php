@@ -107,10 +107,12 @@
 								<div class="card">
 									<div class="card-header">
 										<h4>About</h4>
-										<div class="dropdown">
-											<a data-toggle="dropdown"><i class="feather icon-more-horizontal cursor-pointer"></i></a>
-											<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>">Edit Info</a></div>
-										</div>
+										<?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+											<div class="dropdown">
+												<a data-toggle="dropdown"><i class="feather icon-more-horizontal cursor-pointer"></i></a>
+												<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('community/' . $community['COM_ID'] . '/setting'); ?>">Edit Info</a></div>
+											</div>
+										<?php } ?>
 									</div>
 									<div class="card-body">
 										<p><?= $community['COM_DESC']; ?></p>
@@ -169,7 +171,7 @@
 
 										?>
 
-										<a href="list-member.html" class="btn btn-primary w-100 mt-1"><i class="feather icon-plus mr-25"></i>Load More</a>
+										<a href="<?= base_url('community/' . $community['COM_ID'] . '/member') ?>" class="btn btn-primary w-100 mt-1"><i class="feather icon-plus mr-25"></i>Load More</a>
 
 									</div>
 								</div>
