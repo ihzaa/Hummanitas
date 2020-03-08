@@ -428,6 +428,13 @@ class Ajax extends MY_Controller
         echo json_encode($list);
     }
 
+    function updateEventIncome()
+    {
+        $id = $this->input->post('id');
+
+        $this->m_ajax->updateEventIncome($id);
+    }
+
     function saveDonation()
     {
         $amount = $this->input->post('amount');

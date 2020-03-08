@@ -190,6 +190,11 @@ class M_ajax extends CI_Model
         return $query->result();
     }
 
+    function updateEventIncome($id)
+    {
+        $query = $this->db->query('UPDATE activity SET ACTIVITY_STATUS = 1 WHERE ACTIVITY_ID = ' . $id);
+    }
+
     //Monthly Income
     function saveDonation($amount, $com_id)
     {

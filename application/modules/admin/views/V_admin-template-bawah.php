@@ -51,3 +51,20 @@
 
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+
+<!-- notification -->
+<script>
+	$(document).ready(function() {
+		setInterval(function() {
+			$.ajax({
+				url: "<?= base_url("admin/getNotif") ?>",
+				method: "POST",
+				dataType: "json",
+				success: function(data) {
+					$('#count').html(data.count);
+					$('.notif').html(data.report);
+				}
+			});
+		}, 2000);
+	});
+</script>

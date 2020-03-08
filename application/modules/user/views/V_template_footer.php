@@ -26,6 +26,7 @@
         });
     });
 </script>
+<!-- notification -->
 <script>
     $(document).ready(function() {
         // updating the view with notifications using ajax
@@ -63,4 +64,3 @@
         }, 5000);
     });
 </script>
-<!-- notification -->

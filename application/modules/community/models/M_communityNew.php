@@ -21,7 +21,7 @@ class M_communityNew extends CI_Model
 
     function get_activity($id)
     {
-        $activity = $this->db->query('SELECT a.ACTIVITY_ID,a.EVENT_ID,a.ACTIVITY FROM activity a JOIN event e on e.EVENT_ID = a.EVENT_ID WHERE e.COM_ID =' . $id);
+        $activity = $this->db->query('SELECT a.ACTIVITY_ID,a.EVENT_ID,a.ACTIVITY FROM activity a JOIN event e on e.EVENT_ID = a.EVENT_ID WHERE e.COM_ID =' . $id . ' AND ACTIVITY_STATUS = 0');
         return $activity->result();
     }
 

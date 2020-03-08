@@ -56,4 +56,16 @@ class M_admin extends CI_Model
 		}
 		return 0;
 	}
+
+	function getReport()
+	{
+		$query = $this->db->query('SELECT * FROM REPORT WHERE READ_STATUS = 1 LIMIT 5')->result();
+		return $query;
+	}
+
+	function getReportCount()
+	{
+		$query = $this->db->query('SELECT * FROM REPORT WHERE READ_STATUS = 1');
+		return $query->num_rows();
+	}
 }

@@ -83,25 +83,48 @@
 							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-bell fa-fw"></i>
 								<!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">3+</span>
+								<span class="badge badge-danger badge-counter count" id="count"><?= $count ?></span>
 							</a>
 							<!-- Dropdown - Alerts -->
 							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">
-									Alerts Center
+									Notification Center
 								</h6>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-primary">
-											<i class="fas fa-file-alt text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 12, 2019</div>
-										<span class="font-weight-bold">A new monthly report is ready to download!</span>
-									</div>
-								</a>
-								<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+								<div class="notif">
+									<?php if ($report != NULL) {
+										foreach ($report as $report) {
+											if ($report->COM_ID == NULL) { ?>
+												<a class="dropdown-item d-flex align-items-center" href="<?= base_url('admin/report-user') ?>">
+													<div class="mr-3">
+														<div class="icon-circle bg-primary">
+															<i class="icon-user"></i>
+														</div>
+													</div>
+													<div>
+														<div class="small text-gray-500"><?= date('d M Y h:ia', strtotime($report->REPORT_DATE)) ?></div>
+														<span class="font-weight-bold">There is new reported user!</span>
+													</div>
+												</a>
+											<?php } else { ?>
+												<a class="dropdown-item d-flex align-items-center" href="<?= base_url('admin/report-community') ?>">
+													<div class="mr-3">
+														<div class="icon-circle bg-primary">
+															<i class="icon-users"></i>
+														</div>
+													</div>
+													<div>
+														<div class="small text-gray-500"><?= date('d M Y h:ia', strtotime($report->REPORT_DATE)) ?></div>
+														<span class="font-weight-bold">There is new reported community!</span>
+													</div>
+												</a>
+										<?php }
+										}
+									} else { ?>
+										<a class="dropdown-item text-center small text-gray-500" href="#">No new report</a>
+									<?php } ?>
+
+									<a class="dropdown-item text-center small text-gray-500" href="#"></a>
+								</div>
 							</div>
 						</li>
 						<li class="nav-item dropdown no-arrow mx-1">

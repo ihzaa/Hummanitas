@@ -235,7 +235,9 @@
                                             <div class="vs-con-items d-flex align-items-center" id="header">
                                             </div>
                                             <div class="vs-con-items d-flex align-items-center">
-                                                <button class="btn" type="submit" id="leaveCollab" name="leaveCollab" style="background-color:transparent; padding:0 0;"><i class="feather icon-log-out font-large-1"></i></button>
+                                                <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                                    <button class="btn" type="submit" id="leaveCollab" name="leaveCollab" style="background-color:transparent; padding:0 0;"><i class="feather icon-log-out font-large-1"></i></button>
+                                                <?php } ?>
                                             </div>
                                         </header>
                                     </div>

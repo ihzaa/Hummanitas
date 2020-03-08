@@ -118,9 +118,16 @@
                                 <div class="card-header" style="margin-left: 40%">
                                     <h1>Event Income</h1>
 
-                                    <div class="" style="margin-left: 70%; margin-bottom: -30px;margin-top: 20px;">
-                                        <button class="btn btn-primary mb-2 new" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
-                                    </div>
+                                    <?php if ($this->db->query('SELECT * FROM activity a join event e WHERE e.COM_ID =' . $community['COM_ID'])->result() != NULL) { ?>
+                                        <div class="" style="margin-left: 70%; margin-bottom: -30px;margin-top: 20px;">
+                                            <button class="btn btn-primary mb-2 new" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="" style="margin-left: 70%; margin-bottom: -30px;margin-top: 20px;">
+                                            <button class="btn btn-primary mb-2 notActive"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
+                                        </div>
+                                    <?php } ?>
+
                                 </div>
 
                                 <div class="card-body">
@@ -235,17 +242,18 @@
                                 </div>
 
                                 <div class="col-xl-12 col-md-12 col-sm-12">
-                                    <div class="card collapse-icon accordion-icon-rotate">
-                                        <div class="card-body">
-                                            <div class="accordion" id="accordionExample" data-toggle-hover="true">
-                                                <?php
+                                    <?php
 
-                                                if (count($activity) > 0) { ?>
+                                    if (count($activity) > 0) { ?>
+
+                                        <div class="card collapse-icon accordion-icon-rotate">
+                                            <div class="card-body">
+                                                <div class="accordion" id="accordionExample" data-toggle-hover="true">
+
                                                     <?php foreach ($activity as $activity) {
                                                         $id = $activity->ACTIVITY_ID;
                                                     ?>
-
-                                                        <div class="collapse-margin">
+                                                        <div class="collapse-margin" id="<?= 'event_' . $id ?>">
                                                             <div class="card-header" id="heading<?= $id ?>" data-toggle="collapse" role="button" data-target="#collapse<?= $id ?>" aria-expanded="false" aria-controls="collapse<?= $id ?>">
                                                                 <span class="lead collapse-title collapsed">
                                                                     <?= $activity->ACTIVITY ?>
@@ -259,7 +267,7 @@
                                                                                             } else {
                                                                                                 echo '-';
                                                                                             } ?></h4>
-                                                                <a href="" style="margin-right: 30px"><i class="feather icon-x"></i></a>
+                                                                <button type="button" class="delEventIncome" value="<?= $id ?>" style="margin-right: 30px;padding:0 0;background-color:transparent;border:none"><i class="feather icon-x"></i></button>
                                                             </div>
 
                                                             <div id="collapse<?= $id ?>" class="collapse" aria-labelledby="heading<?= $id ?>" data-parent="#accordionExample">
@@ -358,9 +366,9 @@
                                                     </div>
                                                 <?php }
                                                 ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
 
                                 <br><br>
@@ -439,7 +447,7 @@
                                     <div>
                                         <br>
 
-                                        <input type="text" id="activityId" name="activityId" class="form-control" placeholder="Amount" style="width: 100%;" hidden>
+                                        <input type="text" id="activityId" required name="activityId" class="form-control" placeholder="Amount" style="width: 100%;" hidden>
                                         <h5>Amount</h5>
                                         <input type="number" id="amount" name="amount" class="form-control" placeholder="Amount" style="width: 100%;">
                                         <p style="font-size: 9px">format example: "20000"</p>
@@ -449,7 +457,7 @@
                                     <h5>Proof Of Payment</h5>
                                     <div class="custom-file">
 
-                                        <input type="file" class="custom-file-input" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="image" name="image">
+                                        <input type="file" class="custom-file-input" required accept="image/x-png,image/gif,image/jpeg,image/jpg" id="image" name="image">
                                         <label class="custom-file-label" for="image">Choose file</label>
                                     </div>
 
@@ -614,6 +622,62 @@
                                     }
                                 });
                             });
+                        });
+                    </script>
+                    <script>
+                        $('.notActive').on('click', function() {
+
+                            Swal.fire(
+                                'Error!',
+                                'There is still no event that need donation.',
+                                'error'
+                            )
+
+                        });
+                    </script>
+
+                    <script>
+                        $('.delEventIncome').on('click', function() {
+
+                            var id = $(this).val();
+                            Swal.fire({
+                                title: 'You want to end this event donation?',
+                                text: '',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes'
+                            }).then((result) => {
+                                if (result.value) {
+                                    $.ajax({
+                                        url: "<?= base_url('ajax/updateEventIncome') ?>",
+                                        method: "POST",
+                                        data: {
+                                            id: id
+                                        },
+                                        success: function(data) {
+                                            Swal.fire(
+                                                'Success!',
+                                                'The selected donation has ended.',
+                                                'success'
+                                            )
+                                            $('#event_' + id).fadeOut(300, function() {
+                                                $(this).remove();
+                                            });
+                                        },
+                                        error: function() {
+                                            Swal.fire(
+                                                'Error!',
+                                                'There is error when eding donation.',
+                                                'error'
+                                            )
+                                        }
+                                    });
+
+                                }
+                            })
+
                         });
                     </script>
 </body>

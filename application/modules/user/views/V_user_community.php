@@ -210,7 +210,7 @@
                                                                 <center>
                                                                     <div class="card-body text-center">
 
-                                                                        <img src="<?= base_url('assets/img/community/profile/') . $com->COM_IMAGE; ?>" class="mx-auto mb-2" width="100" alt="knowledge-base-image">
+                                                                        <img src="<?= base_url('assets/img/community/profile/') . $com->COM_IMAGE; ?>" class="mx-auto mb-2" heigth="100px" width="100px" alt="knowledge-base-image">
                                                                         <h4><?= $com->COM_NAME ?></h4>
                                                                         <small class="text-dark" style="font-size: 15px"><strong><?= $com->COM_ADDRESS ?></strong></small><br>
                                                                         <small class="text-dark"><?= $com->COM_EMAIL ?></small>
@@ -320,7 +320,7 @@
                         <div class="form-group">
                             <label>Choose profile photo</label>
                             <div class="row align-items-center">
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image" required data-validation-required-message="This name field is required">
                                         <label class="custom-file-label" for="image">Choose file</label>
@@ -504,6 +504,42 @@
                 });
             });
             // 
+        </script>
+
+        <!-- notification -->
+        <script>
+            $(document).ready(function() {
+                // updating the view with notifications using ajax
+                function load_unseen_notification(view = '') {
+                    $.ajax({
+                        url: "<?= base_url("ajax/notification") ?>",
+                        method: "POST",
+                        data: {
+                            view: view
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            html = '';
+                            $('.list-notification').html(data.notification);
+                            if (data.unseen_notification > 0) {
+                                $('.count').html(data.unseen_notification);
+                                html += '<h3 class="white">' + data.unseen_notification + ' New</h3><span class = "notification-title" > Notifications </span>';
+                                $('.white').html(html);
+                            }
+                        }
+                    });
+                }
+                load_unseen_notification();
+                // load new notifications
+                $('.dropdown-notification').on('click', function() {
+                    $('.count').html('');
+                    load_unseen_notification('yes');
+                });
+
+                setInterval(function() {
+                    load_unseen_notification();;
+                }, 5000);
+            });
         </script>
 </body>
 <!-- END: Body-->

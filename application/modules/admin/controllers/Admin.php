@@ -17,6 +17,8 @@ class Admin extends MY_Controller
 	function index()
 	{
 		$data['judul_halaman'] = 'Dashboard';
+		$data['report'] = $this->M_admin->getReport();
+		$data['count'] = $this->M_admin->getReportCount();
 		$data['jml_com'] = $this->M_admin->get_count_comunity();
 		$data['jml_user'] = $this->M_admin->get_count_user();
 		$this->load->view('V_index', $data);
@@ -25,6 +27,8 @@ class Admin extends MY_Controller
 	function report_community()
 	{
 		$data['judul_halaman'] = 'Report';
+		$data['report'] = $this->M_admin->getReport();
+		$data['count'] = $this->M_admin->getReportCount();
 		$data['row'] = $this->M_admin->get_report_community();
 		$this->load->view('V_report_com', $data);
 	}
@@ -32,6 +36,8 @@ class Admin extends MY_Controller
 	function report_user()
 	{
 		$data['judul_halaman'] = 'Report';
+		$data['report'] = $this->M_admin->getReport();
+		$data['count'] = $this->M_admin->getReportCount();
 		$data['row'] = $this->M_admin->get_report_user();
 		$this->load->view('V_report_user', $data);
 	}
@@ -63,6 +69,8 @@ class Admin extends MY_Controller
 	function kelola_profil()
 	{
 		$data['judul_halaman'] = 'Kelola Profil';
+		$data['report'] = $this->M_admin->getReport();
+		$data['count'] = $this->M_admin->getReportCount();
 		$this->load->view('V_kelola_password', $data);
 	}
 
@@ -79,5 +87,47 @@ class Admin extends MY_Controller
 		$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
 		<p class="mb-0"> Sorry! Your old password is wrong !!!</p></div>');
 		return redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	function getNotif()
+	{
+		$report = $this->M_admin->getReport();
+		$count = $this->M_admin->getReportCount();
+
+		$output = '';
+
+		foreach ($report as $report) {
+			if ($report->COM_ID == NULL) {
+				$output .= '<a class="dropdown-item d-flex align-items-center" href="' . base_url('admin/report-user') . '">
+					<div class="mr-3">
+						<div class="icon-circle bg-primary">
+							<i class="fas fa-file-alt text-white"></i>
+						</div>
+					</div>
+					<div>
+						<div class="small text-gray-500">' . date('d M Y h:ia', strtotime($report->REPORT_DATE)) . '</div>
+						<span class="font-weight-bold">There is new reported user!</span>
+					</div>
+				</a>';
+			} else {
+				$output .= '<a class="dropdown-item d-flex align-items-center" href="' . base_url('admin/report-community') . '">
+					<div class="mr-3">
+						<div class="icon-circle bg-primary">
+							<i class="fas fa-file-alt text-white"></i>
+						</div>
+					</div>
+					<div>
+						<div class="small text-gray-500">' . date('d M Y h:ia', strtotime($report->REPORT_DATE)) . '</div>
+						<span class="font-weight-bold">There is new reported community!</span>
+					</div>
+				</a>';
+				$data = array(
+					'report' => $output,
+					'count' => $count
+				);
+
+				echo json_encode($data);
+			}
+		}
 	}
 }
