@@ -135,10 +135,6 @@ class M_user extends CI_Model
             'USER_ID' => $user_id,
             'COM_ID' => $com_id,
             'ISADMIN' => 1,
-            'ISLEADER' => 0,
-            'ISVICELEADER' => 0,
-            'ISSECRETARY' => 0,
-            'ISTREASURER' => 0,
             'MEMBER_STATUS' => 1
 
 

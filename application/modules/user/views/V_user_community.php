@@ -382,7 +382,7 @@
                                                 <span class="vs-radio--border"></span>
                                                 <span class="vs-radio--circle"></span>
                                             </span>
-                                            No
+                                            Yes
                                         </div>
                                     </fieldset>
                                 </li>
@@ -394,7 +394,7 @@
                                                 <span class="vs-radio--border"></span>
                                                 <span class="vs-radio--circle"></span>
                                             </span>
-                                            Yes
+                                            No
                                         </div>
                                     </fieldset>
                                 </li>
