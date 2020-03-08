@@ -254,6 +254,10 @@ class M_community extends CI_Model
         return true;
     }
 
+    function leaveCollab($collab_id, $com_id)
+    {
+        $this->db->query('DELETE FROM collab_member WHERE COLLAB_ID=' . $collab_id . ' AND COM_ID=' . $com_id);
+    }
 
 
     //guest

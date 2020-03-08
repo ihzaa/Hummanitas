@@ -87,40 +87,47 @@ class Ajax extends MY_Controller
     {
         $data['user'] = $this->m_user->getUser();
         $user_id = $data['user']['USER_ID'];
-
+        $com_id = $this->uri->segment(2);
 
         $message = $this->input->post('message');
         $id = $this->input->post('id');
+
+
+
         $collabMemberId = $this->m_ajax->collabMemberId($id);
 
 
         foreach ($collabMemberId as $memberId) {
-            $com_id = $memberId->COM_ID;
-            $chat_id = $this->m_ajax->insertMessage($id, $user_id, $message, $com_id);
-        }
-        $your_new_chat = $this->m_ajax->get_your_new_chat($chat_id);
-        $output = '';
+            $recipient_com = $memberId->COM_ID;
 
-        if (count($your_new_chat) != 0) {
-            $output .= '<div class="chat">
-            <div class="chat-avatar">
-                <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
-                    <img src="' . base_url('assets/img/user/') . $your_new_chat['USER_IMAGE'] . '" alt="avatar" height="40" width="40" />
-                </a>
-            </div>
-            <div class="chat-body">
-                <div class="chat-content">
-                    <strong>
-                        <p style="display:inline-block; font-size:17px">Me</p>
-                        <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("h:ia", strtotime($your_new_chat['TIME'])) . '</p>
-                    </strong>
-                    <hr style="margin-top:-2px;">
-                    <p>' . $your_new_chat['MESSAGE'] . '</p>
-                </div>
-            </div>
-        </div>';
+            $chat_id = $this->m_ajax->insertMessage($id, $user_id, $message, $recipient_com);
         }
-        echo $output;
+
+        // $your_new_chat = $this->m_ajax->get_your_new_chat($chat_id, $com_id);
+
+
+        // $output = '';
+
+        // if (count($your_new_chat) != 0) {
+        //     $output .= '<div class="chat">
+        //     <div class="chat-avatar">
+        //         <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
+        //             <img src="' . base_url('assets/img/user/') . $your_new_chat['USER_IMAGE'] . '" alt="avatar" height="40" width="40" />
+        //         </a>
+        //     </div>
+        //     <div class="chat-body">
+        //         <div class="chat-content">
+        //             <strong>
+        //                 <p style="display:inline-block; font-size:17px">Me</p>
+        //                 <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("F j, Y \&\\n\b\s\p\; g:i a", strtotime($your_new_chat['TIME'])) . '</p>
+        //             </strong>
+        //             <hr style="margin-top:-2px;">
+        //             <p>' . $your_new_chat['MESSAGE'] . '</p>
+        //         </div>
+        //     </div>
+        // </div>';
+        // }
+        // echo $output;
     }
 
     //load semua chat kolaborasi
@@ -128,10 +135,15 @@ class Ajax extends MY_Controller
     {
         $data['user'] = $this->m_user->getUser();
         $user_id = $data['user']['USER_ID'];
+        $com_id = $this->uri->segment(2);
+
+        $member = $this->m_ajax->getComMember($user_id, $com_id);
+        $member_id = $member['MEMBER_ID'];
+
 
         $id = $this->input->post('id');
         $this->m_ajax->update_unseen_message($id, $user_id);
-        $message = $this->m_ajax->get_collab_chat($id, $user_id);
+        $message = $this->m_ajax->get_collab_chat($id, $member_id);
         $output = '';
 
         foreach ($message as $message) {
@@ -186,13 +198,17 @@ class Ajax extends MY_Controller
     function get_collab_member()
     {
         $id = $this->input->post('id');
+        $data['user'] = $this->m_user->getUser();
+        $user_id = $data['user']['USER_ID'];
+        $com_id = $this->uri->segment(2);
+
         $member = $this->m_ajax->get_collab_member($id);
         $output = '';
 
         foreach ($member as $member) {
             $output .= '<div class="avatar user-profile-toggle m-0 m-0 mr-1" title data-original-title="komunitas" id="' . $member->COM_ID . '">
-            <img src="' . base_url('assets/img/community/profile/') . $member->COM_IMAGE . '" alt="" height="40" width="40" title="' . $member->COM_NAME . '" data-toggle="tooltip" data-original-title="' . $member->COM_NAME . '"/>
-        </div>';
+                <img src="' . base_url('assets/img/community/profile/') . $member->COM_IMAGE . '" alt="" height="40" width="40" title="' . $member->COM_NAME . '" data-toggle="tooltip" data-original-title="' . $member->COM_NAME . '"/>
+            </div>';
         }
 
         echo $output;
@@ -255,6 +271,10 @@ class Ajax extends MY_Controller
         $id = $this->input->post('id');
         $data['user'] = $this->m_user->getUser();
         $user_id = $data['user']['USER_ID'];
+        $com_id = $this->uri->segment(2);
+
+        $member = $this->m_ajax->getComMember($user_id, $com_id);
+        $member_id = $member['MEMBER_ID'];
 
         $idArray = [];
         $last_chat = [];
@@ -262,7 +282,7 @@ class Ajax extends MY_Controller
         $idArray = explode(',', $id);
         $i = 0;
         foreach ($idArray as $id) {
-            $chatNotif[$i] = $this->m_ajax->get_last_chat($id, $user_id);
+            $chatNotif[$i] = $this->m_ajax->get_last_chat($id, $user_id, $member_id);
             $i++;
         }
 

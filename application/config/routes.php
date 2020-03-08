@@ -73,6 +73,8 @@ $route['community/(:num)/collaboration'] = 'community/collaboration';
 $route['community/(:num)/createCollab'] = 'community/createCollab';
 $route['community/(:num)/collaboration/accept'] = 'community/acceptCollab';
 $route['community/(:num)/collaboration/reject'] = 'community/rejectCollab';
+$route['community/(:num)/leaveCollab'] = 'community/leaveCollab';
+$route['ajax/(:num)/get_last_chat'] = 'ajax/get_last_chat';
 
 //event komunitas
 $route['community/(:num)/event'] = 'community/event';

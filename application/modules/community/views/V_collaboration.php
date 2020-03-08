@@ -184,7 +184,7 @@
 
                                     ?>
 
-                                            <li data-id="<?= $id ?>">
+                                            <li data-id="<?= $id ?>" id="<?= 'collab_' . $id ?>">
                                                 <div class=" pr-1">
                                                     <span class="avatar m-0 avatar-md"><img class="media-object rounded-circle" src="<?= base_url('assets/img/community/collab/' . $collab->COLLAB_THUMBNAIL);  ?>" height="42" width="42" alt="Generic placeholder image">
                                                         <i></i>
@@ -233,7 +233,9 @@
                                     <div class="chat_navbar">
                                         <header class="chat_header d-flex justify-content-between align-items-center p-1">
                                             <div class="vs-con-items d-flex align-items-center" id="header">
-                                                <div class="sidebar-toggle d-block d-lg-none mr-1"><i class="feather icon-menu font-large-1"></i></div>
+                                            </div>
+                                            <div class="vs-con-items d-flex align-items-center">
+                                                <button class="btn" type="submit" id="leaveCollab" name="leaveCollab" style="background-color:transparent; padding:0 0;"><i class="feather icon-log-out font-large-1"></i></button>
                                             </div>
                                         </header>
                                     </div>
@@ -347,6 +349,8 @@
 
             <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/forms/select/select2.full.min.js"></script>
             <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/forms/select/form-select2.js"></script>
+            <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+            <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
 
             <!-- menampilkan list komunitas di modal select -->
             <script>
@@ -375,6 +379,7 @@
                     $("#collab-list li").click(function() {
                         var id = $('#collab-list').find('li.active').data('id');
 
+                        $('#leaveCollab').val(id);
                         $.ajax({
                             url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getChat') ?>",
                             method: "POST",
@@ -394,7 +399,7 @@
                         var id = $('#collab-list').find('li.active').data('id');
                         setInterval(function() {
                             get_chat_message();
-                        }, 1000);
+                        }, 500);
 
                         $.ajax({
                             url: "<?= base_url('ajax/' . $community['COM_ID'] . '/getMember') ?>",
@@ -447,9 +452,12 @@
                                         id: id
                                     },
                                     success: function(data) {
-                                        $(".chats").append(data);
+                                        // $(".chats").append(data);
                                         $(".message").val("");
-                                        $(".user-chats").scrollTop($(".user-chats > .chats").height());
+                                        // $(".user-chats").scrollTop($(".user-chats > .chats").height());
+                                        $(".user-chats").animate({
+                                            scrollTop: $(".user-chats > .chats")[0].scrollHeight
+                                        }, 100);
                                     }
 
                                 });
@@ -538,7 +546,7 @@
                             return date.getDate() + "/" + (date.getMonth() + 1);
                         }
                         $.ajax({
-                            url: "<?= base_url('ajax/get_last_chat') ?>",
+                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/get_last_chat') ?>",
                             method: "POST",
                             dataType: "json",
                             data: {
@@ -577,13 +585,60 @@
                         });
                     }
 
-                    if ($('#collab-list').find('li').hasClass('active')) {
-                        var id = $('#collab-list').find('li.active').data('id');
+                    // if ($('#collab-list').find('li').hasClass('active')) {
+                    //     var id = $('#collab-list').find('li.active').data('id');
 
-                        alert(id);
-                    }
+                    //     alert(id);
+                    // }
                 });
             </script>
+
+            <script>
+                $(document).ready(function() {
+                    $("#leaveCollab").click(function() {
+                        var id = $(this).val();
+
+                        Swal.fire({
+                            title: 'You sure you want to leave this collaboration?',
+                            text: 'This choice cannot be withdrawn',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes'
+                        }).then((result) => {
+                            if (result.value) {
+                                $.ajax({
+                                    url: "<?= base_url('community/' . $community['COM_ID'] . '/leaveCollab') ?>",
+                                    method: "POST",
+                                    data: {
+                                        id: id
+                                    },
+                                    success: function(data) {
+                                        Swal.fire(
+                                            'Success leaving collaboration!',
+                                            'Your community wont get any new update from the deleted collaboration.',
+                                            'success'
+                                        )
+                                        $('#collab_' + id).fadeOut(300, function() {
+                                            $(this).remove();
+                                        });
+                                    },
+                                    error: function() {
+                                        Swal.fire(
+                                            'Error!',
+                                            'There is error when leaving collaboration',
+                                            'error'
+                                        )
+                                    }
+                                });
+
+                            }
+                        })
+                    });
+                });
+            </script>
+
 
 </body>
 <!-- END: Body-->

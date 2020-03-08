@@ -718,15 +718,23 @@ class Community extends MY_Controller
 		redirect('community/' . $com_id . '/collaboration');
 	}
 
+	function leaveCollab()
+	{
+		$collab_id = $this->input->post('id');
+		$com_id = $this->uri->segment(2);
+
+		$this->m_community->leaveCollab($collab_id, $com_id);
+	}
+
 	function rejectCollab()
 	{
 		$com_id = $this->uri->segment('2');
 		$id = $this->input->post('reject');
+		$this->m_community->removeCollab($id);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
 		<p align="center" align="center" class="mb-0">Success rejecting collaboration!</p></div>');
-		$this->m_community->removeCollab($id);
 		redirect('community/' . $com_id . '/collaboration');
 	}
 
