@@ -103,7 +103,7 @@
 										<h4>About Me</h4>
 										<div class="dropdown">
 											<a data-toggle="dropdown"><i class="feather icon-more-horizontal cursor-pointer"></i></a>
-											<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-account-settings.html">Edit Info</a></div>
+											<div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="<?= base_url('user/user_setting') ?>">Edit Info</a></div>
 										</div>
 									</div>
 									<div class="card-body">

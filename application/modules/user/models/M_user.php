@@ -17,8 +17,8 @@ class M_user extends CI_Model
 
 
 
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '0';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 0;
             $config['upload_path'] = './assets/img/user/';
 
             $this->load->library('upload', $config);
@@ -33,7 +33,10 @@ class M_user extends CI_Model
                 $new_image = $this->upload->data('file_name');
                 $this->db->set('user_image', $new_image);
             } else {
-                echo $this->upload->display_errors();
+                $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			    <p align="center" class="mb-0">' . $this->upload->display_errors() . '</p></div>');
+                redirect('user/user_setting');
             }
         }
     }
@@ -102,7 +105,7 @@ class M_user extends CI_Model
         $nmfile = "file_" . time();
         $config['upload_path']        = 'assets/img/community/profile';
         $config['allowed_types']    = 'gif|jpg|png|jpeg';
-        $config['max_size']            = 2048;
+        $config['max_size']            = 0;
 
         $this->upload->initialize($config);
         $this->upload->do_upload('image');
@@ -154,17 +157,14 @@ class M_user extends CI_Model
                 'USER_ID' => $user_id,
                 'COM_ID' => $com_id,
                 'ISADMIN' => 0,
-                'ISLEADER' => 0,
-                'ISVICELEADER' => 0,
-                'ISSECRETARY' => 0,
-                'ISTREASURER' => 0,
                 'MEMBER_STATUS' => 0
 
             );
             $this->db->insert('community_member', $data);
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">
-		   <p class="mb-0">You cant join community that you already join or request!</p></div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+            <p align="center" class="mb-0">You cant join community that you already join or request!</p></div>');
             redirect('user/user_community');
         }
     }

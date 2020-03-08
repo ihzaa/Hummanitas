@@ -266,6 +266,8 @@
 
     <script src="<?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script>
     <script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
+    <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
 
 
     <!-- END: Page JS-->
@@ -313,7 +315,7 @@
     <script>
         $(document).ready(function() {
             $(".delGallery").click(function() {
-                var id = $('.delGallery').val();
+                var id = $(this).val();
                 Swal.fire({
                     title: 'You want to delete the selected album?',
                     text: '',

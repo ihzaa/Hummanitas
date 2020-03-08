@@ -12,6 +12,7 @@ class User extends MY_Controller
 
 		$this->load->model('m_user');
 		$this->load->model('community/m_community_ku');
+		$this->load->model('community/m_community');
 		$this->load->library('form_validation');
 		if ($this->session->userdata('role_id') != 2) {
 			redirect('auth');
@@ -50,8 +51,9 @@ class User extends MY_Controller
 			$this->m_user->editGeneral($name, $email);
 
 
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-		   <p class="mb-0">Your profile has been updated!</p></div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<p align="center" class="mb-0">Your profile has been updated!</p></div>');
 			redirect('user/user_setting');
 		}
 	}
@@ -76,8 +78,9 @@ class User extends MY_Controller
 
 			$this->m_user->editInfo();
 
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-			<p class="mb-0"> Your info has been updated.</p></div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<p align="center" class="mb-0"> Your info has been updated.</p></div>');
 			redirect('user/user_setting1');
 		}
 	}
@@ -102,12 +105,14 @@ class User extends MY_Controller
 
 				$this->m_user->editPass();
 
-				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-			<p class="mb-0"> Your password has been changed!</p></div>');
+				$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+				<p align="center" class="mb-0"> Your password has been changed!</p></div>');
 				redirect('user/user_setting2');
 			} else {
-				$this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">
-			<p class="mb-0"> Your password is wrong!</p></div>');
+				$this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+				<p align="center" class="mb-0"> Your password is wrong!</p></div>');
 				redirect('user/user_setting2');
 			}
 		}
@@ -173,8 +178,9 @@ class User extends MY_Controller
 			$this->m_user->createCom($upload_image, $user_id);
 
 
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-		   <p class="mb-0">Success creating community !</p></div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<p align="center" class="mb-0">Success creating community !</p></div>');
 			redirect('user/user_community');
 		}
 	}
@@ -226,8 +232,18 @@ class User extends MY_Controller
 		// var_dump($id);
 		$this->m_user->joinCom($user_id, $id);
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-		   <p class="mb-0">Your request has been send! Please wait for community to accept</p></div>');
+		$data['community'] = $this->m_community->get_com_detail($id);
+		$icon = 'user-plus';
+		$subject = 'New user request to join';
+		$text = $data['user']['USERNAME'] . ' has requested to join ' . $data['community']['COM_NAME'];
+		$link = 'community/' . $id . '/memberManagement';
+
+		//insert table notification
+		$this->m_community->insertNotifAdmin($id, $icon, $subject, $text, $link);
+
+		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" class="mb-0">Your request has been send! Please wait for community to accept</p></div>');
 		redirect('user/user_community');
 	}
 
@@ -268,8 +284,9 @@ class User extends MY_Controller
 		$this->m_user->report($a, $guest_id, $user_id);
 
 		$this->load->library('user_agent');
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        <p class="mb-0"> Success reporting community.</p></div>');
+		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" class="mb-0"> Success reporting community.</p></div>');
 
 		redirect($this->agent->referrer());
 	}

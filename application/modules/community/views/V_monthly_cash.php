@@ -120,11 +120,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header" style="margin-left: 40%">
-                                <h1>Monthly Cash</h1>
-
+                                <h1>Monthly Cash</h1><br>
 
                             </div>
-
+                            <div class="col-12">
+                                <?= $this->session->flashdata('message'); ?>
+                            </div>
                             <br><br>
                             <ul class="list-group list-group-horizontal-sm" style="margin-left: 95px">
                                 <?php foreach ($month as $month) {
@@ -138,7 +139,7 @@
                                     <?php } ?>
                                 <?php } ?>
                             </ul>
-                            <?= $this->session->flashdata('message'); ?>
+
 
                             <br><br>
                             <div class="col-12">
@@ -162,9 +163,16 @@
                         <button type="button" class="btn btn-primary" id="save" style="margin-left: 30px;display: inline-block;">Save</button>
 
                     <?php } ?>
-                    <div class="" style="display: inline-block; margin-left: 640px;">
-                        <button type="button" class="btn btn-primary mb-2 year" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
-                    </div>
+                    <?php if ($community['JUMLAH_KAS'] != 0) { ?>
+                        <div class="" style="display: inline-block; margin-left: 640px;">
+                            <button type="button" class="btn btn-primary mb-2 year" data-toggle="modal" data-target="#myModal2"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
+                        </div>
+                    <?php } else { ?>
+                        <div class="" style="display: inline-block; margin-left: 640px;">
+                            <button type="button" class="btn btn-primary mb-2 notActive"><i class="feather icon-plus"></i>&nbsp; New Transaction</button>
+                        </div>
+                    <?php } ?>
+
 
                     </div>
                     <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
@@ -702,7 +710,18 @@
                     });
                 });
             </script>
+            <!-- jika donasi tiap bulan masih kosong -->
+            <script>
+                $('.notActive').on('click', function() {
 
+                    Swal.fire(
+                        'Error!',
+                        'Admin need to input donation per month first to activate this button.',
+                        'error'
+                    )
+
+                });
+            </script>
             <!-- confirm modal -->
             <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable" role="document">

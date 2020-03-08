@@ -281,7 +281,7 @@ class M_community extends CI_Model
     function createEvent($upload_image, $member_id, $com_id)
     {
         $this->load->library('upload');
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_size'] = '0';
         $config['upload_path'] = 'assets/img/community/event/';
 
@@ -314,7 +314,7 @@ class M_community extends CI_Model
     {
 
         $this->load->library('upload');
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_size'] = '0';
         $config['upload_path'] = 'assets/img/community/event/';
 
@@ -360,6 +360,11 @@ class M_community extends CI_Model
         $this->db->query('INSERT INTO notification (`COM_ID`, `RECIPIENT_ID`, `NOTIF_ICON`, `NOTIF_SUBJECT`,`NOTIF_TEXT`,`NOTIF_LINK`) SELECT ' . $com_id . ', `MEMBER_ID`,"' . $icon . '", "' . $subject . '","' . $text . '","' . $link . '" FROM `community_member` WHERE `COM_ID` = ' . $com_id . ' AND MEMBER_STATUS = 1');
     }
 
+    function insertNotifAdmin($com_id, $icon, $subject, $text, $link)
+    {
+        $this->db->query('INSERT INTO notification (`COM_ID`, `RECIPIENT_ID`, `NOTIF_ICON`, `NOTIF_SUBJECT`,`NOTIF_TEXT`,`NOTIF_LINK`) SELECT ' . $com_id . ', `MEMBER_ID`,"' . $icon . '", "' . $subject . '","' . $text . '","' . $link . '" FROM `community_member` WHERE `COM_ID` = ' . $com_id . ' AND MEMBER_STATUS = 1 AND ISADMIN = 1');
+    }
+
     function edit_image_com($upload_image, $data)
     {
         // $upload_image = $_FILES[$image]['name'];
@@ -367,14 +372,14 @@ class M_community extends CI_Model
 
 
 
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '0';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 0;
             $config['upload_path'] = 'assets/img/community/profile/';
 
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('image')) {
-                $gambar_lama = $data['user']['USER_IMAGE'];
+                $gambar_lama = $data['community']['COM_IMAGE'];
 
                 if ($gambar_lama != 'default.jpg') {
                     unlink(FCPATH . 'assets/img/community/profile/' . $gambar_lama);
@@ -383,27 +388,31 @@ class M_community extends CI_Model
                 $new_image = $this->upload->data('file_name');
                 $this->db->set('com_image', $new_image);
             } else {
-                echo $this->upload->display_errors();
+                $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			    <p align="center" class="mb-0">' . $this->upload->display_errors() . '</p></div>');
+                redirect('community/' . $com_id . '/setting');
             }
         }
     }
 
     function edit_cover_com($upload_image, $data)
     {
+        $com_id = $this->uri->segment(2);
         // $upload_image = $_FILES[$image]['name'];
         if ($upload_image) {
 
             // var_dump('image');
             // die;
 
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '0';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size'] = 0;
             $config['upload_path'] = 'assets/img/community/cover/';
 
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('cover')) {
-                $gambar_lama = $data['user']['USER_IMAGE'];
+                $gambar_lama = $data['community']['COM_COVER'];
 
                 if ($gambar_lama != 'default.jpg') {
                     unlink(FCPATH . 'assets/img/community/cover/' . $gambar_lama);
@@ -412,7 +421,10 @@ class M_community extends CI_Model
                 $new_image = $this->upload->data('file_name');
                 $this->db->set('com_cover', $new_image);
             } else {
-                echo $this->upload->display_errors();
+                $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			    <p align="center" class="mb-0">' . $this->upload->display_errors() . '</p></div>');
+                redirect('community/' . $com_id . '/setting');
             }
         }
     }

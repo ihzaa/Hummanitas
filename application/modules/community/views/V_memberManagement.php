@@ -180,11 +180,13 @@
                                                         <section id="knowledge-base-search">
                                                             <div class="row">
                                                                 <div class="col-12">
+                                                                    <?= $this->session->flashdata('message'); ?>
                                                                     <div class="card knowledge-base-bg white">
+
                                                                         <div class="card-content">
                                                                             <!-- <div class="card-body p-sm-4 p-2"> -->
                                                                             <div align="center" style="margin-top: 20px">
-                                                                                <?= $this->session->flashdata('message'); ?>
+
                                                                                 <h1 class="Black">Member Management</h1>
                                                                                 <br>
                                                                             </div>

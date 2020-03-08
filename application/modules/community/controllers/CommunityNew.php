@@ -83,14 +83,16 @@ class CommunityNew extends MY_Controller
         $event_name = $event['EVENT_TITLE'];
 
         if ($event_id == 0) {
-            $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">
-			<p class="mb-0" align="center">Error when adding new event income</p></div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+            <p align="center" class="mb-0" align="center">Error when adding new event income</p></div>');
             redirect('community/' . $com_id . '/finance/income/2');
         } else {
             $this->m_communitynew->add_event($event_id, $event_name);
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-			<p class="mb-0" align="center">Success adding new event income</p></div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+            <p align="center" class="mb-0" align="center">Success adding new event income</p></div>');
             redirect('community/' . $com_id . '/finance/income/2');
         }
     }
@@ -108,8 +110,9 @@ class CommunityNew extends MY_Controller
 
         $this->m_communitynew->addEventTransaction($upload_image, $com_id, $member_id);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        <p class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
         redirect('community/' . $com_id . '/finance/income/2');
     }
 
@@ -127,8 +130,9 @@ class CommunityNew extends MY_Controller
 
         $this->m_communitynew->addDonate($upload_image, $com_id, $member_id);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        <p class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
         redirect('community/' . $com_id . '/event/' . $event_id);
     }
 
@@ -159,9 +163,11 @@ class CommunityNew extends MY_Controller
             }
             $i++;
         }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+        <p align="center" class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
         redirect('community/' . $com_id . '/finance/income/1');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        <p class="mb-0" align="center">Transaction send, please wait for admin to confirm</p></div>');
     }
 
     //Total income

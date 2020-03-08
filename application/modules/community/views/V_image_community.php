@@ -300,7 +300,8 @@
     <script>
         $(document).ready(function() {
             $(".del").click(function() {
-                var id = $('.del').val();
+                var id = $(this).val();
+                alert(id);
                 Swal.fire({
                     title: 'You want to delete the selected photo?',
                     text: '',
