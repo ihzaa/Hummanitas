@@ -40,6 +40,10 @@ class Community_outcome extends MY_Controller
         $member = $this->m_community->getMemberId($com_id, $user_id);
         $member_id = $member['MEMBER_ID'];
         $this->m_community_outcome->addOutcome($com_id, $member_id);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" align="center" class="mb-0">Success adding new outcome!</p></div>');
         redirect('community/' . $com_id . '/finance/outcome');
     }
 }

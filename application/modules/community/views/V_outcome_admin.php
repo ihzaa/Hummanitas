@@ -119,7 +119,7 @@
                                     <h1>Outcome</h1>
                                 </div>
 
-
+                                <?= $this->session->flashdata('message'); ?>
 
 
                                 <section id="add-row">

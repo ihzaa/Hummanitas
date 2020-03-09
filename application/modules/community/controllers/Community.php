@@ -92,6 +92,10 @@ class Community extends MY_Controller
 
 		//insert table notification
 		$this->m_community->insertNotif($id, $icon, $subject, $text, $link);
+
+		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" align="center" class="mb-0">Success creating new event.</p></div>');
 		redirect('community/' . $id . '/event');
 	}
 
@@ -143,7 +147,7 @@ class Community extends MY_Controller
 			<div class="docs-datepicker">
 				<div class="input-group">
 
-					<input type="date" class="form-control " id="startDate" name="startDate" value="' . $event['START_DATE'] . '" placeholder="Pick a date" autocomplete="off" ">
+					<input type="date" class="form-control " id="startDate" min="' . date('Y-m-d') . '" name="startDate" value="' . $event['START_DATE'] . '" placeholder="Pick a date" autocomplete="off" ">
 					<div class=" input-group-append">
 					<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
 						<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -159,7 +163,7 @@ class Community extends MY_Controller
 		<div class="docs-datepicker">
 			<div class="input-group">
 
-				<input type="date" class="form-control " id="endDate" name="endDate" value="' . $event['END_DATE'] . '" placeholder="Pick a date" autocomplete="off">
+				<input type="date" class="form-control " id="endDate" min="' . $event['START_DATE'] . '" name="endDate" value="' . $event['END_DATE'] . '" placeholder="Pick a date" autocomplete="off">
 				<div class="input-group-append">
 					<button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
 						<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -193,6 +197,10 @@ class Community extends MY_Controller
 		$upload_image = $_FILES['image']['name'];
 
 		$this->m_community->eventEdit($upload_image, $event_id);
+
+		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" align="center" class="mb-0">Success editing selected event.</p></div>');
 		redirect('community/' . $com_id . '/event');
 	}
 
@@ -201,6 +209,10 @@ class Community extends MY_Controller
 		$com_id = $this->uri->segment('2');
 		$event_id = $this->input->post('delete');
 		$this->m_community->eventDel($event_id);
+
+		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<p align="center" align="center" class="mb-0">Success deleting selected event.</p></div>');
 		redirect('community/' . $com_id . '/event');
 	}
 

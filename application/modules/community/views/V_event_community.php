@@ -64,13 +64,17 @@
                 <div align="center">
                     <h1>List Event</h1>
                 </div>
+                <?= $this->session->flashdata('message'); ?>
                 <div class="card-content" style="margin-left: 85%">
-                    <button class="btn btn-primary mt-1" data-toggle="modal" data-target="#myModal2">+Add New
-                        Event</button>
+                    <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                        <button class="btn btn-primary mt-1" data-toggle="modal" data-target="#myModal2">+Add New
+                            Event</button>
+                    <?php } ?>
                 </div>
 
                 <br>
                 <div class="card-content">
+
                     <?php
 
                     if (count($event) > 0) {
@@ -91,7 +95,9 @@
                                             <h4 class="card-title mt-3"><?php echo $events->EVENT_TITLE ?></h4>
                                             <p class="card-text mb-25"><?php echo date('d M, Y', strtotime($events->END_DATE))  ?></p>
                                             <a href="<?= base_url('community/' . $community['COM_ID'] . '/event' . '/' . $id); ?>" class="btn btn-primary mt-1">View</a>
-                                            <button class="btn btn-primary mt-1 edit" value="<?= $id ?>">edit</button>
+                                            <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                                <button class="btn btn-primary mt-1 edit" value="<?= $id ?>">edit</button>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +149,7 @@
                             <div class="col-sm-6">
                                 <div class="custom-file">
 
-                                    <input type="file" class="custom-file-input" id="image" name="image">
+                                    <input type="file" class="custom-file-input" required id="image" name="image">
                                     <label class="custom-file-label" for="image">Choose file</label>
                                 </div>
                             </div>
@@ -172,7 +178,7 @@
                         <div class="docs-datepicker">
                             <div class="input-group">
 
-                                <input type="date" class="form-control " id="startDate" name="startDate" placeholder="Pick a date" autocomplete="off" ">
+                                <input type="date" class="form-control" min="<?= date('Y-m-d') ?>" required id="startDate" name="startDate" placeholder="Pick a date" autocomplete="off" ">
                                 <div class=" input-group-append">
                                 <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -188,7 +194,7 @@
                     <div class="docs-datepicker">
                         <div class="input-group">
 
-                            <input type="date" class="form-control " id="endDate" name="endDate" placeholder="Pick a date" autocomplete="off">
+                            <input type="date" class="form-control" required id="endDate" name="endDate" placeholder="Pick a date" autocomplete="off">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -203,14 +209,8 @@
 
                 <div class="form-group">
                     <label for="accountTextarea">Description</label>
-                    <textarea class="form-control" name="description" id="accountTextarea" rows="3" placeholder=""></textarea>
+                    <textarea class="form-control" name="description" required id="accountTextarea" rows="3" placeholder=""></textarea>
                 </div>
-
-
-
-
-
-
 
             </div>
             <div class="modal-footer">
@@ -305,6 +305,15 @@
                         $('#myModal').modal('show');
                     }
                 });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#startDate').on('change', function(e) {
+                var input = document.getElementById('endDate');
+                input.setAttribute('min', this.value);
             });
         });
     </script>

@@ -247,7 +247,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea rows="4" id="textarea" name="report[]" style="width: 475px; height:100px ; margin-left: 16px" required="required"></textarea>
+                    <textarea rows="4" id="textarea" name="report[]" style="width: 475px; height:100px ; margin-left: 16px"></textarea>
                     <label class="control-label" for="textarea"></label><i class="mtrl-select"></i>
                 </div>
                 <div class="modal-footer">
