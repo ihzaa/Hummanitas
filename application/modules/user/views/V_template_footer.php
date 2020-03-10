@@ -26,7 +26,7 @@
         });
     });
 </script>
-<!-- notification -->
+
 <script>
     $(document).ready(function() {
         // updating the view with notifications using ajax
@@ -42,12 +42,12 @@
                     html = '';
                     $('.list-notification').html(data.notification);
                     if (data.unseen_notification > 0) {
-                        $('.count').html(data.unseen_notification);
-                        html += '<h3 class="white">' + data.unseen_notification + ' New</h3><span class = "notification-title" > Notifications </span>';
-                        $('.white').html(html);
+                        $('#unseen').html(data.unseen_notification);
+                        html += '<h3 class="white" id="count">' + data.unseen_notification + ' New</h3><span class = "notification-title" > Notifications </span>';
+                        $('#count').html(html);
                     } else {
-                        html += '<h3 class="white">0 New</h3><span class = "notification-title" > Notifications </span>';
-                        $('.white').html(html);
+                        html += '<h3 class="white" id="count">0 New</h3><span class = "notification-title" > Notifications </span>';
+                        $('#count').html(html);
                     }
                 }
             });

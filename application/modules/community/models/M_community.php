@@ -126,10 +126,6 @@ class M_community extends CI_Model
                 'USER_ID' => $id,
                 'COM_ID' => $com_id,
                 'ISADMIN' => 0,
-                'ISLEADER' => 0,
-                'ISVICELEADER' => 0,
-                'ISSECRETARY' => 0,
-                'ISTREASURER' => 0,
                 'MEMBER_STATUS' => 1
 
 

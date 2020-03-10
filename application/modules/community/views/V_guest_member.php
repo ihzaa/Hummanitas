@@ -198,16 +198,9 @@
                                                                             echo $member->NAME;
                                                                         } ?></h4>
                                                                     <small class="text-dark">
-                                                                        <?php if ($member->ISLEADER == 1) {
-                                                                            echo 'Leader';
-                                                                        } else if ($member->ISVICELEADER == 1) {
-                                                                            echo 'Vice Leader';
-                                                                        } else if ($member->ISSECRETARY == 1) {
-                                                                            echo 'Secretary';
-                                                                        } else if ($member->ISTREASURER == 1) {
-                                                                            echo 'Treasurer';
-                                                                        }
-
+                                                                        <?php if ($member->ISADMIN == 1) {
+                                                                            echo 'Admin';
+                                                                        };
                                                                         ?></small>
                                                                 </a>
                                                             </div>
@@ -299,13 +292,15 @@
     <script src="<?= base_url('assets/'); ?>app-assets/js/core/app.js"></script>
     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/components.js"></script>
     <!-- END: Theme JS-->
-
+    <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/extensions/sweet-alerts.js"></script>
     <!-- BEGIN: Page JS-->
     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/user-profile.js"></script>
     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/faq-kb.js"></script>
     <!-- END: Page JS-->
     <script src="<?= base_url('assets/'); ?>assets/js/lightbox-plus-jquery.min.js"></script>
     <script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
+
 
 
     <!-- footer user -->

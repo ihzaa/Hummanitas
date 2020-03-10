@@ -42,7 +42,7 @@ class CommunityController_ku extends MY_Controller
 
 		//end notif
 		$config['upload_path']          = 'assets/img/post/' . $id_member;
-		$config['allowed_types']        = 'gif|jpg|png';
+		$config['allowed_types']        = 'gif|jpg|png|jpeg';
 		$new_name = time() . '-' . rand(0, 10000) . '-' . $id_com . '-' . $id_member . '.' . pathinfo($_FILES['gambar']['name'], PATHINFO_EXTENSION);
 		$config['file_name'] = $new_name;
 

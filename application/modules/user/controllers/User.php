@@ -180,7 +180,7 @@ class User extends MY_Controller
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
-			<p align="center" class="mb-0">Success creating community !</p></div>');
+			<p align="center" class="mb-0">Success creating community!</p></div>');
 			redirect('user/user_community');
 		}
 	}
