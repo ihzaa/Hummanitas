@@ -176,12 +176,13 @@ class Ajax extends MY_Controller
 
                     <div class="chat-content">
 
-                        <a href="' . base_url('user/user_profile_guest/') . $message->USER_ID . '">
+                        <a href="' . base_url('user/user_profile_guest/') . $message->USER_ID . '" style="display:inline">
                             <strong>
                                 <p style="display:inline-block; font-size:17px">' . $message->USERNAME . '</p>
                             </strong>
                         </a>
                         <strong>
+                        <p style="margin-top:-4px;margin-left:3px;font-size: 12px;display:inline">from ' . $message->COM_NAME . '</p>
                         <p style="margin-top:-4px;margin-left:3px;font-size: 10px">' . date("F j, Y \&\\n\b\s\p\; g:i a", strtotime($message->TIME)) . '</p>
                         </strong>
                         <hr style="margin-top:-2px;">

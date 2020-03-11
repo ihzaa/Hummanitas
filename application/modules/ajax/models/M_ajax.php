@@ -44,7 +44,7 @@ class M_ajax extends CI_Model
 
     function get_collab_chat($id, $member_id)
     {
-        $message = $this->db->query('SELECT u.USER_ID, u.USERNAME, u.USER_IMAGE, c.CHAT_ID, c.TIME, c.MESSAGE, c.COLLAB_ID FROM chat c JOIN community_member m on m.MEMBER_ID = c.RECIPIENT_ID JOIN user r on r.USER_ID = m.USER_ID JOIN user u on u.USER_ID = c.USER_ID WHERE c.COLLAB_ID = ' . $id . ' AND c.RECIPIENT_ID = ' . $member_id . ' ORDER BY c.TIME ASC');
+        $message = $this->db->query('SELECT u.USER_ID, u.USERNAME, u.USER_IMAGE, c.CHAT_ID, c.TIME, c.MESSAGE, c.COLLAB_ID, cm.COM_NAME FROM chat c JOIN community_member m on m.MEMBER_ID = c.RECIPIENT_ID JOIN user r on r.USER_ID = m.USER_ID JOIN user u on u.USER_ID = c.USER_ID JOIN community cm on m.COM_ID = cm.COM_ID WHERE c.COLLAB_ID = ' . $id . ' AND c.RECIPIENT_ID = ' . $member_id . ' ORDER BY c.TIME ASC');
 
         return $message->result();
     }

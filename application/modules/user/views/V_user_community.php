@@ -197,7 +197,7 @@
                                     <!-- ' . $com[$i]['COM_NAME'] . ' -->
                                     <section id="knowledge-base-content">
                                         <div class="community">
-                                            <div class="row search-content-info">
+                                            <div class="row search-content-info" style="margin-left:5px;margin-top:50px">
 
                                                 <?php
                                                 if (count($community) > 0) {
@@ -205,12 +205,12 @@
                                                         $id = $com->COM_ID;
 
                                                 ?>
-                                                        <div class="col-md-4 col-sm-6 col-12 search-content">
-                                                            <div class="card">
+                                                        <div class="col-md-3 col-sm-5 col-11 search-content">
+                                                            <div class="card" style="border-radius:10px;border-color:#CC99FF;border-style: groove;padding-bottom:10px;width:275px;height: 350px">
                                                                 <center>
                                                                     <div class="card-body text-center">
 
-                                                                        <img src="<?= base_url('assets/img/community/profile/') . $com->COM_IMAGE; ?>" class="mx-auto mb-2" heigth="100px" width="100px" alt="knowledge-base-image">
+                                                                        <img src="<?= base_url('assets/img/community/profile/') . $com->COM_IMAGE; ?>" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
                                                                         <h4><?= $com->COM_NAME ?></h4>
                                                                         <small class="text-dark" style="font-size: 15px"><strong><?= $com->COM_ADDRESS ?></strong></small><br>
                                                                         <small class="text-dark"><?= $com->COM_EMAIL ?></small>

@@ -89,11 +89,11 @@
 
                             <div class="col-lg-4 col-md-6 col-sm-12" style="display: inline-block;margin: 0 -2px ">
                                 <div class="card border-primary text-center bg-transparent">
-                                    <div class="card-content">
-                                        <img src="<?= base_url('assets/img/community/event/') . $events->EVENT_THUMBNAIL; ?>" alt="element 04" width="200px" height="115px" class="float-left mt-3 pl-2" style="padding-right: 1.5rem">
-                                        <div class="card-body" align='left'>
+                                    <div class="card-content" style="height: 200px">
+                                        <img src="<?= base_url('assets/img/community/event/') . $events->EVENT_THUMBNAIL; ?>" alt="element 04" width="200px" height="200px" class="float-left" style="padding-right: 1.5rem;">
+                                        <div class="card-body" align='left' style="margin-top: -20px">
                                             <h4 class="card-title mt-3"><?php echo $events->EVENT_TITLE ?></h4>
-                                            <p class="card-text mb-25"><?php echo date('d M, Y', strtotime($events->END_DATE))  ?></p>
+                                            <p class="card-text mb-25"><?php echo date('d M, Y', strtotime($events->START_DATE))  ?></p>
                                             <a href="<?= base_url('community/' . $community['COM_ID'] . '/event' . '/' . $id); ?>" class="btn btn-primary mt-1">View</a>
                                             <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
                                                 <button class="btn btn-primary mt-1 edit" value="<?= $id ?>">edit</button>
@@ -214,7 +214,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
             </form>
         </div>
