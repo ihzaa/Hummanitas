@@ -115,7 +115,7 @@ class Community extends MY_Controller
 			<div class="row align-items-center">
 
 
-				<div class="col-sm-6">
+				<div class="col-sm-12">
 					<div class="custom-file">
 						
 						<input type="file" class="custom-file-input" id="image" name="image" value=" ">
@@ -348,6 +348,7 @@ class Community extends MY_Controller
 	function gallery()
 	{
 		$id = $this->uri->segment('2');
+		$this->load->helper('text');
 
 		$data['community'] = $this->m_community->get_com_detail($id);
 		$data['user'] = $this->m_user->getUser();
@@ -596,7 +597,7 @@ class Community extends MY_Controller
 	function makeAdmin()
 	{
 		$com_id = $this->uri->segment('2');
-		$id = $this->input->post('makeAdmin');
+		$id = $this->input->post('id');
 		$this->m_community->makeAdmin($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
@@ -607,7 +608,7 @@ class Community extends MY_Controller
 	function removeAdmin()
 	{
 		$com_id = $this->uri->segment('2');
-		$id = $this->input->post('removeAdmin');
+		$id = $this->input->post('id');
 		$this->m_community->removeAdmin($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
@@ -618,7 +619,7 @@ class Community extends MY_Controller
 	function accept()
 	{
 		$com_id = $this->uri->segment('2');
-		$id = $this->input->post('accept');
+		$id = $this->input->post('id');
 
 		$this->m_community->accept($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
@@ -630,7 +631,7 @@ class Community extends MY_Controller
 	function removeMember()
 	{
 		$com_id = $this->uri->segment('2');
-		$id = $this->input->post('removeMember');
+		$id = $this->input->post('id');
 
 		$this->m_community->removeMember($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
@@ -642,7 +643,7 @@ class Community extends MY_Controller
 	function reject()
 	{
 		$com_id = $this->uri->segment('2');
-		$id = $this->input->post('reject');
+		$id = $this->input->post('id');
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
@@ -943,10 +944,5 @@ class Community extends MY_Controller
 	function authorized()
 	{
 		$this->load->view('v_notAuthorized');
-	}
-
-	//search
-	public function search($keyword)
-	{
 	}
 }

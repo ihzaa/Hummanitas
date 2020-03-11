@@ -133,6 +133,9 @@ class User extends MY_Controller
 	function user_profile_guest()
 	{
 		$guest_id = $this->uri->segment('3');
+		if ($guest_id == $this->session->userdata('id')) {
+			redirect('user/user_profile');
+		}
 		$data['user'] = $this->m_user->getUser();
 		$data['user_guest'] = $this->m_user->get_user($guest_id);
 		$data['user_com'] = $this->m_user->get_user_com($data['user_guest']['USER_ID']);

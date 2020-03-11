@@ -698,7 +698,9 @@
                                 'Success!',
                                 'Donation has been saved.',
                                 'success'
-                            )
+                            ).then(function() {
+                                location.reload();
+                            });
                         },
                         error: function() {
                             Swal.fire(
@@ -797,7 +799,9 @@
                                     'Request success!',
                                     'Transaction has been confirmed.',
                                     'success'
-                                )
+                                ).then(function() {
+                                    location.reload();
+                                });
                                 changeStatus(status);
                             } else if (data == 'failed') {
                                 Swal.fire(

@@ -46,8 +46,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 .gallery-album li{
 	/* display: none; */
-	display: inline-block;
-	height: 188px;
+    display: inline-block;
+    height: 192px;
 	width: 170px;
 	border: 1px solid #e2e2e2;
 	border-radius: 10px;
@@ -62,20 +62,24 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	width: 170px;
 }
 
-.gallery-album li .delGallery{
+.gallery-album li .caption .delGallery{
 	display: none;
 }
+
 .gallery-album li:hover a img{
 	transform: scale(1.15);
 }
-.gallery-album li:hover .delGallery{
-	display: inline-block;
+.gallery-album li:hover .caption button{
+    padding: 3px 3px;
+    display: inline;
+    top : 7px;
+    font-size: 11px;
+    margin-left: 47px;
 }
 .gallery-album li:hover .caption{
 	list-style: outside none none;
     margin-bottom: 0;
     padding-left: 0;
-    margin-top: -41px;
 }
 
 .caption {
@@ -98,13 +102,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     color: #088dcd;
 }
 
-.caption > p {
-    line-height: px;
-    display: inline-block;
+/* .caption > p {
 	width: 100%;
-	font-size: 12px;
-	margin-left: 10px;
-}
+    
+} */
 
 .gallery-album > li a img {
 	height: 145px;

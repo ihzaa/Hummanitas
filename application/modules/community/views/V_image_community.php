@@ -312,7 +312,7 @@
                 }).then((result) => {
                     if (result.value) {
                         $.ajax({
-                            url: "<?= base_url('ajax/deletePhoto') ?>",
+                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/deletePhoto') ?>",
                             method: "POST",
                             data: {
                                 id: id

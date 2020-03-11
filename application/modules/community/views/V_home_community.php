@@ -237,6 +237,9 @@
 												</div>
 											</div>
 											<p>' . $p->POST_CONTENT . '</p>
+											<div class="divider">
+												<div class="divider-text text-primary"><a></a></div>
+											</div>
 											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="d-flex align-items-center">
@@ -266,6 +269,9 @@
 												</div>
 											</div>
 											<p>' . $p->POST_CONTENT . '</p>
+											<div class="divider">
+												<div class="divider-text text-primary"><a></a></div>
+											</div>
 											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="d-flex align-items-center">
@@ -299,6 +305,9 @@
 												</div>
 											</div>
 											<p>' . $p->POST_CONTENT . '</p>
+											<div class="divider">
+												<div class="divider-text text-primary"><a></a></div>
+											</div>
 											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="d-flex align-items-center">
@@ -336,6 +345,9 @@
 												</div>
 											</div>
 											<p>' . $p->POST_CONTENT . '</p>
+											<div class="divider">
+												<div class="divider-text text-primary"><a></a></div>
+											</div>
 											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
 											<div class="d-flex justify-content-start align-items-center mb-1">
 												<div class="d-flex align-items-center">
@@ -577,7 +589,6 @@
 										<div>
 											<p class="mb-75"><strong>Upcoming Events</strong></p>
 										</div>
-										<p>Sat, 16, Feb</p>
 									</div>
 									<div class="card-content">
 										<div class="list-group analytics-list">

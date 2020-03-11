@@ -120,6 +120,9 @@ class CommunityController_ku extends MY_Controller
 				</div>
 			</div>
 			<p>' . $isi . '</p>
+			<div class="divider">
+					<div class="divider-text text-primary"><a></a></div>
+					</div>
 			<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($lengkap) . '" alt="avtar img holder">
 			<div class="d-flex justify-content-start align-items-center mb-1">
 				<div class="d-flex align-items-center">

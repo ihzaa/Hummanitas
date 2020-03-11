@@ -160,15 +160,6 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <div class="controls">
-                                                                <label>Location</label>
-                                                                <input type="text" class="form-control" id="location" name="location" required placeholder="Location" data-validation-required-message="This Address field is required" value="<?= $community['COM_LOC'] ?>">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <div class="controls">
                                                                 <label>Address</label>
                                                                 <input type="text" class="form-control" id="address" name="address" required placeholder="Address" data-validation-required-message="This Address field is required" value="<?= $community['COM_ADDRESS'] ?>">
                                                             </div>

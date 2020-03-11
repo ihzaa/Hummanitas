@@ -169,7 +169,7 @@ class M_communityNew extends CI_Model
 
     function unpaidMember($com_id)
     {
-        $member = $this->db->query('SELECT u.USER_ID,u.USERNAME,u.NAME,m.JOIN_DATE FROM user u JOIN community_member m ON u.USER_ID = m.USER_ID WHERE m.COM_ID = ' . $com_id)->result();
+        $member = $this->db->query('SELECT u.USER_ID,u.USERNAME,u.NAME,m.JOIN_DATE FROM user u JOIN community_member m ON u.USER_ID = m.USER_ID WHERE m.COM_ID = ' . $com_id . ' AND MEMBER_STATUS = 1')->result();
         $month = $this->m_communitynew->listMonth();
         $year = $this->m_communitynew->listYear();
         $current = date('d-F-Y');

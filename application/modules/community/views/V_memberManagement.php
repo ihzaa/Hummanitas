@@ -235,18 +235,18 @@
                                                                                 if ($member->USER_ID != $user['USER_ID']) {
                                                                                     if ($member->ISADMIN != 1) {
                                                                                         // echo $id;
-                                                                                ?> <form action="<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/makeAdmin' ?>" style="display: inline-block;" method="post">
-                                                                                            <button type="submit" name="makeAdmin" style="display: inline-block; padding: 7px 18px; font-size: 13px;margin-left: 50px;" value="<?= $id  ?>" class="btn btn-outline-primary">Make<br>
+                                                                                ?> <form action="" style="display: inline-block;" method="post">
+                                                                                            <button type="button" name="makeAdmin" style="display: inline-block; padding: 7px 18px; font-size: 13px;margin-left: 50px;" value="<?= $id  ?>" class="btn btn-outline-primary makeAdmin">Make<br>
                                                                                                 Admin</button>
                                                                                         </form>
                                                                                     <?php } else { ?>
-                                                                                        <form action="<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/removeAdmin' ?>" style="display: inline-block;" method="post">
-                                                                                            <button type="submit" name="removeAdmin" style="display: inline-block; padding: 7px 18px; font-size: 13px;margin-left: 50px;" value="<?= $id ?>" class="btn btn-outline-primary">Remove<br>
+                                                                                        <form action="" style="display: inline-block;" method="post">
+                                                                                            <button type="button" name="removeAdmin" style="display: inline-block; padding: 7px 18px; font-size: 13px;margin-left: 50px;" value="<?= $id ?>" class="btn btn-outline-primary removeAdmin">Remove<br>
                                                                                                 Admin</button>
                                                                                         </form>
                                                                                     <?php } ?>
-                                                                                    <form action="<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/removeMember' ?>" style="display: inline-block;" method="post">
-                                                                                        <button value="<?= $id ?>" type="submit" name="removeMember" style="display: inline-block; padding: 13px 10px; margin-left: 5px;" class="btn btn-outline-primary">Remove</button>
+                                                                                    <form action="" style="display: inline-block;" method="post">
+                                                                                        <button value="<?= $id ?>" type="button" name="removeMember" style="display: inline-block; padding: 13px 10px; margin-left: 5px;" class="btn btn-outline-primary removeMember">Remove</button>
                                                                                     </form>
                                                                                 <?php } else { ?>
                                                                                     <div style="height: 30px"></div>
@@ -291,11 +291,11 @@
                                                                                     <h4><?= $req->USERNAME ?></h4>
                                                                                     <p class=""><?= $req->EMAIL ?></p>
                                                                                     <div class="card-btns d-flex justify-content-between">
-                                                                                        <form action="<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/accept' ?>" method="post">
-                                                                                            <button type="submit" name="accept" value="<?= $req->MEMBER_ID ?>" class="btn gradient-light-primary">Accept</button>
+                                                                                        <form action="" method="post">
+                                                                                            <button type="button" name="accept" value="<?= $req->MEMBER_ID ?>" class="btn gradient-light-primary accept">Accept</button>
                                                                                         </form>
-                                                                                        <form action="<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/reject' ?>" method="post">
-                                                                                            <button type="submit" name="reject" value="<?= $req->MEMBER_ID ?>" class="btn btn-outline-primary">Reject</button>
+                                                                                        <form action="" method="post">
+                                                                                            <button type="button" name="reject" value="<?= $req->MEMBER_ID ?>" class="btn btn-outline-primary reject">Reject</button>
                                                                                         </form>
                                                                                     </div>
 
@@ -380,6 +380,7 @@
     <!-- BEGIN: Page JS-->
     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/user-profile.js"></script>
     <script src="<?= base_url('assets/'); ?>app-assets/js/scripts/pages/faq-kb.js"></script>
+    <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
     <!-- END: Page JS-->
     <script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
 
@@ -423,6 +424,239 @@
     <!-- footer community -->
     <?php $this->load->view('v_template_footer') ?>
 
+    <!-- make admin -->
+    <script>
+        $(document).ready(function() {
+            $(".makeAdmin").click(function() {
+                var id = $(this).val();
+                Swal.fire({
+                    title: 'You want to make this member as admin?',
+                    text: '',
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/makeAdmin' ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                swal.fire({
+                                    title: "Success",
+                                    text: "The selected member now an admin",
+                                    type: "success"
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when making admin.',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+            });
+        });
+    </script>
+
+    <!-- remove admin -->
+    <script>
+        $(document).ready(function() {
+            $(".removeAdmin").click(function() {
+                var id = $(this).val();
+                Swal.fire({
+                    title: 'You want to remove this member as admin?',
+                    text: '',
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/removeAdmin' ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                swal.fire({
+                                    title: "Success",
+                                    text: "The selected member now not an admin",
+                                    type: "success"
+                                }).then(function() {
+                                    location.reload();
+                                });
+
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when removing admin.',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+            });
+        });
+    </script>
+
+    <!-- remove member -->
+    <script>
+        $(document).ready(function() {
+            $(".removeMember").click(function() {
+                var id = $(this).val();
+                Swal.fire({
+                    title: 'You want to remove this member from community?',
+                    text: '',
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/removeMember' ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                swal.fire({
+                                    title: "Success",
+                                    text: "The selected member has been removed from community",
+                                    type: "success"
+                                }).then(function() {
+                                    location.reload();
+                                });
+
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when removing member.',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+            });
+        });
+    </script>
+
+    <!-- accept request -->
+    <script>
+        $(document).ready(function() {
+            $(".accept").click(function() {
+                var id = $(this).val();
+                Swal.fire({
+                    title: 'You want to accept the requested user?',
+                    text: '',
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/accept' ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                swal.fire({
+                                    title: "Success",
+                                    text: "Accept request success",
+                                    type: "success"
+                                }).then(function() {
+                                    location.reload();
+                                });
+
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when accepting member.',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+            });
+        });
+    </script>
+
+    <!-- decline request -->
+    <script>
+        $(document).ready(function() {
+            $(".reject").click(function() {
+                var id = $(this).val();
+                Swal.fire({
+                    title: 'You want to reject the requested user?',
+                    text: '',
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: "<?= base_url('community/' . $community['COM_ID']) . '/memberManagement/reject' ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                swal.fire({
+                                    title: "Success",
+                                    text: "Decline request success",
+                                    type: "success"
+                                }).then(function() {
+                                    location.reload();
+                                });
+
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'There is error when rejecting request.',
+                                    'error'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+            });
+        });
+    </script>
 </body>
 <!-- END: Body-->
 

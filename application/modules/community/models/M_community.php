@@ -438,7 +438,6 @@ class M_community extends CI_Model
             'ISPUBLIC' => $this->input->post('vueradio'),
             'COM_NAME' => $this->input->post('name'),
             'COM_DESC' => $this->input->post('description'),
-            'COM_LOC' => $this->input->post('location'),
             'COM_TELP' => $this->input->post('phone'),
             'COM_EMAIL' => $this->input->post('email'),
             'COM_ADDRESS' => $this->input->post('address'),

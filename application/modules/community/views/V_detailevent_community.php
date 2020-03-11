@@ -117,7 +117,7 @@
 
                                     if ($data != NULL) {
 
-                                        $Total = $this->db->query('SELECT SUM(ANOTHER_AMOUNT) as TOTAL FROM  event e  join activity a on e.EVENT_ID = a.EVENT_ID  join another_income i on a.ACTIVITY_ID=i.ACTIVITY_ID WHERE e.EVENT_ID=' . $this->uri->segment(4))->row_array();
+                                        $Total = $this->db->query('SELECT SUM(ANOTHER_AMOUNT) as TOTAL FROM  event e  join activity a on e.EVENT_ID = a.EVENT_ID  join another_income i on a.ACTIVITY_ID=i.ACTIVITY_ID WHERE e.EVENT_ID=' . $this->uri->segment(4) . ' AND ANOTHER_STATUS = 1')->row_array();
                                     ?>
 
                                         <h5 align="center" style="margin-top: -15px;">Event Income: <?php if ($Total['TOTAL'] != NULL) {

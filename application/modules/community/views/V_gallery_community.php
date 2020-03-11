@@ -153,16 +153,18 @@
                                                 if ($previousId != $id) {
                                         ?>
                                                     <li id="<?= 'gallery_' . $id ?>">
-                                                        <a href="<?= base_url('community/' . $community['COM_ID'] . '/gallery/' . $id); ?>"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $v->GALLERY_NAME . '/' . $v->IMAGE); ?>">
+                                                        <a href="<?= base_url('community/' . $community['COM_ID'] . '/gallery/' . $id); ?>"><img height="170px" width="170px" src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $v->GALLERY_NAME . '/' . $v->IMAGE); ?>">
                                                         </a>
-                                                        <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
-                                                            <button type="button" class="btn btn-danger mr-1 mb-1 delGallery" name="del" value="<?= $id ?>" style="padding:3px 3px;top:-140px; margin-left: 110px">Delete</button>
-                                                        <?php } else { ?>
-                                                            <button type="button" class="btn btn-danger mr-1 mb-1 delGallery" style="visibility:hidden;padding:3px 3px;top:-140px; margin-left: 110px">Delete</button>
-                                                        <?php } ?>
+
                                                         <div class="caption">
-                                                            <a href="<?= base_url('community/' . $community['COM_ID'] . '/gallery/' . $id); ?>"><?= $v->GALLERY_NAME ?></a>
-                                                            <p><?= count($this->db->get_where('images', ['GALLERY_ID' => $id])->result()); ?> photos</p>
+                                                            <a href="<?= base_url('community/' . $community['COM_ID'] . '/gallery/' . $id); ?>"><?= word_limiter($v->GALLERY_NAME, 2) ?></a>
+                                                            <p style="font-size: 11px;margin-left: 10px;display:inline;"><?= count($this->db->get_where('images', ['GALLERY_ID' => $id])->result()); ?> photos</p>
+                                                            <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                                                <button type="button" class="btn btn-danger mr-1 mb-1 delGallery" name="del" value="<?= $id ?>">Delete</button>
+                                                            <?php } else { ?>
+                                                                <button type="button" class="btn btn-danger mr-1 mb-1 delGallery" style="visibility:hidden;padding:3px 3px;top:-140px; margin-left: 110px">Delete</button>
+                                                            <?php } ?>
+
                                                         </div>
                                                     </li>
                                             <?php
@@ -327,7 +329,7 @@
                 }).then((result) => {
                     if (result.value) {
                         $.ajax({
-                            url: "<?= base_url('ajax/deleteGallery') ?>",
+                            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/deleteGallery') ?>",
                             method: "POST",
                             data: {
                                 id: id

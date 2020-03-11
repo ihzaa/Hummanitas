@@ -146,7 +146,7 @@
                         <div class="row align-items-center">
 
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <div class="custom-file">
 
                                     <input type="file" class="custom-file-input" required id="image" name="image">
@@ -225,12 +225,12 @@
 
 
     <!-- Modal Edit-->
-    <div class="modal fade" id="myModal" style="z-index: 1041" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal fade" id="myModal3" style="z-index: 1041" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Add Event</h5>
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Edit Event</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -302,7 +302,7 @@
                     },
                     success: function(data) {
                         $('#editEvent').html(data);
-                        $('#myModal').modal('show');
+                        $('#myModal3').modal('show');
                     }
                 });
             });

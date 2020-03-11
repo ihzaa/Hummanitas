@@ -331,6 +331,7 @@
                                 'Please wait for the community to accept.',
                                 'success'
                             )
+                            $('#myModal2').modal('hide');
                         } else if (data == 'failed') {
                             Swal.fire(
                                 'Request failed!',
@@ -343,6 +344,7 @@
                                 'You already send request to the following community.',
                                 'warning'
                             )
+                            $('#myModal2').modal('hide');
                         }
 
                     },

@@ -243,6 +243,16 @@ class Ajax extends MY_Controller
     {
         $id = $this->input->post('id');
 
+        $com_id = $this->uri->segment(2);
+
+        $photo = $this->m_ajax->getPhoto($id);
+
+        $gallery_id = $photo['GALLERY_ID'];
+
+        $album = $this->m_ajax->getAlbum($gallery_id);
+
+        unlink(FCPATH . 'assets/img/community/gallery/' . $com_id . '/' . $album['GALLERY_NAME'] . '/' . $photo['IMAGE']);
+
         $this->m_ajax->delPhoto($id);
     }
 
@@ -250,7 +260,30 @@ class Ajax extends MY_Controller
     {
         $id = $this->input->post('id');
 
+        $com_id = $this->uri->segment(2);
+
+        $album = $this->m_ajax->getAlbum($id);
+
+        $path = 'assets/img/community/gallery/' . $com_id . '/' . $album['GALLERY_NAME'];
+
+        $this->delete_files($path);
+
         $this->m_ajax->delGallery($id);
+    }
+
+    function delete_files($target)
+    {
+        if (is_dir($target)) {
+            $files = glob($target . '*', GLOB_MARK); //GLOB_MARK adds a slash to directories returned
+
+            foreach ($files as $file) {
+                delete_files($file);
+            }
+
+            rmdir($target);
+        } elseif (is_file($target)) {
+            unlink($target);
+        }
     }
 
     function leaveCommunity()

@@ -546,27 +546,35 @@
 										<div>
 											<p class="mb-75"><strong>Upcoming Events</strong></p>
 										</div>
-										<?php $event = $this->db->query('SELECT * FROM event e join community c on e.COM_ID=c.COM_ID join community_member cm on cm.COM_ID=c.COM_ID WHERE cm.USER_ID="' . $this->session->userdata('id') . '" ORDER BY e.EVENT_ID DESC LIMIT 5')->result() ?>
+										<?php $event = $this->db->query('SELECT * FROM event e join community c on e.COM_ID=c.COM_ID join community_member cm on cm.COM_ID=c.COM_ID WHERE NOW() <= e.START_DATE AND cm.USER_ID= ' . $this->session->userdata('id') . ' ORDER BY e.START_DATE ASC LIMIT 5')->result() ?>
 
 
 									</div>
-									<?php foreach ($event as $event) { ?>
-										<div class="card-content">
-											<div class="list-group analytics-list">
-												<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-													<div class="float-left">
-														<p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event->EVENT_TITLE ?>
-														</p>
-														<small><?php echo date('d M, Y', strtotime($event->START_DATE))  ?></small>
-														<a href="<?= base_url('community/') . $event->COM_ID; ?>">
-															<p class="mb-75">by <strong><?= $event->COM_NAME ?></strong> </p>
-														</a>
+									<?php if ($event != NULL) {
+										foreach ($event as $event) { ?>
+											<div class="card-content">
+												<div class="list-group analytics-list">
+													<div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
+														<div class="float-left">
+															<p class="text-bold-600 font-medium-2 mb-0 mt-25"><?= $event->EVENT_TITLE ?>
+															</p>
+															<small><?php echo date('d M, Y', strtotime($event->START_DATE))  ?></small>
+															<a href="<?= base_url('community/' . $event->COM_ID . '/event')  ?>">
+																<p class="mb-75">by <strong><?= $event->COM_NAME ?></strong> </p>
+															</a>
+														</div>
 													</div>
-												</div>
 
+												</div>
+											</div>
+										<?php }
+									} else { ?>
+										<div class="col-12">
+											<div style="height: 200px; ">
+												<h4 align="center" style="margin: 100px 0px">No event available</h4>
 											</div>
 										</div>
-									<?php } ?>
+									<?php }; ?>
 								</div>
 
 							</div>

@@ -82,6 +82,18 @@ class M_ajax extends CI_Model
         $this->db->delete('gallery');
     }
 
+    function getAlbum($id)
+    {
+        $query = $this->db->query('SELECT * FROM gallery WHERE GALLERY_ID =' . $id);
+        return $query->row_array();
+    }
+
+    function getPhoto($id)
+    {
+        $query = $this->db->query('SELECT * FROM images WHERE IMAGE_ID =' . $id);
+        return $query->row_array();
+    }
+
     function leaveCommunity($user_id, $com_id)
     {
         $this->db->where('USER_ID', $user_id);
