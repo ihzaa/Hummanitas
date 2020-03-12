@@ -55,7 +55,7 @@
         load_unseen_notification();
         // load new notifications
         $('.dropdown-notification').on('click', function() {
-            $('.count').html('');
+            $('#unseen').html('');
             load_unseen_notification('yes');
         });
 

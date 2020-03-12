@@ -88,7 +88,7 @@
                     ?>
 
                             <div class="col-lg-4 col-md-6 col-sm-12" style="display: inline-block;margin: 0 -2px ">
-                                <div class="card border-primary text-center bg-transparent">
+                                <div class="card border-primary text-center" style="border:solid">
                                     <div class="card-content" style="height: 200px">
                                         <img src="<?= base_url('assets/img/community/event/') . $events->EVENT_THUMBNAIL; ?>" alt="element 04" width="200px" height="200px" class="float-left" style="padding-right: 1.5rem;">
                                         <div class="card-body" align='left' style="margin-top: -20px">
@@ -317,6 +317,8 @@
             });
         });
     </script>
+
+
 </body>
 <!-- END: Body-->
 

@@ -147,10 +147,9 @@ class User extends MY_Controller
 	{
 
 
-		$data['community'] = $this->m_user->allCom();
+		// $data['community'] = $this->m_user->allCom();
 		$data['user'] = $this->m_user->getUser();
 
-		// $data['searchCom'] = $this->m_user->searchCode();
 
 
 		$this->load->view('v_user_community', $data);

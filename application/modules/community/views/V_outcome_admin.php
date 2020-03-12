@@ -301,7 +301,7 @@
                                                 <div class="docs-datepicker">
                                                     <div class="input-group">
 
-                                                        <input type="date" class="form-control " id="Date" name="date" placeholder="Pick a date" autocomplete="off">
+                                                        <input type="date" class="form-control " id="Date" name="date" placeholder="Pick a date" required autocomplete="off">
                                                         <div class="input-group-append">
                                                             <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
                                                                 <i class="fa fa-calendar" aria-hidden="true"></i>

@@ -690,4 +690,90 @@ class Ajax extends MY_Controller
 
         echo json_encode($data);
     }
+
+    function loadCom()
+    {
+        $limit = $this->input->post('limit');
+        $offset = $this->input->post('offset');
+
+        // $limit = $_GET['limit'];
+        // $offset = $_GET['offset'];
+
+        $community = $this->m_ajax->loadMoreCom($limit, $offset);
+
+        $output = '';
+
+        if (count($community) > 0) {
+            foreach ($community as $com) {
+                $id = $com->COM_ID;
+
+                $output .= '<div class="col-md-3 col-sm-5 col-11 search-content">
+                    <div class="card" style="border-radius:10px;border-color:#CC99FF;border-style: groove;padding-bottom:10px;width:275px;height: 350px">
+                        <center>
+                            <div class="card-body text-center">
+
+                                <img src="' . base_url('assets/img/community/profile/') . $com->COM_IMAGE . '" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
+                                <h4>' . $com->COM_NAME . '</h4>
+                                <small class="text-dark" style="font-size: 15px"><strong>' . $com->COM_ADDRESS . '</strong></small><br>
+                                <small class="text-dark">' . $com->COM_EMAIL . '</small>
+
+                            </div>
+                            <div class="tutorial">
+                                <form action="cekMember" method="post">
+                                    <button type="submit" name="view" value="' . $id . '" class="btn gradient-light-primary">View</button>
+                                </form>
+                            </div>
+                        </center>
+                    </div>
+                </div>';
+            }
+        } else {
+            $output .= '<div class="col-12">
+                <div style="height: 200px; ">
+                    <h1 align="center" style="margin: 100px 0px">There is still no community created</h1>
+                </div>
+            </div>';
+        }
+
+        echo $output;
+    }
+
+    function loadMoreCom()
+    {
+        $limit = $this->input->post('limit');
+        $offset = $this->input->post('offset');
+
+        // $limit = $_GET['limit'];
+        // $offset = $_GET['offset'];
+
+        $community = $this->m_ajax->loadMoreCom($limit, $offset);
+
+        $output = '';
+
+        foreach ($community as $com) {
+            $id = $com->COM_ID;
+
+            $output .= '<div class="col-md-3 col-sm-5 col-11 search-content">
+                    <div class="card" style="border-radius:10px;border-color:#CC99FF;border-style: groove;padding-bottom:10px;width:275px;height: 350px">
+                        <center>
+                            <div class="card-body text-center">
+
+                                <img src="' . base_url('assets/img/community/profile/') . $com->COM_IMAGE . '" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
+                                <h4>' . $com->COM_NAME . '</h4>
+                                <small class="text-dark" style="font-size: 15px"><strong>' . $com->COM_ADDRESS . '</strong></small><br>
+                                <small class="text-dark">' . $com->COM_EMAIL . '</small>
+
+                            </div>
+                            <div class="tutorial">
+                                <form action="cekMember" method="post">
+                                    <button type="submit" name="view" value="' . $id . '" class="btn gradient-light-primary">View</button>
+                                </form>
+                            </div>
+                        </center>
+                    </div>
+                </div>';
+        }
+
+        echo $output;
+    }
 }

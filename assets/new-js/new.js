@@ -22,10 +22,10 @@ $('#moreMember').on('click', function () {
 });
 
 // Load Community
-$('.community .card').slice(0, 3).show();
+$('.community .card').slice(0, 4).show();
 
 $('#moreCom').on('click', function () {
-    $('.community .card:hidden').slice(0, 3).slideDown();
+    $('.community .card:hidden').slice(0, 4).slideDown();
 
     if ($('.community .card:hidden').length === 0) {
         $('#moreCom').fadeOut();

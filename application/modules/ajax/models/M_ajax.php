@@ -272,4 +272,10 @@ class M_ajax extends CI_Model
         $query = $this->db->query("SELECT SUM(OUTCOME_AMOUNT) AS 'TOTAL' FROM outcome WHERE COM_ID = " . $com_id . " AND OUTCOME_DATE LIKE '%$value%' ")->row_array();
         return $query;
     }
+
+    function loadMoreCom($limit, $offset)
+    {
+        $query = $this->db->query('SELECT * FROM community LIMIT ' . $limit)->result();
+        return $query;
+    }
 }

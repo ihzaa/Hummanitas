@@ -168,12 +168,14 @@
                                                 if ($previousId != $id) {
                                         ?>
                                                     <li id="<?= 'gallery_' . $id ?>">
-                                                        <a href="<?= base_url('community/' . $community['COM_ID'] . '/guest/gallery/' . $id); ?>"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $v->GALLERY_NAME . '/' . $v->IMAGE); ?>">
+                                                        <a href="<?= base_url('community/' . $community['COM_ID'] . '/guest/gallery/' . $id); ?>"><img height="170px" width="170px" src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $v->GALLERY_NAME . '/' . $v->IMAGE); ?>">
                                                         </a>
-                                                        <button type="button" class="btn btn-danger mr-1 mb-1 delGallery" style="visibility:hidden;padding:3px 3px;top:-140px; margin-left: 110px">Delete</button>
+
                                                         <div class="caption">
-                                                            <a href="<?= base_url('community/' . $community['COM_ID'] . '/guest/gallery/' . $id); ?>"><?= $v->GALLERY_NAME ?></a>
-                                                            <p><?= count($this->db->get_where('images', ['GALLERY_ID' => $id])->result()); ?> photos</p>
+                                                            <a href="<?= base_url('community/' . $community['COM_ID'] . '/guest/gallery/' . $id); ?>"><?= word_limiter($v->GALLERY_NAME, 2) ?></a>
+                                                            <p style="font-size: 11px;margin-left: 10px;display:inline;"><?= count($this->db->get_where('images', ['GALLERY_ID' => $id])->result()); ?> photos</p>
+                                                            <button type="button" class="btn btn-danger mr-1 mb-1 delGallery" style="visibility:hidden;padding:3px 3px;top:-140px; margin-left: 110px">Delete</button>
+
                                                         </div>
                                                     </li>
                                             <?php
@@ -188,7 +190,6 @@
                                                 </div>
                                             </div>
                                         <?php } ?>
-
 
                                     </div>
                                 </div>

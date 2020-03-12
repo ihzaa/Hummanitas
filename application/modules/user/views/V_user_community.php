@@ -46,7 +46,7 @@
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>assets/css/style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="< ?= base_url('assets/'); ?>assets/css/style.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- END: Custom CSS-->
 
@@ -197,67 +197,10 @@
                                     <!-- ' . $com[$i]['COM_NAME'] . ' -->
                                     <section id="knowledge-base-content">
                                         <div class="community">
-                                            <div class="row search-content-info" style="margin-left:5px;margin-top:50px">
-
-                                                <?php
-                                                if (count($community) > 0) {
-                                                    foreach ($community as $com) {
-                                                        $id = $com->COM_ID;
-
-                                                ?>
-                                                        <div class="col-md-3 col-sm-5 col-11 search-content">
-                                                            <div class="card" style="border-radius:10px;border-color:#CC99FF;border-style: groove;padding-bottom:10px;width:275px;height: 350px">
-                                                                <center>
-                                                                    <div class="card-body text-center">
-
-                                                                        <img src="<?= base_url('assets/img/community/profile/') . $com->COM_IMAGE; ?>" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
-                                                                        <h4><?= $com->COM_NAME ?></h4>
-                                                                        <small class="text-dark" style="font-size: 15px"><strong><?= $com->COM_ADDRESS ?></strong></small><br>
-                                                                        <small class="text-dark"><?= $com->COM_EMAIL ?></small>
-
-                                                                    </div>
-                                                                    <div class="tutorial">
-                                                                        <form action="cekMember" method="post">
-                                                                            <button type="submit" name="view" value="<?= $id ?>" class="btn gradient-light-primary">View</button>
-                                                                        </form>
-                                                                    </div>
-                                                                </center>
-                                                            </div>
-                                                        </div>
+                                            <div class="row search-content-info" id="list" style="margin-left:5px;margin-top:50px">
 
 
-                                                    <?php    }
-                                                } else {
-                                                    ?>
-                                                    <div class="col-12">
-                                                        <div style="height: 200px; ">
-                                                            <h1 align="center" style="margin: 100px 0px">There is still no community created</h1>
-                                                        </div>
-                                                    </div>
-                                                <?php }
-                                                ?>
                                             </div>
-                                            <?php
-                                            if (count($community) <= 3) {
-                                            ?>
-                                                <div class="row">
-                                                    <div class="col-12 text-center">
-                                                        <button type="button" id="moreCom" class="btn btn-primary block-element mb-1" hidden>Load More</button>
-                                                    </div>
-                                                </div>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <div class="row">
-                                                    <div class="col-12 text-center">
-                                                        <button type="button" id="moreCom" class="btn btn-primary block-element mb-1">Load More</button>
-                                                    </div>
-                                                </div>
-                                            <?php
-                                            } ?>
-
-
-
                                         </div>
 
                                     </section>
@@ -484,6 +427,43 @@
             });
         </script>
 
+        <script>
+            $(document).ready(function() {
+
+                var flag = 0;
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('ajax/loadCom') ?>",
+                    data: {
+                        'offset': 0,
+                        'limit': 20
+                    },
+                    success: function(data) {
+                        $('#list').html(data);
+                        flag += 20;
+                    }
+                });
+
+                $(window).scroll(function() {
+                    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                        // alert('tes')
+                        $.ajax({
+                            type: "POST",
+                            url: "<?= base_url('ajax/loadMoreCom') ?>",
+                            data: {
+                                'offset': 0,
+                                'limit': flag
+                            },
+                            success: function(data) {
+                                $('#list').html(data);
+                                flag += 20;
+                            }
+                        });
+                    }
+                });
+
+            });
+        </script>
         <!-- footer user -->
         <?php $this->load->view('user/v_template_footer') ?>
 </body>
