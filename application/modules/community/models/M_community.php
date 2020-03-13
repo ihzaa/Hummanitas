@@ -95,6 +95,7 @@ class M_community extends CI_Model
         return $q;
     }
 
+
     function get_com_image($id)
     {
         $q = $this->db->query('Select c.COM_ID, i.IMAGE, i.IMAGE_ID, g.GALLERY_ID, g.GALLERY_NAME From community c JOIN images i on c.COM_ID = i.COM_ID JOIN gallery g on i.GALLERY_ID = g.GALLERY_ID WHERE i.COM_ID = ' . $id . ' LIMIT 9');

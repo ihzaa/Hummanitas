@@ -131,6 +131,7 @@ $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
 $route['ajax/(:num)/listEventIncome'] = 'ajax/listEventIncome';
 $route['ajax/(:num)/loadMoreComPost'] = 'ajax/loadMoreComPost';
 $route['ajax/(:num)/loadMoreGuest'] = 'ajax/loadMoreGuest';
+$route['ajax/(:num)/(:num)/loadMorePhoto'] = 'ajax/loadMorePhoto';
 
 //post
 $route['community/posting/like'] = 'community/communitycontroller_ku/like';

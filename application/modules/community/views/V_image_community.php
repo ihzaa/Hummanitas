@@ -152,21 +152,20 @@
                                     </div>
                                     <br>
                                     <div class="gallery-photo">
-                                        <?php if (count($image) > 0) {
+                                        <!-- < ?php if (count($image) > 0) {
 
                                             // echo $name;
                                             // echo $community['COM_ID'];
                                             foreach ($image as $image) { ?>
-                                                <!-- <div class="image"> -->
 
-                                                <?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
+                                                < ?php if (count($this->db->get_where('community_member', ['COM_ID' => $community['COM_ID'], 'USER_ID' => $user['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) { ?>
 
-                                                    <a style="margin:10px 10px" id="<?= 'image_' . $image->IMAGE_ID ?>" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
-                                                    <button class="btn del" id="<?= 'del_' . $image->IMAGE_ID ?>" value="<?= $image->IMAGE_ID ?>" name="del" style="background-color:transparent; padding:0 0; border:none;margin-left:-40px;top:-45px;"><i class="feather icon-x"></i></button>
+                                                    <a style="margin:10px 10px" id="< ?= 'image_' . $image->IMAGE_ID ?>" href="< ?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="< ?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
+                                                    <button class="btn del" id="< ?= 'del_' . $image->IMAGE_ID ?>" value="< ?= $image->IMAGE_ID ?>" name="del" style="background-color:transparent; padding:0 0; border:none;margin-left:-40px;top:-45px;"><i class="feather icon-x"></i></button>
 
-                                                <?php } else { ?>
-                                                    <a style="margin:0px" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
-                                            <?php
+                                                < ?php } else { ?>
+                                                    <a style="margin:0px" href="< ?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="< ?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
+                                            < ?php
                                                 }
                                             }
                                         } else { ?>
@@ -175,14 +174,9 @@
                                                     <h1 align="center" style="margin: 100px 0px">No photo has been uploaded</h1>
                                                 </div>
                                             </div>
-                                        <?php }; ?>
+                                        < ?php }; ?> -->
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12 text-center">
-                                            <button type="button" id="morePhoto" class="btn btn-primary block-element mb-1">Load
-                                                More</button>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-lg-3 col-12">
@@ -291,7 +285,43 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
 
+            // alert(< ?= $gallery_id ?>);
+            var flag = 9;
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('ajax/' . $community['COM_ID'] . '/' . $gallery['GALLERY_ID'] . '/loadMorePhoto') ?>",
+                data: {
+                    'limit': 9
+                },
+                success: function(data) {
+                    $('.gallery-photo').html(data);
+                    flag += 9;
+                }
+            });
+
+            $(window).scroll(function() {
+                if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('ajax/' . $community['COM_ID'] . '/' . $gallery['GALLERY_ID'] . '/loadMorePhoto') ?>",
+                        data: {
+                            'offset': 0,
+                            'limit': flag
+                        },
+                        success: function(data) {
+                            $('.gallery-photo').html(data);
+                            flag += 9;
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
     <!-- footer user -->
     <?php $this->load->view('user/v_template_footer') ?>
     <!-- footer community -->
@@ -299,7 +329,7 @@
 
     <script>
         $(document).ready(function() {
-            $(".del").click(function() {
+            $(document).on('click', '.del', function() {
                 var id = $(this).val();
                 Swal.fire({
                     title: 'You want to delete the selected photo?',

@@ -119,11 +119,15 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	margin: 10px 30px;
 }
 
-.gallery-photo a{
+/* .gallery-photo a{
 	display: none;
-}
+} */
 .gallery-photo .btn{
-    display: none;
+    border:solid 1px;
+    margin-left:-45px;
+    margin-top:-88px;
+    color: wheat;
+    position: relative;
 }
 .gallery-photo img{
 	width: 180px;

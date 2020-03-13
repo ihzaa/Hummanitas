@@ -92,7 +92,7 @@
                                 <p class="card-text"></p>
                                 <p><strong>Email:</strong> hummanitas@gmail.com</p>
                                 <p><strong>Number:</strong> 08888881</p>
-                                <p><strong>Created:</strong> 24/05/2019</p>
+                                <p><strong>Created:</strong> 13 March 2020</p>
 
                                 <p><strong>By:</strong> HUMMASOFT</p>
                                 <p><strong>Website:</strong> <a href="http://www.hummasoft.com/">www.hummasoft.com</a></p>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="col">
                                 <div class="brand-logo d-inline-block">
-                                    <img src="<?= base_url('assets/'); ?>app-assets/images/logo/logoWeb.png">
+                                    <img src="<?= base_url('assets/'); ?>app-assets/images/logo/logoWeb.png" height="400px" width="400px">
                                 </div>
                             </div>
 

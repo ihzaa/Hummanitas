@@ -463,12 +463,11 @@ class Community extends MY_Controller
 	{
 		$id = $this->uri->segment('2');
 		$gallery_id = $this->uri->segment('4');
+		$data['gallery'] = $this->m_community->getGallery($gallery_id);
 
 		$data['community'] = $this->m_community->get_com_detail($id);
 		$data['user'] = $this->m_user->getUser();
-		// $data['member'] = $this->m_community->get_com_member($id);
 		$data['event'] = $this->m_community->upcomingEvent($id);
-		$data['image'] = $this->m_community->getPhoto($gallery_id);
 
 		$user_id = $data['user']['USER_ID'];
 

@@ -298,4 +298,10 @@ class M_ajax extends CI_Model
     {
         return $this->db->query('SELECT * FROM `post` WHERE `COM_ID` = "' . $id . '" ORDER BY `UP_DATE` DESC LIMIT ' . $limit)->result();
     }
+
+    public function loadMorePhoto($id, $limit)
+    {
+        $q = $this->db->query('SELECT * FROM images WHERE GALLERY_ID =' . $id . ' LIMIT ' . $limit)->result();
+        return $q;
+    }
 }

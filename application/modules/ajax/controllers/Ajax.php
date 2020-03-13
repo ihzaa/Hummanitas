@@ -9,6 +9,7 @@ class Ajax extends MY_Controller
 
         $this->load->model('m_ajax');
         $this->load->model('user/m_user');
+        $this->load->model('community/m_community');
         $this->load->model('community/m_community_ku');
         $this->load->model('community/m_communitynew');
     }
@@ -1182,7 +1183,7 @@ class Ajax extends MY_Controller
 
     // Load more community home
 
-    function loadMoreComPost()
+    function LoadMoreComPost()
     {
         $limit = $this->input->post('limit');
         $offset = $this->input->post('offset');
@@ -1194,7 +1195,7 @@ class Ajax extends MY_Controller
 
         $postingan = array();
 
-        $postingan = $this->m_ajax->LoadMoreComPost($id, $limit);
+        $postingan = $this->m_ajax->loadMoreComPost($id, $limit);
 
         $jml_like = $this->m_community_ku->hitung_like($postingan);
         $comment = $this->m_community_ku->commentPerPost($postingan);
@@ -1687,5 +1688,42 @@ class Ajax extends MY_Controller
 											</div>
 										</div>';
         }
+    }
+
+
+    //load more photo
+    function loadMorePhoto()
+    {
+
+        $limit = $this->input->post('limit');
+
+        $com_id = $this->uri->segment(2);
+        $id = $this->uri->segment(3);
+
+        $gallery = $this->m_community->getGallery($id);
+        $data['user'] = $this->m_user->getUser();
+
+        $image = $this->m_ajax->loadMorePhoto($id, $limit);
+
+
+        if (count($image) > 0) {
+
+            foreach ($image as $image) {
+
+                if (count($this->db->get_where('community_member', ['COM_ID' => $com_id, 'USER_ID' => $data['user']['USER_ID'], 'ISADMIN' => 1])->result()) != NULL) {
+
+                    echo '<a style="margin:10px 10px" id="image_' . $image->IMAGE_ID . '" href="' . base_url('assets/img/community/gallery/' . $com_id . '/' . $gallery['GALLERY_NAME'] . '/') . $image->IMAGE . '" data-lightbox="mygallery"><img src="' . base_url('assets/img/community/gallery/' . $com_id . '/' . $gallery['GALLERY_NAME'] . '/') . $image->IMAGE . '"></a>
+                    <button class="btn del" id="del_' . $image->IMAGE_ID . '" value="' . $image->IMAGE_ID . '" name="del" style="background-color:#D71A1A; padding:0 0; "><i class="feather icon-x"></i></button>';
+                } else {
+                    echo '<a style="margin:0px" href="' . base_url('assets/img/community/gallery/' . $com_id . '/' . $gallery['GALLERY_NAME'] . '/') . $image->IMAGE . '" data-lightbox="mygallery"><img src="' . base_url('assets/img/community/gallery/' . $com_id . '/' . $gallery['GALLERY_NAME'] . '/') . $image->IMAGE . '"></a>';
+                }
+            }
+        } else {
+            echo '<div class="col-12">
+                <div style="height: 200px; ">
+                    <h1 align="center" style="margin: 100px 0px">No photo has been uploaded</h1>
+                </div>
+            </div>';
+        };
     }
 }

@@ -167,11 +167,11 @@
                                     </div>
                                     <br>
                                     <div class="gallery-photo">
-                                        <?php if (count($image) > 0) {
+                                        <!-- < ?php if (count($image) > 0) {
                                             foreach ($image as $image) { ?>
 
                                                 <a style="margin:0px" href="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>" data-lightbox="mygallery"><img src="<?= base_url('assets/img/community/gallery/' . $community['COM_ID'] . '/' . $name . '/') . $image->IMAGE ?>"></a>
-                                            <?php
+                                            < ?php
                                             }
                                         } else { ?>
                                             <div class="col-12">
@@ -179,13 +179,7 @@
                                                     <h1 align="center" style="margin: 100px 0px">No photo has been uploaded</h1>
                                                 </div>
                                             </div>
-                                        <?php }; ?>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 text-center">
-                                            <button type="button" id="morePhoto" class="btn btn-primary block-element mb-1">Load
-                                                More</button>
-                                        </div>
+                                        < ?php }; ?> -->
                                     </div>
                                 </div>
                             </div>
@@ -310,7 +304,43 @@
 <!-- END: Body-->
 
 </html>
+<script>
+    $(document).ready(function() {
 
+        // alert(< ?= $gallery_id ?>);
+        var flag = 9;
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url('ajax/' . $community['COM_ID'] . '/' . $gallery['GALLERY_ID'] . '/loadMorePhoto') ?>",
+            data: {
+                'limit': 9
+            },
+            success: function(data) {
+                $('.gallery-photo').html(data);
+                flag += 9;
+            }
+        });
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('ajax/' . $community['COM_ID'] . '/' . $gallery['GALLERY_ID'] . '/loadMorePhoto') ?>",
+                    data: {
+                        'offset': 0,
+                        'limit': flag
+                    },
+                    success: function(data) {
+                        $('.gallery-photo').html(data);
+                        flag += 9;
+                    }
+                });
+            }
+        });
+
+    });
+</script>
 <script>
     $(document).ready(function() {
         $("#join-form").submit(function(e) {
