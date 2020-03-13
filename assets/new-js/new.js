@@ -1,20 +1,20 @@
 /* LoadMore */
 
-$('.post .card').slice(0, 3).show();
+// $('.post .card').slice(0, 3).show();
 
-$('#more').on('click', function () {
-    $('.post .card:hidden').slice(0, 3).slideDown();
+// $('#more').on('click', function () {
+//     $('.post .card:hidden').slice(0, 3).slideDown();
 
-    if ($('.post .card:hidden').length === 0) {
-        $('#more').fadeOut();
-    }
-});
+//     if ($('.post .card:hidden').length === 0) {
+//         $('#more').fadeOut();
+//     }
+// });
 
 // Load Member
-$('.member .card').slice(0, 3).show();
+$('.member .card').slice(0, 20).show();
 
 $('#moreMember').on('click', function () {
-    $('.member .card:hidden').slice(0, 3).slideDown();
+    $('.member .card:hidden').slice(0, 20).slideDown();
 
     if ($('.member .card:hidden').length === 0) {
         $('#moreMember').fadeOut();
@@ -22,15 +22,15 @@ $('#moreMember').on('click', function () {
 });
 
 // Load Community
-$('.community .card').slice(0, 4).show();
+// $('.community .card').slice(0, 4).show();
 
-$('#moreCom').on('click', function () {
-    $('.community .card:hidden').slice(0, 4).slideDown();
+// $('#moreCom').on('click', function () {
+//     $('.community .card:hidden').slice(0, 4).slideDown();
 
-    if ($('.community .card:hidden').length === 0) {
-        $('#moreCom').fadeOut();
-    }
-});
+//     if ($('.community .card:hidden').length === 0) {
+//         $('#moreCom').fadeOut();
+//     }
+// });
 
 // Load album
 $('.gallery-album li').slice(0, 3).show();
@@ -44,10 +44,10 @@ $('#moreCom').on('click', function () {
 });
 
 // Load member manage
-$('.memberManage .card').slice(0, 3).show();
+$('.memberManage .card').slice(0, 20).show();
 
 $('#memberManage').on('click', function () {
-    $('.memberManage .card:hidden').slice(0, 3).slideDown();
+    $('.memberManage .card:hidden').slice(0, 20).slideDown();
 
     if ($('.memberManage .card:hidden').length === 0) {
         $('#memberManage').fadeOut();
@@ -68,25 +68,7 @@ $('#morePhoto').on('click', function () {
     }
 });
 
-//upload photo
-// document.getElementById("uploadBtn1").onchange = function () {
-//     document.getElementById("uploadFile1").value = this.value;
-// };
-// document.getElementById("uploadBtn2").onchange = function () {
-//     document.getElementById("uploadFile2").value = this.value;
-// };
 
 
 
-// new post box	
-$(".new-postbox").click(function () {
-    $(".postoverlay").fadeIn(500);
-});
-$(".postoverlay").not(".new-postbox").click(function () {
-    $(".postoverlay").fadeOut(500);
-});
-$("[type = submit]").click(function () {
-    var post = $("textarea").val();
-    $("<p class='post'>" + post + "</p>").appendTo("section");
-});
 

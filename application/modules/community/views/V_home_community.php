@@ -211,375 +211,7 @@
 									</div>
 								</div>
 								<div class="post" id="kotak-postingan">
-									<?php
-									if ($postingan != NULL) {
-										foreach ($postingan as $p) {
-											if ($p->POST_IMAGE) {
-												if (count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $p->POST_ID . '" AND `MEMBER_ID` = "' . $memberId . '"')->result()) == 1) {
-													if ($p->MEMBER_ID == $memberId) {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-										<div class="card-body">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="avatar mr-1">
-													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-												</div>
-												<div class="user-page-info">
-													<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-													<span class="font-small-2">' . $p->UP_DATE . '</span>
-													<div class="btn-group ml-2">
-														<div class="dropdown">
-															<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-															<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
-																<a class="dropdown-item delete-post-btn" data-id="' . $p->POST_ID . '" href="#">Delete</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<p>' . $p->POST_CONTENT . '</p>
-											<div class="divider">
-												<div class="divider-text text-primary"><a></a></div>
-											</div>
-											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="d-flex align-items-center">
-													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-													<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
-													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
-													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-												</div>
-											</div>
-											<div class="divider">
-												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-											</div>
-											<div id="kotak-komen' . $p->POST_ID . '">
-											';
-													} else {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-										<div class="card-body">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="avatar mr-1">
-													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-												</div>
-												<div class="user-page-info">
-													<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-													<span class="font-small-2">' . $p->UP_DATE . '</span>
-												</div>
-											</div>
-											<p>' . $p->POST_CONTENT . '</p>
-											<div class="divider">
-												<div class="divider-text text-primary"><a></a></div>
-											</div>
-											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="d-flex align-items-center">
-													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-													<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
-													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
-													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-												</div>
-											</div>
-											<div class="divider">
-												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-											</div>
-											<div id="kotak-komen' . $p->POST_ID . '">';
-													}
 
-													//jika belum like
-												} else {
-													//jike bukan pemilik
-													if ($p->MEMBER_ID != $memberId) {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-										<div class="card-body">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="avatar mr-1">
-													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-												</div>
-												<div class="user-page-info">
-													<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-													<span class="font-small-2">' . $p->UP_DATE . '</span>
-												</div>
-											</div>
-											<p>' . $p->POST_CONTENT . '</p>
-											<div class="divider">
-												<div class="divider-text text-primary"><a></a></div>
-											</div>
-											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="d-flex align-items-center">
-													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
-													<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
-													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-												</div>
-											</div>
-											<div class="divider">
-												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-											</div>
-											<div id="kotak-komen' . $p->POST_ID . '">';
-														//jika pemilik
-													} else {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-										<div class="card-body">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="avatar mr-1">
-													<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-												</div>
-												<div class="user-page-info">
-													<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-													<span class="font-small-2">' . $p->UP_DATE . '</span>
-													<div class="btn-group ml-2">
-														<div class="dropdown">
-														<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-														<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
-																<a class="dropdown-item delete-post-btn" data-id="' . $p->POST_ID . '" href="#">Delete</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<p>' . $p->POST_CONTENT . '</p>
-											<div class="divider">
-												<div class="divider-text text-primary"><a></a></div>
-											</div>
-											<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
-											<div class="d-flex justify-content-start align-items-center mb-1">
-												<div class="d-flex align-items-center">
-													<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
-													<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-													<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-													<span id="jml_like' . $count . '">' . $jml_like[$count] . '</span>
-													<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-													<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-												</div>
-											</div>
-											<div class="divider">
-												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-											</div>
-											<div id="kotak-komen' . $p->POST_ID . '">';
-													}
-												}
-
-												//tidak ada gambar
-											} else {
-												//sudah like
-												if (count($this->db->query('SELECT * FROM `like` WHERE `POST_ID`= "' . $p->POST_ID . '" AND `MEMBER_ID` = "' . $memberId . '"')->result()) == 1) {
-													//jike bukan pemilik
-													if ($p->MEMBER_ID != $memberId) {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-															<div class="card-body">
-																<div class="d-flex justify-content-start align-items-center mb-1">
-																	<div class="avatar mr-1">
-																		<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-																	</div>
-																	<div class="user-page-info">
-																		<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-																		<span class="font-small-2">' . $p->UP_DATE . '</span>
-																	</div>
-																</div>
-																<p>' . $p->POST_CONTENT . '</p>
-																<div class="d-flex justify-content-start align-items-center mb-1">
-																	<div class="d-flex align-items-center">
-																		<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-																		<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
-																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
-																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-																	</div>
-																</div>
-																<div class="divider">
-																	<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-																</div>
-																<div id="kotak-komen' . $p->POST_ID . '">';
-													}
-													//pemilik
-													else {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-															<div class="card-body">
-																<div class="d-flex justify-content-start align-items-center mb-1">
-																	<div class="avatar mr-1">
-																		<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-																	</div>
-																	<div class="user-page-info">
-																		<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-																		<span class="font-small-2">' . $p->UP_DATE . '</span>
-																		<div class="btn-group ml-2">
-																			<div class="dropdown">
-																				<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-																				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
-																					<a class="dropdown-item delete-post-btn" data-id="' . $p->POST_ID . '" href="#">Delete</a>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<p>' . $p->POST_CONTENT . '</p>
-																<div class="d-flex justify-content-start align-items-center mb-1">
-																	<div class="d-flex align-items-center">
-																		<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-																		<div class="spinner-border text-primary spinner-border-sm mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-																		<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" data-id="' . $p->POST_ID . '"></i>
-																		<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
-																		<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																		<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-																	</div>
-																</div>
-																<div class="divider">
-																		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-																</div>
-																<div id="kotak-komen' . $p->POST_ID . '">';
-													}
-												}
-												//belum like
-												else {
-													//jike bukan pemilik
-													if ($p->MEMBER_ID != $memberId) {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-									<div class="card-body">
-										<div class="d-flex justify-content-start align-items-center mb-1">
-											<div class="avatar mr-1">
-												<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-											</div>
-											<div class="user-page-info">
-												<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-												<span class="font-small-2">' . $p->UP_DATE . '</span>
-											</div>
-										</div>
-										<p>' . $p->POST_CONTENT . '</p>
-										<div class="d-flex justify-content-start align-items-center mb-1">
-											<div class="d-flex align-items-center">
-												<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
-												<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-												<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-												<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
-												<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-												<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-											</div>
-										</div>
-										<div class="divider">
-											<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-										</div>
-										<div id="kotak-komen' . $p->POST_ID . '">';
-													}
-													//pemilik
-													else {
-														echo '<div class="card" id="Kpost' . $p->POST_ID . '">
-																<div class="card-body">
-																	<div class="d-flex justify-content-start align-items-center mb-1">
-																		<div class="avatar mr-1">
-																			<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-																		</div>
-																		<div class="user-page-info">
-																			<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-																			<span class="font-small-2">' . $p->UP_DATE . '</span>
-																			<div class="btn-group ml-2">
-																				<div class="dropdown">
-																					<i class="feather icon-more-vertical" type="button" id="dropdownMenuButton100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-																					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton100" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -7px, 0px);">
-																						<a class="dropdown-item delete-post-btn" data-id="' . $p->POST_ID . '" href="#">Delete</a>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<p>' . $p->POST_CONTENT . '</p>
-																	<div class="d-flex justify-content-start align-items-center mb-1">
-																		<div class="d-flex align-items-center">
-																			<i class="feather icon-heart font-medium-2 mr-50 like" id="like' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Like" data-id="' . $p->POST_ID . '"></i>
-																			<div class="spinner-border spinner-border-sm text-primary mr-50" id="ldg' . $count . '" data-row="' . $count . '" role="status" style="display:none;"></div>
-																			<i class="fa fa-heart font-medium-2 mr-50 text-danger dislike" id="dislike' . $count . '" data-row="' . $count . '" data-toggle="tooltip" title="Dis-Like" style="display:none;" data-id="' . $p->POST_ID . '"></i>
-																			<span id="jml_like' . $count . '">' . $jml_like[$count]  . '</span>
-																			<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-																			<span id="jml_cmt' . $p->POST_ID . '">' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-																		</div>
-																	</div>
-																	<div class="divider">
-																		<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-																	</div>
-																	<div id="kotak-komen' . $p->POST_ID . '">';
-													}
-												}
-											}
-
-											if (!empty($comment[$count])) {
-												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="' . $comment[$count][count($comment[$count]) - 1]->COMMENT_ID . '">';
-												for ($i = count($comment[$count]) - 1; $i >= 0; $i--) {
-													$c = $comment[$count][$i];
-
-													echo '
-													<div class="d-flex justify-content-start align-items-center mb-1">
-														<div class="avatar mr-50">
-															<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
-														</div>
-														';
-
-													if ($memberId == $c->MEMBER_ID) {
-														echo '
-														<div class="user-page-info w-100">
-															<div class="row">
-																<div class="col-auto mr-auto">
-																	<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USERNAME . '</a>
-																	</h6>
-																	<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
-																</div>
-																<div class="col-auto">
-																	<a class="del-comment" id="del-comment' . $c->COMMENT_ID . '" data-id="' . $c->COMMENT_ID . '" data-post="' . $p->POST_ID . '"><i class="fa fa-times-circle-o text-primary" title="Delete"></i></a>
-																</div>
-															</div>
-														</div>
-													</div>
-													<hr id="hr-ke' . $c->COMMENT_ID  . '">';
-													} else {
-														echo '
-														<div class="user-page-info w-100">
-															<div class="row">
-																<div class="col-auto mr-auto">
-																	<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USERNAME . '</a>
-																	</h6>
-																	<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
-																</div>
-															</div>
-														</div>
-													</div>
-													<hr id="hr-ke' . $c->COMMENT_ID  . '">';
-													}
-												}
-											} else {
-												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="">';
-											}
-
-											echo '
-											</div>
-											<fieldset class="form-label-group mb-50">
-												<textarea class="form-control" id="input-comment' . $p->POST_ID . '" rows="3" placeholder="Add Comment"></textarea>
-												<label for="label-textarea">Add Comment</label>
-											</fieldset>
-											<button type="button" class="btn btn-sm btn-primary btn-comment-post" data-id="' . $p->POST_ID . '">Post Comment</button>
-											<div class="spinner-border text-primary mr-100 " id="ldg-comment' . $p->POST_ID . '" role="status" style="display:none;"></div>
-										</div>
-									</div>';
-											$count++;
-										}
-									} else {
-										echo '<div class="card">
-										<div class="card-body">
-										<div style="height: 500px;" align="center">
-										<h1 align="center" style="margin: 20px 0px"><strong>WELCOME TO</strong></h1>
-										<img class="img-fluid card-img-top rounded-sm mb-2" style="margin-top:-40px;height:400px;width:420px" src="'  . base_url('assets/') . 'app-assets/images/logo/logoWeb.png" alt="avtar img holder">
-										<h1 align="center" style="margin: -30px 0px"><strong>HUMMANITAS</strong></h1>
-									</div>
-										</div>
-									</div>';
-									}
-
-									?>
 
 								</div>
 							</div>
@@ -655,12 +287,6 @@
 
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-12 text-center">
-								<button type="button" id="more" class="btn btn-primary block-element mb-1">Load
-									More</button>
-							</div>
-						</div>
 					</section>
 				</div>
 
@@ -700,6 +326,43 @@
 	<?php $this->load->view('v_template_footer') ?>
 
 	<!-- FUNGSI PREVIEW INPUT GAMBAR POSTINGAN -->
+
+	<script>
+		$(document).ready(function() {
+
+			var flag = 4;
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('ajax/' . $community['COM_ID'] . '/loadMoreComPost') ?>",
+				data: {
+					'offset': 0,
+					'limit': 4
+				},
+				success: function(data) {
+					$('.post').html(data);
+					flag += 4;
+				}
+			});
+
+			$(window).scroll(function() {
+				if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+					$.ajax({
+						type: "POST",
+						url: "<?= base_url('ajax/' . $community['COM_ID'] . '/loadMoreComPost') ?>",
+						data: {
+							'offset': 0,
+							'limit': flag
+						},
+						success: function(data) {
+							$('.post').html(data);
+							flag += 4;
+						}
+					});
+				}
+			});
+
+		});
+	</script>
 
 	<script>
 		$(document).ready(function() {

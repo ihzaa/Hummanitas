@@ -129,6 +129,8 @@ $route['ajax/(:num)/deletePhoto'] = 'ajax/deletePhoto';
 $route['ajax/(:num)/getMember'] = 'ajax/get_collab_member';
 $route['ajax/(:num)/getMemberDetail'] = 'ajax/get_member_detail';
 $route['ajax/(:num)/listEventIncome'] = 'ajax/listEventIncome';
+$route['ajax/(:num)/loadMoreComPost'] = 'ajax/loadMoreComPost';
+$route['ajax/(:num)/loadMoreGuest'] = 'ajax/loadMoreGuest';
 
 //post
 $route['community/posting/like'] = 'community/communitycontroller_ku/like';

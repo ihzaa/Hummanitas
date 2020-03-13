@@ -34,7 +34,7 @@
 	<!-- END: Page CSS-->
 
 	<!-- BEGIN: Custom CSS-->
-	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>assets/css/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="< ?= base_url('assets/'); ?>assets/css/style.css"> -->
 	<!-- END: Custom CSS-->
 
 </head>
@@ -558,7 +558,7 @@
 										<div>
 											<p class="mb-75"><strong>Upcoming Events</strong></p>
 										</div>
-										<?php $event = $this->db->query('SELECT * FROM event e join community c on e.COM_ID=c.COM_ID join community_member cm on cm.COM_ID=c.COM_ID WHERE NOW() <= e.START_DATE AND cm.USER_ID= ' . $this->session->userdata('id') . ' ORDER BY e.START_DATE ASC LIMIT 5')->result() ?>
+										<?php $event = $this->db->query('SELECT * FROM event e join community c on e.COM_ID=c.COM_ID join community_member cm on cm.COM_ID=c.COM_ID WHERE date(START_DATE) >= date(NOW()) AND cm.USER_ID= ' . $this->session->userdata('id') . ' ORDER BY e.START_DATE ASC LIMIT 5')->result() ?>
 
 
 									</div>
@@ -589,12 +589,6 @@
 									<?php }; ?>
 								</div>
 
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 text-center">
-								<button type="button" id="more" class="btn btn-primary block-element mb-1">Load
-									More</button>
 							</div>
 						</div>
 					</section>
@@ -634,8 +628,45 @@
 	<script src="<?= base_url('assets/'); ?>new-js/new.js"></script>
 
 	<script>
+		$(document).ready(function() {
+
+			var flag = 4;
+			$.ajax({
+				type: "POST",
+				url: "<?= base_url('ajax/loadUserPost') ?>",
+				data: {
+					'offset': 0,
+					'limit': 4
+				},
+				success: function(data) {
+					$('.post').html(data);
+					flag += 4;
+				}
+			});
+
+			$(window).scroll(function() {
+				if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+					$.ajax({
+						type: "POST",
+						url: "<?= base_url('ajax/loadUserPost') ?>",
+						data: {
+							'offset': 0,
+							'limit': flag
+						},
+						success: function(data) {
+							$('.post').html(data);
+							flag += 4;
+						}
+					});
+				}
+			});
+
+		});
+	</script>
+
+	<script>
 		// fungsi ketika btn LIKE ditekan
-		$('.like').click(function() {
+		$(document).on('click', '.like', function() {
 			$(this).toggle();
 			$(this).next().toggle();
 			row = $(this).data('row');
@@ -663,7 +694,7 @@
 		}
 
 		// fungsi ketika btn DISLIKE ditekan
-		$('.dislike').click(function() {
+		$(document).on('click', '.dislike', function() {
 			$(this).toggle();
 			$(this).prev().toggle();
 			row = $(this).data('row');
@@ -812,6 +843,8 @@
 			$('#del-comment' + i).parent().parent().parent().parent().remove();
 		}
 	</script>
+
+
 	<!-- footer user -->
 	<?php $this->load->view('v_template_footer') ?>
 </body>

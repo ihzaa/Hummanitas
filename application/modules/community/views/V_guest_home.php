@@ -152,100 +152,7 @@
 							</div>
 							<div class="col-lg-6 col-12">
 								<div class="post">
-									<?php
-									$count = 0;
-									if ($postingan != NULL) {
-										foreach ($postingan as $p) {
-											if ($p->POST_IMAGE) {
-												echo '<div class="card">
-											<div class="card-body">
-												<div class="d-flex justify-content-start align-items-center mb-1">
-													<div class="avatar mr-1">
-														<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-													</div>
-													<div class="user-page-info">
-														<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-														<span class="font-small-2">' . $p->UP_DATE . '</span>
-													</div>
-												</div>
-												<p>' . $p->POST_CONTENT . '</p>
-												<div class="divider">
-												<div class="divider-text text-primary"><a></a></div>
-											</div>
-												<img class="img-fluid card-img-top rounded-sm mb-2" src="' . base_url($p->POST_IMAGE) . '" alt="avtar img holder">
-												<div class="d-flex justify-content-start align-items-center mb-1">
-													<div class="d-flex align-items-center">
-														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
-														<span>' . $jml_like[$count] . '</span>
-														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-														<span>' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-													</div>
-												</div>';
-											} else {
-												echo '<div class="card">
-											<div class="card-body">
-												<div class="d-flex justify-content-start align-items-center mb-1">
-													<div class="avatar mr-1">
-														<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="avtar img holder" height="45" width="45">
-													</div>
-													<div class="user-page-info">
-														<p class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;"><strong>' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $p->MEMBER_ID)->result()[0]->USERNAME . '</strong></a></p>
-														<span class="font-small-2">' . $p->UP_DATE . '</span>
-													</div>
-												</div>
-												<p>' . $p->POST_CONTENT . '</p>
-												<div class="d-flex justify-content-start align-items-center mb-1">
-													<div class="d-flex align-items-center">
-														<i class="feather icon-heart font-medium-2 mr-50 like" title="Like" data-toggle="modal" data-target="#warning"></i>
-														<span>' . $jml_like[$count] . '</span>
-														<i style="margin-left: 10px;" class="feather icon-message-square font-medium-2 mr-50" data-toggle="tooltip" title="Comment"></i>
-														<span>' . count($this->db->query('SELECT * FROM `comment` WHERE `POST_ID` = "' . $p->POST_ID . '"')->result()) . '</span>
-													</div>
-												</div>
-										';
-											}
 
-											echo '
-											<div class="divider">
-												<div class="divider-text text-primary"><a class="load-more" id="load-more' . $p->POST_ID . '" data-id="' . $p->POST_ID . '">Load More</a></div>
-											</div>
-											<div id="kotak-komen' . $p->POST_ID . '">';
-											if (!empty($comment[$count])) {
-												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="' . $comment[$count][count($comment[$count]) - 1]->COMMENT_ID . '">';
-												for ($i = count($comment[$count]) - 1; $i >= 0; $i--) {
-													$c = $comment[$count][$i];
-													echo '
-													<div class="d-flex justify-content-start align-items-center mb-1">
-														<div class="avatar mr-50">
-															<img src="' . base_url('assets/img/user/') . $this->db->query('SELECT u.USER_IMAGE FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_IMAGE . '" alt="Avatar" height="30" width="30">
-														</div>
-														<div class="user-page-info">
-															<h6 class="mb-0"><a href="' . base_url('user/user_profile_guest/' . $this->db->query('SELECT u.USER_ID FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USER_ID) . '" style="color: black;">' . $this->db->query('SELECT u.USERNAME FROM user u INNER JOIN community_member c on u.USER_ID = c.USER_ID where c.MEMBER_ID = ' . $c->MEMBER_ID)->result()[0]->USERNAME . '</a>
-															</h6>
-															<span class="font-small-2">' . $c->COMMENT_CONTENT . '</span>
-														</div>
-													</div>
-													<hr>';
-												}
-											} else {
-												echo '<input type="hidden" id="last_id_com' . $p->POST_ID . '" value="">';
-											}
-											echo '</div></div></div>';
-											$count++;
-										}
-									} else {
-										echo '<div class="card">
-											<div class="card-body">
-											<div style="height: 500px;" align="center">
-											<h1 align="center" style="margin: 20px 0px"><strong>WELCOME TO</strong></h1>
-											<img class="img-fluid card-img-top rounded-sm mb-2" style="margin-top:-40px;height:400px;width:420px" src="'  . base_url('assets/') . 'app-assets/images/logo/logoWeb.png" alt="avtar img holder">
-											<h1 align="center" style="margin: -30px 0px"><strong>HUMMANITAS</strong></h1>
-										</div>
-											</div>
-										</div>';
-									}
-
-									?>
 								</div>
 							</div>
 							<div class="col-lg-3 col-12">
@@ -324,12 +231,6 @@
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 text-center">
-								<button type="button" id="more" class="btn btn-primary block-element mb-1">Load
-									More</button>
 							</div>
 						</div>
 					</section>
@@ -422,6 +323,42 @@
 	<script src="<?= base_url('assets/'); ?>app-assets/js/scripts/modal/components-modal.js"></script>
 </body>
 <!-- END: Body-->
+<script>
+	$(document).ready(function() {
+
+		var flag = 4;
+		$.ajax({
+			type: "POST",
+			url: "<?= base_url('ajax/' . $community['COM_ID'] . '/loadMoreGuest') ?>",
+			data: {
+				'offset': 0,
+				'limit': 4
+			},
+			success: function(data) {
+				$('.post').html(data);
+				flag += 4;
+			}
+		});
+
+		$(window).scroll(function() {
+			if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+				$.ajax({
+					type: "POST",
+					url: "<?= base_url('ajax/' . $community['COM_ID'] . '/loadMoreGuest') ?>",
+					data: {
+						'offset': 0,
+						'limit': flag
+					},
+					success: function(data) {
+						$('.post').html(data);
+						flag += 4;
+					}
+				});
+			}
+		});
+
+	});
+</script>
 
 </html>
 

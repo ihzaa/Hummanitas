@@ -430,7 +430,7 @@
         <script>
             $(document).ready(function() {
 
-                var flag = 0;
+                var flag = 20;
                 $.ajax({
                     type: "POST",
                     url: "<?= base_url('ajax/loadCom') ?>",
@@ -446,7 +446,7 @@
 
                 $(window).scroll(function() {
                     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                        // alert('tes')
+
                         $.ajax({
                             type: "POST",
                             url: "<?= base_url('ajax/loadMoreCom') ?>",
