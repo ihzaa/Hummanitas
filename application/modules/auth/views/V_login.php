@@ -55,7 +55,7 @@
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                                    <img src="<?= base_url('assets/'); ?>app-assets/images/pages/login.png" alt="branding logo">
+                                    <img height="310px" width="310px" src="<?= base_url('assets/'); ?>app-assets/images/logo/logoWeb.png" alt="branding logo">
                                 </div>
                                 <div class="col-lg-6 col-12 p-0">
                                     <div class="card rounded-0 mb-0 px-2">
@@ -106,6 +106,37 @@
     </div>
     <!-- END: Content-->
 
+    <!-- BEGIN: Footer-->
+    <footer class="footer">
+
+        <h4 style="margin-top:10px;"><strong>Contact:</strong></h4>
+        <div class="row">
+            <div class="col">
+
+                <p style="font-size: 17px"><i class="feather icon-mail "></i> : hummanitas@gmail.com</p>
+                <p style="font-size: 17px"><i class="feather icon-phone "></i> : 08888881</p>
+
+
+            </div>
+            <div class="col">
+                <div class="d-inline-block">
+                    <p style="font-size: 17px"><i class="feather icon-map-pin "></i> : perum permata regency 1 blok 10/28 , perun Gpa, ngijo, kec. karang ploso, malang jawa timur 65152 </p>
+
+                    <a href="<?= base_url('auth/about') ?>">About Us</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <footer class="footer footer-static footer-light navbar-shadow">
+
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="http://www.hummasoft.com/" target="_blank">Hummasoft</a>All rights Reserved</span>
+            <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
+        </p>
+    </footer>
+    <!-- END: Footer-->
 
     <!-- BEGIN: Vendor JS-->
     <script src="<?= base_url('assets/'); ?>app-assets/vendors/js/vendors.min.js"></script>

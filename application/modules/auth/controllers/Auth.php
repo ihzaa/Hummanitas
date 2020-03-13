@@ -302,4 +302,9 @@ class Auth extends MY_Controller
 			redirect('auth');
 		}
 	}
+
+	function about()
+	{
+		$this->load->view('v_about');
+	}
 }
