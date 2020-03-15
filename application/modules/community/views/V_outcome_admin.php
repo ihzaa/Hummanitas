@@ -100,8 +100,13 @@
                                                 </ul>
                                             </div>
                                             <fieldset class="form-group" style="display: inline-block;margin-left: 400px; margin-right: 100px">
-                                                <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
-                                                <input style="width: 90%" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
+                                                <?php if ($balance < 0) { ?>
+                                                    <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
+                                                    <input style="width: 100%;background-color:#FF6464;color:white" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
+                                                <?php } else { ?>
+                                                    <label for="disabledInput" style="font-size: 30px;"><strong>Balance</strong></label>
+                                                    <input style="width: 100%;background-color:#48FA54;color:white" type="text" class="form-control" id="readonlyInput" readonly="readonly" value="<?= number_format($balance) ?>">
+                                                <?php } ?>
                                             </fieldset>
                                         </nav>
                                     </div>

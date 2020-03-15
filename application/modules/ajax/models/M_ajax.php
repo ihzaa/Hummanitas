@@ -5,11 +5,23 @@ class M_ajax extends CI_Model
 {
     public function search($keyword)
     {
-        $query =  $this->db->query("SELECT * FROM (SELECT USER_ID AS ID, 
+        $query =  $this->db->query("SELECT * FROM (SELECT USER_ID AS ID,
         USERNAME AS NAME,USER_IMAGE AS IMAGE,EMAIL AS EMAIL, ROLE_ID AS ROLE FROM
-         user UNION SELECT COM_ID,COM_NAME,COM_IMAGE,COM_EMAIL,ROLE FROM community) 
+         user UNION SELECT COM_ID,COM_NAME,COM_IMAGE,COM_EMAIL,ROLE FROM community)
          as combine WHERE combine.NAME LIKE '%$keyword%' OR combine.EMAIL LIKE '%$keyword%'");
         return $query->result();
+    }
+
+    public function searchCom($keyword)
+    {
+        $query =  $this->db->query("SELECT * FROM community WHERE COM_NAME LIKE '%$keyword%' OR COM_EMAIL LIKE '%$keyword%' OR COM_ADDRESS LIKE '%$keyword%'");
+        return $query->result();
+    }
+
+    public function collabMemberDetail($id)
+    {
+        $query =  $this->db->query("SELECT * FROM community WHERE COM_ID =" . $id);
+        return $query->row_array();
     }
 
     function listCom($id)

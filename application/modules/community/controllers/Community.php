@@ -94,7 +94,7 @@ class Community extends MY_Controller
 		$this->m_community->insertNotif($id, $icon, $subject, $text, $link);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success creating new event.</p></div>');
 		redirect('community/' . $id . '/event');
 	}
@@ -117,7 +117,7 @@ class Community extends MY_Controller
 
 				<div class="col-sm-12">
 					<div class="custom-file">
-						
+
 						<input type="file" class="custom-file-input" id="image" name="image" value=" ">
 						<label class="custom-file-label" for="image">' . $event['EVENT_THUMBNAIL'] . '</label>
 					</div>
@@ -199,7 +199,7 @@ class Community extends MY_Controller
 		$this->m_community->eventEdit($upload_image, $event_id);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success editing selected event.</p></div>');
 		redirect('community/' . $com_id . '/event');
 	}
@@ -211,7 +211,7 @@ class Community extends MY_Controller
 		$this->m_community->eventDel($event_id);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success deleting selected event.</p></div>');
 		redirect('community/' . $com_id . '/event');
 	}
@@ -282,7 +282,7 @@ class Community extends MY_Controller
 			$this->m_community->setting_com($com_id);
 
 			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<p align="center" class="mb-0">Community info has been updated.</p></div>');
 			redirect('community/' . $com_id . '/setting');
 		}
@@ -311,7 +311,7 @@ class Community extends MY_Controller
 
 		$this->load->library('user_agent');
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" class="mb-0"> Success reporting community.</p></div>');
 
 		redirect($this->agent->referrer());
@@ -398,10 +398,10 @@ class Community extends MY_Controller
 					$config['file_name'] = $_FILES['image_name']['name'][$i];
 
 
-					if (!file_exists('assets/img/community/gallery' . $id)) {
+					if (!is_dir('assets/img/community/gallery/' . $id)) {
 						mkdir('assets/img/community/gallery/' . $id, 0777, true);
 					}
-					if (!file_exists('assets/img/community/gallery/' . $id . '/' . $name)) {
+					if (!is_dir('assets/img/community/gallery/' . $id . '/' . $name)) {
 						mkdir('assets/img/community/gallery/' . $id . '/' . $name, 0777, true);
 					}
 
@@ -453,7 +453,7 @@ class Community extends MY_Controller
 		$this->uploadImage($name, $gallery_id);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" class="mb-0"> Success creating new album.</p></div>');
 		redirect('community/' . $id . '/gallery');
 	}
@@ -495,11 +495,7 @@ class Community extends MY_Controller
 
 		$gallery = $this->m_community->getGallery($gallery_id);
 
-		// var_dump($gallery['GALLERY_NAME']);
-		// die;
-
 		$this->uploadImage($gallery['GALLERY_NAME'], $gallery_id);
-
 		redirect('community/' . $com_id . '/gallery/' . $gallery_id);
 	}
 
@@ -545,7 +541,7 @@ class Community extends MY_Controller
 			if ($records != NULL) {
 				echo '<div class="col-12">><img style="height: 230px; width: 220px;margin-left: 115px; border-radius: 15px;" src="' . base_url('assets/img/user/') . $records['USER_IMAGE'] .
 					'" alt="Card image">
-				
+
 				</div>
 				<div class="col-12" align="center">
 				<h3 style="margin-top: 20px;"><strong>' . $records['USERNAME'] . '</strong></h3>
@@ -582,12 +578,12 @@ class Community extends MY_Controller
 		if ($user_id != $id) {
 			$this->m_community->invite($id, $com_id);
 			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<p align="center" class="mb-0">Success inviting user!</p></div>');
 			redirect('community/' . $com_id . '/memberManagement');
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" role="alert">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<p align="center" class="mb-0">You cannot invite yourself!</p></div>');
 			redirect('community/' . $com_id . '/memberManagement');
 		}
@@ -599,7 +595,7 @@ class Community extends MY_Controller
 		$id = $this->input->post('id');
 		$this->m_community->makeAdmin($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success!</p></div>');
 		redirect('community/' . $com_id . '/memberManagement');
 	}
@@ -610,7 +606,7 @@ class Community extends MY_Controller
 		$id = $this->input->post('id');
 		$this->m_community->removeAdmin($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success!</p></div>');
 		redirect('community/' . $com_id . '/memberManagement');
 	}
@@ -622,7 +618,7 @@ class Community extends MY_Controller
 
 		$this->m_community->accept($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Accept success!</p></div>');
 		redirect('community/' . $com_id . '/memberManagement');
 	}
@@ -634,7 +630,7 @@ class Community extends MY_Controller
 
 		$this->m_community->removeMember($id);
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success removing member!</p></div>');
 		redirect('community/' . $com_id . '/memberManagement');
 	}
@@ -645,7 +641,7 @@ class Community extends MY_Controller
 		$id = $this->input->post('id');
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Reject success!</p></div>');
 		$this->m_community->removeMember($id);
 		redirect('community/' . $com_id . '/memberManagement');
@@ -694,7 +690,7 @@ class Community extends MY_Controller
 			//insert table notification
 			$this->m_community->insertNotif($id, $icon, $subject, $text, $link);
 			$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<p align="center" class="mb-0">Success creating new collaboration!</p></div>');
 			redirect('community/' . $id . '/collaboration');
 		}
@@ -725,7 +721,7 @@ class Community extends MY_Controller
 		$this->m_community->insertNotif($com_id, $icon, $subject, $text, $link);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success accepting collaboration!</p></div>');
 		redirect('community/' . $com_id . '/collaboration');
 	}
@@ -745,7 +741,7 @@ class Community extends MY_Controller
 		$this->m_community->removeCollab($id);
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>   
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		<p align="center" align="center" class="mb-0">Success rejecting collaboration!</p></div>');
 		redirect('community/' . $com_id . '/collaboration');
 	}

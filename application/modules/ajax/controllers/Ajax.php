@@ -25,8 +25,8 @@ class Ajax extends MY_Controller
             foreach ($result as $result) {
                 if ($result->ROLE != NULL) {
                     $output .=  '<a href="' . base_url('user/user_profile_guest/' . $result->ID)  . '"><div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-            
-            <div class="col-12"> 
+
+            <div class="col-12">
                 <div class="row align-items-center">
                 <div class="col-1">
                 <div class="avatar mr-1 avatar-xl" style="margin-left:20px">
@@ -41,12 +41,12 @@ class Ajax extends MY_Controller
                 </div>
                 </div>
                 </div>
-                
+
         </div></a>';
                 } else {
                     $output .=  '<a href="' . base_url('community/' . $result->ID)  . '"><div class="list-group-item d-lg-flex justify-content-between align-items-start py-1">
-            
-                    <div class="col-12"> 
+
+                    <div class="col-12">
                         <div class="row align-items-center">
                         <div class="col-1">
                         <div class="avatar mr-1 avatar-xl" style="margin-left:20px">
@@ -61,7 +61,7 @@ class Ajax extends MY_Controller
                         </div>
                         </div>
                         </div>
-                        
+
                 </div></a>';
                 }
             }
@@ -73,6 +73,70 @@ class Ajax extends MY_Controller
             </div>
         </div>';
         }
+
+        echo $output;
+    }
+
+    function searchCom()
+    {
+        $keyword = $this->input->post('search');
+        $output = '';
+
+        $result = $this->m_ajax->searchCom($keyword);
+
+        if ($result != NULL) {
+            foreach ($result as $result) {
+                $id = $result->COM_ID;
+
+                $output .=  '<div class="col-md-3 col-sm-5 col-11 search-content">
+                <div class="card" style="border-radius:10px;border-color:#CC99FF;border-style: groove;padding-bottom:10px;width:275px;height: 350px">
+                    <center>
+                        <div class="card-body text-center">
+
+                            <img src="' . base_url('assets/img/community/profile/') . $result->COM_IMAGE . '" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
+                            <h4 title="' . $result->COM_NAME . '">' . word_limiter($result->COM_NAME, 3) . '</h4>
+                            <small class="text-dark" style="font-size: 15px" title="' . $result->COM_ADDRESS . '"><strong>' . word_limiter($result->COM_ADDRESS, 3) . '</strong></small><br>
+                            <small class="text-dark">' . $result->COM_EMAIL . '</small>
+
+                        </div>
+                        <div class="tutorial">
+                            <form action="cekMember" method="post">
+                                <button type="submit" name="view" value="' . $id . '" class="btn gradient-light-primary">View</button>
+                            </form>
+                        </div>
+                    </center>
+                </div>
+            </div>';
+            }
+        } else {
+            $output .= '<div class="col-12">
+            <div style="height: 200px; ">
+                <h1 align="center" style="margin: 100px 0px">There is no community with the following name,email,or address.</h1>
+            </div>
+        </div>';
+        }
+
+        echo $output;
+    }
+
+    function collabMemberDetail()
+    {
+        $id = $this->input->post('id');
+        $output = '';
+
+        $comDetail = $this->m_ajax->collabMemberDetail($id);
+
+
+        $output .=  '<div class="avatar">
+                <img src="' . base_url('assets/img/community/profile/') . $comDetail['COM_IMAGE'] . '" alt="user_avatar" height="70" width="70">
+            </div>
+            <h4 class="chat-user-name">' . $comDetail['COM_NAME'] . '</h4>
+        </div>
+    </header>
+    <div class="user-profile-sidebar-area p-2">
+        <h6>About</h6>
+        <textarea rows="4" style="width: 320px;" readonly>' . $comDetail['COM_DESC'] . '</textarea>
+        <a href="' . base_url('community/' . $id . '/guest') . '"><button type="button" class="btn btn-primary send" style="margin-top:40px">Visit</button></a>';
 
         echo $output;
     }
@@ -360,11 +424,11 @@ class Ajax extends MY_Controller
         if (count($notif) > 0) {
             foreach ($notif as $row) {
 
-                $current_date = date('d/m/Y');
+                $current_date = date('Y/m/d');
 
-                if ($date = date('d/m/Y', strtotime($row->TIME)) == $current_date) {
+                if ($date = date('Y/m/d', strtotime($row->TIME)) == $current_date) {
                     $date = 'Today at ' . date('h:i a', strtotime($row->TIME));
-                } else if ($date = date('d/m/Y', strtotime($row->TIME)) == date('d/m/Y', strtotime('-1 day', strtotime($current_date)))) {
+                } else if ($date = date('Y/m/d', strtotime($row->TIME)) == date('Y/m/d', strtotime('-1 day', strtotime($current_date)))) {
                     $date = 'Yesterday at ' . date('h:i a', strtotime($row->TIME));
                 } else {
                     if (date('Y', strtotime($row->TIME)) == date('Y')) {
@@ -562,7 +626,7 @@ class Ajax extends MY_Controller
                     <th>
                         ' . $selected->TOTAL . '
                     </th>
-            
+
                 </tr>';
                 $i++;
             }
@@ -573,7 +637,7 @@ class Ajax extends MY_Controller
                       No Data Found.
                       </div>
                     </th>
-            
+
                 </tr>';
         }
 
@@ -715,8 +779,8 @@ class Ajax extends MY_Controller
                             <div class="card-body text-center">
 
                                 <img src="' . base_url('assets/img/community/profile/') . $com->COM_IMAGE . '" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
-                                <h4>' . $com->COM_NAME . '</h4>
-                                <small class="text-dark" style="font-size: 15px"><strong>' . $com->COM_ADDRESS . '</strong></small><br>
+                                <h4 title="' . $com->COM_NAME . '">' . word_limiter($com->COM_NAME, 3) . '</h4>
+                                <small class="text-dark" style="font-size: 15px" title="' . $com->COM_ADDRESS . '"><strong>' . word_limiter($com->COM_ADDRESS, 3) . '</strong></small><br>
                                 <small class="text-dark">' . $com->COM_EMAIL . '</small>
 
                             </div>
@@ -761,8 +825,8 @@ class Ajax extends MY_Controller
                             <div class="card-body text-center">
 
                                 <img src="' . base_url('assets/img/community/profile/') . $com->COM_IMAGE . '" class=" mb-2" heigth="170px" width="269px" style="border-radius:5px;margin-top:-21px;margin-left:-21px;max-height: 170px" alt="knowledge-base-image">
-                                <h4>' . $com->COM_NAME . '</h4>
-                                <small class="text-dark" style="font-size: 15px"><strong>' . $com->COM_ADDRESS . '</strong></small><br>
+                                <h4 title="' . $com->COM_NAME . '">' . word_limiter($com->COM_NAME, 3) . '</h4>
+                                <small class="text-dark" style="font-size: 15px" title="' . $com->COM_ADDRESS . '"><strong>' . word_limiter($com->COM_ADDRESS, 3) . '</strong></small><br>
                                 <small class="text-dark">' . $com->COM_EMAIL . '</small>
 
                             </div>

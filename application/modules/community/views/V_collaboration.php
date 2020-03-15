@@ -257,7 +257,16 @@
                                     </div>
                                 </div>
                             </section>
+                            <!-- User Chat profile right area -->
+                            <div class="user-profile-sidebar">
+                                <header class="user-profile-header">
+                                    <span class="close-icon">
+                                        <i class="feather icon-x"></i>
+                                    </span>
+                                    <div class="header-profile-sidebar" id="collabMemberDetail">
 
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -496,7 +505,7 @@
                         return date.getDate() + "/" + (date.getMonth() + 1);
                     }
                     $.ajax({
-                        url: "<?= base_url('ajax/get_last_chat') ?>",
+                        url: "<?= base_url('ajax/' . $community['COM_ID'] . '/get_last_chat') ?>",
                         method: "POST",
                         dataType: "json",
                         data: {
@@ -587,11 +596,23 @@
                         });
                     }
 
-                    // if ($('#collab-list').find('li').hasClass('active')) {
-                    //     var id = $('#collab-list').find('li.active').data('id');
+                    $(document).on('click', '.user-profile-toggle', function() {
+                        var id = $(this).attr('id');
 
-                    //     alert(id);
-                    // }
+                        $.ajax({
+                            url: "<?= base_url('ajax/collabMemberDetail') ?>",
+                            method: "POST",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                $('#collabMemberDetail').html(data);
+                                $('.user-profile-sidebar').addClass('show');
+                                $('.chat-overlay').addClass('show');
+                            }
+
+                        });
+                    });
                 });
             </script>
 

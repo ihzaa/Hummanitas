@@ -83,7 +83,7 @@
                                         <div class="carousel-caption">
                                             <h3 style="font-size:24px;color: rgb(0, 0, 0);
                                             text-shadow:
-                                             -1px -1px 0 rgb(255, 255, 255),  
+                                             -1px -1px 0 rgb(255, 255, 255),
                                               1px -1px 0 rgb(255, 255, 255),
                                               -1px 1px 0 rgb(255, 255, 255),
                                                1px 1px 0 rgb(255, 255, 255);"><strong>WELCOME TO HUMMANITAS</strong></h3>
@@ -99,7 +99,7 @@
                                         <div class="carousel-caption">
                                             <h3 style="font-size:24px;color: rgb(0, 0, 0);
                                             text-shadow:
-                                             -1px -1px 0 rgb(255, 255, 255),  
+                                             -1px -1px 0 rgb(255, 255, 255),
                                               1px -1px 0 rgb(255, 255, 255),
                                               -1px 1px 0 rgb(255, 255, 255),
                                                1px 1px 0 rgb(255, 255, 255);"><strong>Available Features</strong></h3>
@@ -119,7 +119,7 @@
                                         <div class="carousel-caption">
                                             <h1 style="font-size:24px;color: rgb(0, 0, 0);
                                             text-shadow:
-                                             -1px -1px 0 rgb(255, 255, 255),  
+                                             -1px -1px 0 rgb(255, 255, 255),
                                               1px -1px 0 rgb(255, 255, 255),
                                               -1px 1px 0 rgb(255, 255, 255),
                                                1px 1px 0 rgb(255, 255, 255);">Let's get started</h1>
@@ -166,7 +166,7 @@
 
                                                         <form style="display: inline-block;margin-left: 500px;">
                                                             <fieldset class="form-group position-relative has-icon-left mb-0">
-                                                                <input type="text" class="form-control form-control-lg" id="searchbar" placeholder="Search Community">
+                                                                <input type="text" class="form-control form-control-lg searchbar" id="searchbar" placeholder="Search Community">
                                                                 <div class="form-control-position">
                                                                     <i class="feather icon-search px-1"></i>
                                                                 </div>
@@ -430,17 +430,42 @@
         <script>
             $(document).ready(function() {
 
-                var flag = 20;
+
+                $('.searchbar').keyup(function() {
+                    var search = $('.searchbar').val();
+                    if (search != '') {
+                        $.ajax({
+                            url: "<?= base_url('ajax/searchCom') ?>",
+                            method: "POST",
+                            data: {
+                                search: search
+                            },
+                            success: function(data) {
+                                $('#list').html(data);
+                                $('.community').css({
+                                    'min-height': '1500px'
+                                });
+                            }
+                        });
+                    } else {
+                        $('.community').css({
+                            'min-height': '0px'
+                        });
+                    }
+                });
+
+
+                var flag = 12;
                 $.ajax({
                     type: "POST",
                     url: "<?= base_url('ajax/loadCom') ?>",
                     data: {
                         'offset': 0,
-                        'limit': 20
+                        'limit': 12
                     },
                     success: function(data) {
                         $('#list').html(data);
-                        flag += 20;
+                        flag += 12;
                     }
                 });
 
@@ -456,12 +481,11 @@
                             },
                             success: function(data) {
                                 $('#list').html(data);
-                                flag += 20;
+                                flag += 12;
                             }
                         });
                     }
                 });
-
             });
         </script>
         <!-- footer user -->
